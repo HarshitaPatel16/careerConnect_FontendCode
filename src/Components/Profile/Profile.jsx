@@ -24,6 +24,7 @@ import { CardActions } from "@material-ui/core";
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -48,17 +49,48 @@ function Profile() {
   const addExperienceCardRef = useRef(null);
   const [isCoverEditable, setisCoverEditable] = useState(false);
   const [selectedCoverImage, setselectedCoverImage] = useState(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(
-    'https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp'
-  );
+  const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState( 'https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp');
   const videoRef = useRef(null);
-  const [images, setImages] = useState([]);
+  const [profileImg, setProfileImg] = useState([]);
   const [files, setFiles] = useState([]);
   console.log("files", files)
-  const [pdfUrl, setPdfUrl] = useState([]);
   const [isCameraStarted, setCameraStarted] = useState(false);
+  const [resumePdf, setResumePdf] = useState(null);
+  const [showUploadButton, setShowUploadButton] = useState(false);
+  const fileInputRef = useRef(null);
 
+  const handleResumeChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file && file.type === 'application/pdf') {
+      setResumePdf(file);
+      setShowUploadButton(true);
+    } else {
+      console.error('Invalid file format. Please select a PDF file.');
+    }
+  };
+
+  const handleChoosePdf = () => {
+    // Trigger the file input when the "Choose PDF" button is clicked
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleUploadResume = () => {
+    // Implement logic to upload the resume PDF
+    if (resumePdf) {
+      console.log('Resume uploaded:', resumePdf);
+      // You can send the resumePdf file to your server or perform other actions here
+    } else {
+      console.error('No resume file selected.');
+    }
+  };
+  const handleDeleteResume = () => {
+    setResumePdf(null);
+    setShowUploadButton(false);
+  };
 
   const startCamera = async () => {
     setCameraStarted(true)
@@ -104,7 +136,7 @@ function Profile() {
     const blob = dataURLtoBlob(dataUrl);
     const file = new File([blob], 'captured_image.png', { type: 'image/png' });
     setFiles(files.concat(file));
-    setImages(prevImages => [...prevImages, dataUrl]);
+    setProfileImg(prevImages => [...prevImages, dataUrl]);
     stopCamera();
     // setDialogOpen(true);
   };
@@ -112,14 +144,16 @@ function Profile() {
   
 
   const handleProfileImageClick = () => {
-    setIsDialogOpen(true);
+    setisProfileChangeDialogOpen(true);
+    setProfileImg("")
   };
 
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false);
+  const handleCloseProfileDialog = () => {
+    setisProfileChangeDialogOpen(false);
+    // stopCamera()
   };
 
-  const handleFileChange = (event) => {
+  const handleProfileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -128,13 +162,7 @@ function Profile() {
   };
 
   const handleSaveImage = () => {
-    // Implement your logic to save the new profile image
-    // For example, you can make an API call or update the state
-    // For this example, we'll simply update the state
-    // You might want to replace this with your actual image saving logic
-
-    // Close the dialog after saving the image
-    setIsDialogOpen(false);
+    setisProfileChangeDialogOpen(false);
   };
   const handleEditClick = () => {
     setisCoverEditable(true);
@@ -153,7 +181,7 @@ function Profile() {
     setisCoverEditable(false);
   };
 
-  // const handleCloseDialog = () => {
+  // const handleCloseProfileDialog = () => {
   //   setisCoverEditable(false);
   // };
 
@@ -219,14 +247,14 @@ function Profile() {
                   onClick={handleProfileImageClick}
                 />
             
-                <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+                <Dialog open={isProfileChangeDialogOpen} onClose={handleCloseProfileDialog}>
                   <DialogContent>
                   <div className="mb-2 ">
                       
                       <input
                       type="file"
                       accept="image/*"
-                      onChange={handleFileChange}
+                      onChange={handleProfileUpload}
                     />
                       <button className="" onClick={startCamera}>Start Camera</button>
                     </div>
@@ -242,13 +270,13 @@ function Profile() {
                     {isCameraStarted && <video ref={videoRef} autoPlay />}
                     {!isCameraStarted && (
                       <div>
-                        {images.map((image, index) => (
-                          <img key={index} src={image} alt={`Captured Image ${index}`} />
+                        {profileImg && profileImg.map((profileImg, index) => (
+                          <img key={index} src={profileImg} alt={`Captured Image ${index}`} />
                         ))}
                       </div>
                     )}
                     <div className="d-flex justify-content-center mt-2">
-                    <Button onClick={isCameraStarted ? handleCaptureImage : handleCloseDialog} variant="contained" color="primary">
+                    <Button onClick={isCameraStarted ? handleCaptureImage : handleCloseProfileDialog} variant="contained" color="primary">
                       {isCameraStarted ? 'Capture Image' : 'Close'}
                     </Button>
                     <Button onClick={handleSaveImage} variant="contained" color="primary">
@@ -465,10 +493,38 @@ function Profile() {
                   {/* Add experiences card end */}
                 </TabPanel>
                 <TabPanel value="3">
-                  <img src={resumeImg} alt="" />
-                  <br />
-                  <button className="btn btn-success"><UploadFileIcon />Upload Resume</button>
-                </TabPanel>
+      {resumePdf ? (
+        <div>
+          {/* Display the embedded PDF or use a PDF viewer here */}
+          <embed
+            src={URL.createObjectURL(resumePdf)}
+            title="Embedded PDF"
+            width="100%"
+            height="500px"
+          ></embed>
+          <button className="btn btn-danger" onClick={handleDeleteResume}>
+            <DeleteOutlineIcon /> Delete
+          </button>
+           <button className="btn btn-primary" onClick={handleUploadResume}>
+              <UploadFileIcon /> Upload Resume
+            </button>
+        </div>
+      ) : (
+        <div>
+          <input
+            type="file"
+            accept=".pdf"
+            onChange={handleResumeChange}
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+          />
+            
+          <button className="btn btn-success" onClick={handleChoosePdf}>
+            <UploadFileIcon /> Choose PDF
+          </button>
+        </div>
+      )}
+    </TabPanel>
               </TabContext>
             </Box>
           </Card>
