@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import SidebarRight from "../SidebarRight/SidebarRight";
 import "./Profile.css"
@@ -16,6 +16,10 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import trofe from "../../assets/MicrosoftTeams-image (7).png";
 import AddIcon from '@mui/icons-material/Add';
+import resumeImg from "../../assets/resumePlaceholder.png"
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { CardActions } from "@material-ui/core";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -37,41 +41,59 @@ function Profile() {
   const [showAddExperience, setShowAddExperience] = useState(false);
   const [skill, setSkill] = useState("")
   const [experiences, setExperiences] = useState("");
+  const addSkillCardRef = useRef(null);
+  const addExperienceCardRef = useRef(null);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleAddSkillToggle = () => {
     setShowAddSkill(!showAddSkill);
   };
+
   const handleAddExperienceToggle = () => {
     setShowAddExperience(!showAddExperience);
   };
+
+  useEffect(() => {
+    if (showAddSkill && addSkillCardRef.current) {
+      addSkillCardRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (showAddExperience && addExperienceCardRef.current) {
+      addExperienceCardRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [showAddSkill, showAddExperience]);
+  
   const handleSkill = (e) => {
     setSkill(e.target.value)
   }
 
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: '#ddccb03b', height: "100%", color: "black" }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: '#ddccb03b', height: "110%", color: "black" }}>
       <Navbar />
       <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'center', marginTop: '0vh' }}>
         <Grid item xs={12} md={8} lg={8}>
           <Item>
             <div>
+            <div className="cover-container">
+  <CardMedia
+    component="img"
+    alt="Cover Image"
+    image="https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"
+    className="cover-img justify-content-between"
+  />
+  <EditSharpIcon className="edit-icon" />
+</div>
 
-              <CardMedia
-                component="img"
-                alt="Cover Image"
-                image="https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"
-                className="cover-img"
-              />
               <div className="profile">
                 <img
                   src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
                   alt="Profile"
                   className="profile-photo"
-
+                  
                 />
+              
+                
               </div>
               <CardContent>
                 <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
@@ -99,7 +121,7 @@ function Profile() {
                   </TabList>
                 </Box>
                 <TabPanel value="1">
-                  <Card className="p-4">
+                  <Card ref={addSkillCardRef} className="p-4">
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
                         <span className="fs-3 text-dark">Skills</span>
@@ -132,7 +154,7 @@ function Profile() {
                   )}
                   {/* Add skills card end */}
                 </TabPanel>
-                <TabPanel value="2">
+                <TabPanel   ref={addExperienceCardRef} value="2">
                   <Card className="p-4">
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
@@ -279,15 +301,13 @@ function Profile() {
                   {/* Add experiences card end */}
                 </TabPanel>
                 <TabPanel value="3">
-
+                <img src={resumeImg} alt="" />
+                <br/>
+                <button className="btn btn-success"><UploadFileIcon/>Upload Resume</button>
                 </TabPanel>
               </TabContext>
             </Box>
           </Card>
-
-
-
-
 
         </Grid>
 

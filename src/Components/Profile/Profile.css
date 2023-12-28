@@ -1,7 +1,19 @@
-.cover-img {
-    height: 20vh;
-    border-radius: 0.2vw;
+.cover-container {
+  position: relative;
 }
+
+.cover-img {
+  height: 20vh;
+  border-radius: 0.2vw;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 8px; /* Adjust this value as needed for proper spacing */
+}
+
 .profile{
     position: absolute;
     top: 20.5vw;
@@ -13,6 +25,14 @@
     object-fit: cover;
     border-radius: 50%;
   }
+  #cam-icon{
+    position:"relative";
+    bottom:'4vh';
+    top:'' ;
+    left:'5vw';
+    height:"1.5vw";
+    width:"2vw"
+  }
 .username{
   margin-left: 2.5vw;
   justify-content: 'space-between';
@@ -21,6 +41,7 @@
 .userinfo{
   margin-left: 2.5vw;
 }
+
   .skill-btn{
     border: 1px solid grey;
     width: fit-content;
