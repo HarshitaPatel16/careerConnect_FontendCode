@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import Navbar from "../navbar/Navbar";
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import {image} from "../../assets/8.png";
+import { useNavigate } from 'react-router-dom';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,6 +20,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    // Navigate to the profile page
+    navigate('/profile'); // Replace '/profile' with the actual path to your profile page
+  };
+
+   
+
   return (
    
      <Box sx={{ flexGrow: 1, backgroundColor: '#ddccb03b', height: "100vh", color: "black",  justifyContent: 'center',}}>
@@ -73,7 +85,7 @@ const Home = () => {
     </div>
   </CardContent>
   <CardContent>
-  <button type="button" class="btn btn-primary btn-lg rounded">My Profile</button>
+  <button type="button" onClick={handleProfileClick} class="btn btn-primary btn-lg rounded">My Profile</button>
               </CardContent>
 
 </div>
@@ -111,8 +123,41 @@ const Home = () => {
           </Item>
         </Grid>
         <Grid item xs={3}>
-          <Item>3rd</Item>
+          <Item>
+          <div className="row">
+          <CardContent sx={{ display: 'flex', justifyContent: 'space-around'}}>
+
+<div className='col-md-8'>
+  <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginRight: "6em" }}>
+    Activity
+  </Typography>
+  <div className="profile3 col-md-2 m-0 p-1">
+          <img
+            src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+            alt="Profile"
+            className="profile-photo3"
+          />
+    
+        </div>
+        <div className="profile3 col-md-6 m-0 p-1">
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginRight: "6em" }}>
+    username
+  </Typography>
+    
+        </div>
+        
+</div>
+
+<div className='col-md-4'>
+  <Typography variant="subtitle1" sx={{ fontWeight: '' }}>
+    see all
+  </Typography>
+</div>
+</CardContent>
+</div>
+          </Item>
         </Grid>
+        
       </Grid>
     </Box>
    

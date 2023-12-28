@@ -1,31 +1,42 @@
 .profile-photo1 {
-    width: 7.5vw;
-    height: 7.5vw;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  .profile1{
-    position: absolute;
-    top: 10vw;
-    left: 11vw;
+  width: 7.5vw;
+  height: 7.5vw;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile1{
+  position: absolute;
+  top: 10vw;
+  left: 11vw;
 }
 .username1{
-    margin-left: 7vw;
-    justify-content: 'space-between';
-    margin-top: 5.5vh
-  }
-  .profile2{
-    margin-right: 43em;
+  margin-left: 7vw;
+  justify-content: 'space-between';
+  margin-top: 5.5vh
+}
+.profile2{
+  margin-right: 43em;
 
-   
+ 
 }
 .profile-photo2 {
-    width: 3.5vw;
-    height: 3.5vw;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  .form-control1 {
-    border-radius: 3.25rem;
-    width: 30vw;
+  width: 3.5vw;
+  height: 3.5vw;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile3{
+  margin-right: 43em;
+
+ 
+}
+.profile-photo3 {
+  width: 2.5vw;
+  height: 2.5vw;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.form-control1 {
+  border-radius: 3.25rem;
+  width: 30vw;
 }
