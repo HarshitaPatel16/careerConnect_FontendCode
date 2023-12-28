@@ -40,3 +40,71 @@
   border-radius: 3.25rem;
   width: 30vw;
 }
+@media (max-width: 1207px) {
+  .profile1 {
+      top: 24.5vh;
+      left: 11vw;
+  }
+
+  .profile-photo1 {
+      width: 80px; 
+      height: 80px; 
+      top: 20.5vh;
+      left: 3vw; 
+  }
+  .company-logo {
+    width: 8vw;
+    height: 8vw;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+}
+@media (max-width: 1024px) {
+  .profile1 {
+      top: 39.5vh;
+      left: 46vw;
+  }
+
+  .profile-photo1 {
+      width: 100px; 
+      height: 100px; 
+      top: 80.5vh;
+      left: 3vw; 
+  }
+  .cover-img1{
+    width: 50vw; 
+    height: 30vh;
+  }
+  .company-logo {
+    width: 8vw;
+    height: 8vw;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+}
+@media (max-width: 912px) {
+  .profile1 {
+      top: 20.5vh;
+      left: 39vw;
+  }
+
+  .profile-photo1 {
+      width: 80px; 
+      height: 80px; 
+      top: 80.5vh;
+      left: 3vw; 
+  }
+  .cover-img1{
+    width: 40vw; 
+    height: 10vh;
+  }
+  .company-logo {
+    width: 8vw;
+    height: 8vw;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+}

@@ -8,7 +8,8 @@ import Navbar from "../navbar/Navbar";
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import {image} from "../../assets/8.png";
 import { useNavigate } from 'react-router-dom';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -28,6 +29,8 @@ const Home = () => {
     navigate('/profile'); // Replace '/profile' with the actual path to your profile page
   };
 
+  
+
    
 
   return (
@@ -38,7 +41,7 @@ const Home = () => {
 
     {/* myprofile card start */}
 
-        <Grid item xs={3}>
+        <Grid item xs={12} md={12} lg={3}>
           <Item>
         <div>
 
@@ -92,8 +95,8 @@ const Home = () => {
           </Item>
         </Grid>
         {/* myprofile card end */}
-        <Grid item xs={6}>
-          <Item>
+        <Grid item xs={12} md={12} lg={6}>
+          <Item style={{ marginBottom: '20px' }}>
           <div className="row">
         <div className="profile2 col-md-2 m-0 p-0">
           <img
@@ -121,8 +124,70 @@ const Home = () => {
   </CardContent>
       </div>
           </Item>
+          <Item>
+          <div className="row">
+          <div className='d-flex'>
+  <div className="profile2 col-md-2 m-0 p-2">
+          <img
+            src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+            alt="Profile"
+            className="profile-photo2"
+          />
+    
+        </div>
+        <div className="profile2 col-md-2  p-0">
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+    username
+  </Typography>
+    
+        </div>
+        </div>
+        <div className='row'>
+          <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print</p>
+          <CardMedia
+  component="img"
+  alt="Cover Image"
+  image="https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"
+  className="cover-img1"
+/>
+        </div>
+        <div className='row'>
+        <div className="profile2 col-md-2 m-0 p-1">
+        <FavoriteBorderIcon/>
+          320K
+        </div>
+        <div className="profile2 col-md-2 m-0 p-1">
+        <SmsOutlinedIcon/>
+         300
+        </div>
+        </div>
+        
+</div>
+          <div className="row">
+        <div className="profile2 col-md-2 m-0 p-1">
+          <img
+            src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+            alt="Profile"
+            className="profile-photo2"
+          />
+         
+        </div>
+        <div className="input-container col-md-9 p-1">
+        <textarea
+        // value={inputValue}
+        // onChange={handleInputChange}
+        placeholder="Enter something"
+        className="form-control"
+        rows={2} // Adjust the number of rows as needed
+        style={{ border: 'none' }}
+      />
+        </div>
+        
+      </div>
+          </Item>
         </Grid>
-        <Grid item xs={3}>
+        
+        <Grid item xs={12} md={12} lg={3}>
           <Item>
           <div className="row">
           <CardContent sx={{ display: 'flex', justifyContent: 'space-around'}}>
@@ -131,7 +196,8 @@ const Home = () => {
   <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginRight: "6em" }}>
     Activity
   </Typography>
-  <div className="profile3 col-md-2 m-0 p-1">
+  <div className='d-flex'>
+  <div className="profile3 col-md-2 m-0 p-2">
           <img
             src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
             alt="Profile"
@@ -139,8 +205,25 @@ const Home = () => {
           />
     
         </div>
-        <div className="profile3 col-md-6 m-0 p-1">
-        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginRight: "6em" }}>
+        <div className="profile3 col-md-6  p-2">
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginLeft: "1em" }}>
+    username
+  </Typography>
+    
+        </div>
+        
+</div>
+<div className='d-flex'>
+  <div className="profile3 col-md-2 m-0 p-2">
+          <img
+            src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+            alt="Profile"
+            className="profile-photo3"
+          />
+    
+        </div>
+        <div className="profile3 col-md-6  p-2">
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginLeft: "1em" }}>
     username
   </Typography>
     
@@ -148,17 +231,26 @@ const Home = () => {
         
 </div>
 
+</div>
+
 <div className='col-md-4'>
   <Typography variant="subtitle1" sx={{ fontWeight: '' }}>
     see all
   </Typography>
+  <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color:"blue"}}>
+    Followers
+  </Typography>
+  
 </div>
 </CardContent>
 </div>
           </Item>
         </Grid>
         
+        
       </Grid>
+
+      
     </Box>
    
   )
