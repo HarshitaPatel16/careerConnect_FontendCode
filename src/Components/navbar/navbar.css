@@ -1,0 +1,14 @@
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+
+}
+.chat_profile{
+  border-radius: 22em;
+  height: 43px;
+}
+ .search {
+border-radius: 3.25rem;
+ }

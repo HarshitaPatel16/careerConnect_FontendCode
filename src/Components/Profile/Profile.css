@@ -1,0 +1,109 @@
+.cover-img {
+    height: 20vh;
+    border-radius: 0.2vw;
+}
+.profile{
+    position: absolute;
+    top: 20.5vw;
+    left: 6vw;
+}
+.profile-photo {
+    width: 10vw;
+    height: 10vw;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+.username{
+  margin-left: 2.5vw;
+  justify-content: 'space-between';
+  margin-top: 5.5vh
+}
+.userinfo{
+  margin-left: 2.5vw;
+}
+  .skill-btn{
+    border: 1px solid grey;
+    width: fit-content;
+    display: flex;
+    font-size: 18px;
+    margin-top: 2rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    background: white;
+    color: var(--ligth-black);
+  }
+  .company-logo {
+    width: 8vw;
+    height: 8vw;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 1.5vw;
+  }
+
+  @media (max-width: 1207px) {
+    .profile {
+        top: 24.5vh;
+        left: 6vw;
+    }
+
+    .profile-photo {
+        width: 80px; 
+        height: 80px; 
+        top: 20.5vh;
+        left: 3vw; 
+    }
+    .company-logo {
+      width: 8vw;
+      height: 8vw;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+  }
+
+  @media (min-width: 1208px) {
+    .profile {
+        top: 23.5vh;
+        left: 6vw;
+    }
+
+    .profile-photo {
+        width: 8vw; 
+        height: 8vw; 
+        top: 35.5vh;
+        left: 3vw; 
+    }
+    .company-logo {
+      width: 4vw;
+      height: 4vw;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+  }
+
+
+  @media only screen and (max-width: 484px) {
+
+    .profile-photo {
+      width: 60px; 
+      height: 60px; 
+      top: 30.5vh;
+      left: 3vw; 
+  }
+  .company-logo {
+    width: 10vw;
+    height: 10vw;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  }
+  
+
+  @media only screen and (min-width: 601px) and (max-width: 900px) {
+    
+  }
+
+  @media only screen and (min-width: 901px) {
+
+  }
