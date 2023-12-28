@@ -60,6 +60,23 @@
     border-radius: 50%;
     margin-right: 1.5vw;
   }
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .camera-preview,
+  .file-upload,
+  .captured-images {
+    margin-top: 16px;
+  }
+  
+  .selected-image {
+    max-width: 100%;
+    margin-top: 16px;
+  }
+  
 
   @media (max-width: 1207px) {
     .profile {

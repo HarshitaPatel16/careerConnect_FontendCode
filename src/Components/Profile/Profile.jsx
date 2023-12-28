@@ -21,6 +21,9 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { CardActions } from "@material-ui/core";
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -43,6 +46,117 @@ function Profile() {
   const [experiences, setExperiences] = useState("");
   const addSkillCardRef = useRef(null);
   const addExperienceCardRef = useRef(null);
+  const [isCoverEditable, setisCoverEditable] = useState(false);
+  const [selectedCoverImage, setselectedCoverImage] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(
+    'https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp'
+  );
+  const videoRef = useRef(null);
+  const [images, setImages] = useState([]);
+  const [files, setFiles] = useState([]);
+  console.log("files", files)
+  const [pdfUrl, setPdfUrl] = useState([]);
+  const [isCameraStarted, setCameraStarted] = useState(false);
+
+
+  const startCamera = async () => {
+    setCameraStarted(true)
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = stream;
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+    }
+  };
+  const stopCamera = () => {
+    const stream = videoRef.current.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach((track) => {
+      track.stop();
+    });
+
+    videoRef.current.srcObject = null;
+    setCameraStarted(false);
+  };
+  const dataURLtoBlob = (dataUrl) => {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new Blob([u8arr], { type: mime });
+  };
+
+  const handleCaptureImage = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
+    const context = canvas.getContext('2d');
+    context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    const dataUrl = canvas.toDataURL('image/png');
+    const blob = dataURLtoBlob(dataUrl);
+    const file = new File([blob], 'captured_image.png', { type: 'image/png' });
+    setFiles(files.concat(file));
+    setImages(prevImages => [...prevImages, dataUrl]);
+    stopCamera();
+    // setDialogOpen(true);
+  };
+
+  
+
+  const handleProfileImageClick = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
+  };
+
+  const handleSaveImage = () => {
+    // Implement your logic to save the new profile image
+    // For example, you can make an API call or update the state
+    // For this example, we'll simply update the state
+    // You might want to replace this with your actual image saving logic
+
+    // Close the dialog after saving the image
+    setIsDialogOpen(false);
+  };
+  const handleEditClick = () => {
+    setisCoverEditable(true);
+  };
+
+  const handleCoverImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    // Handle the file change logic here
+    // For example, you can upload the file to a server or process it in some way
+    console.log('File changed:', selectedFile);
+
+    // Update the selectedCoverImage state
+    setselectedCoverImage(URL.createObjectURL(selectedFile));
+
+    // After handling the file, you can set isCoverEditable back to false
+    setisCoverEditable(false);
+  };
+
+  // const handleCloseDialog = () => {
+  //   setisCoverEditable(false);
+  // };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -62,10 +176,11 @@ function Profile() {
       addExperienceCardRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [showAddSkill, showAddExperience]);
-  
+
   const handleSkill = (e) => {
     setSkill(e.target.value)
   }
+
 
 
   return (
@@ -75,24 +190,73 @@ function Profile() {
         <Grid item xs={12} md={8} lg={8}>
           <Item>
             <div>
-            <div className="cover-container">
-  <CardMedia
-    component="img"
-    alt="Cover Image"
-    image="https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"
-    className="cover-img justify-content-between"
-  />
-  <EditSharpIcon className="edit-icon" />
-</div>
+              <div className="cover-container">
+                <CardMedia
+                  component="img"
+                  alt="Cover Image"
+                  src={selectedCoverImage || "https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"}
+                  className="cover-img justify-content-between"
+                />
+                <EditSharpIcon className="edit-icon" onClick={handleEditClick} />
+
+                {isCoverEditable && (
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleCoverImageChange}
+                    style={{ display: 'none' }}
+                    ref={(input) => input && input.click()}
+                  />
+                )}
+
+              </div>
 
               <div className="profile">
                 <img
-                  src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+                  src={selectedImage}
                   alt="Profile"
                   className="profile-photo"
-                  
+                  onClick={handleProfileImageClick}
                 />
-              
+            
+                <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+                  <DialogContent>
+                  <div className="mb-2 ">
+                      
+                      <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
+                      <button className="" onClick={startCamera}>Start Camera</button>
+                    </div>
+
+                    {/* {selectedImage && (
+                      <img
+                        src={selectedImage}
+                        alt="Selected Image"
+                        style={{ maxWidth: '100%', marginTop: '16px' }}
+                      />
+                    )} */}
+                    
+                    {isCameraStarted && <video ref={videoRef} autoPlay />}
+                    {!isCameraStarted && (
+                      <div>
+                        {images.map((image, index) => (
+                          <img key={index} src={image} alt={`Captured Image ${index}`} />
+                        ))}
+                      </div>
+                    )}
+                    <div className="d-flex justify-content-center mt-2">
+                    <Button onClick={isCameraStarted ? handleCaptureImage : handleCloseDialog} variant="contained" color="primary">
+                      {isCameraStarted ? 'Capture Image' : 'Close'}
+                    </Button>
+                    <Button onClick={handleSaveImage} variant="contained" color="primary">
+                      Save
+                    </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
                 
               </div>
               <CardContent>
@@ -154,7 +318,7 @@ function Profile() {
                   )}
                   {/* Add skills card end */}
                 </TabPanel>
-                <TabPanel   ref={addExperienceCardRef} value="2">
+                <TabPanel ref={addExperienceCardRef} value="2">
                   <Card className="p-4">
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
@@ -178,7 +342,7 @@ function Profile() {
                         <p className="fw-normal text-secondary mb-0 d-flex">Indore, M.P., India     <ul className="fw-normal text-secondary mb-0">On Site</ul></p>
                       </div>
                     </div>
-                    <hr/>
+                    <hr />
                     <div className="d-flex justify-content-start">
                       <div className="">
                         <img
@@ -301,9 +465,9 @@ function Profile() {
                   {/* Add experiences card end */}
                 </TabPanel>
                 <TabPanel value="3">
-                <img src={resumeImg} alt="" />
-                <br/>
-                <button className="btn btn-success"><UploadFileIcon/>Upload Resume</button>
+                  <img src={resumeImg} alt="" />
+                  <br />
+                  <button className="btn btn-success"><UploadFileIcon />Upload Resume</button>
                 </TabPanel>
               </TabContext>
             </Box>
@@ -342,6 +506,7 @@ function Profile() {
           </Item>
         </Grid>
       </Grid>
+
     </Box>
 
 
