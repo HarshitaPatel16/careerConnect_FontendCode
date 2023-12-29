@@ -12,13 +12,20 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    // Navigate to the home page
+    navigate('/');
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div className=" d-flex justify-content-between w-100">
         <div className='col-md-3 d-flex justify-content-center'>
-        <a className="navbar-brand" href="#" style={{marginRight:0}}>
+        <a className="navbar-brand" href="#" style={{marginRight:0}} onClick={handleHomeClick}>
           <img  src={lightLogo} alt="" />
         </a>
         <button
@@ -47,9 +54,9 @@ const Navbar = () => {
           </form>
           <ul className="navbar-nav ml-auto col-md-2">
             <li className="nav-item">
-              <a className="nav-link" href="#">
-               <HomeOutlinedIcon style={{ marginRight: '28px' }}/>
-              </a>
+              <a className="nav-link" href="#"  onClick={handleHomeClick}>
+              <HomeOutlinedIcon style={{ marginRight: '28px' }} />
+            </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
