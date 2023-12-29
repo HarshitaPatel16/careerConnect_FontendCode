@@ -50,7 +50,7 @@ function Profile() {
   const [isCoverEditable, setisCoverEditable] = useState(false);
   const [selectedCoverImage, setselectedCoverImage] = useState(null);
   const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState( 'https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp');
+  const [selectedImage, setSelectedImage] = useState('https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp');
   const videoRef = useRef(null);
   const [profileImg, setProfileImg] = useState([]);
   const [files, setFiles] = useState([]);
@@ -141,7 +141,7 @@ function Profile() {
     // setDialogOpen(true);
   };
 
-  
+
 
   const handleProfileImageClick = () => {
     setisProfileChangeDialogOpen(true);
@@ -246,16 +246,16 @@ function Profile() {
                   className="profile-photo"
                   onClick={handleProfileImageClick}
                 />
-            
+
                 <Dialog open={isProfileChangeDialogOpen} onClose={handleCloseProfileDialog}>
                   <DialogContent>
-                  <div className="mb-2 ">
-                      
+                    <div className="mb-2 ">
+
                       <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleProfileUpload}
-                    />
+                        type="file"
+                        accept="image/*"
+                        onChange={handleProfileUpload}
+                      />
                       <button className="" onClick={startCamera}>Start Camera</button>
                     </div>
 
@@ -266,7 +266,7 @@ function Profile() {
                         style={{ maxWidth: '100%', marginTop: '16px' }}
                       />
                     )} */}
-                    
+
                     {isCameraStarted && <video ref={videoRef} autoPlay />}
                     {!isCameraStarted && (
                       <div>
@@ -276,16 +276,16 @@ function Profile() {
                       </div>
                     )}
                     <div className="d-flex justify-content-center mt-2">
-                    <Button onClick={isCameraStarted ? handleCaptureImage : handleCloseProfileDialog} variant="contained" color="primary">
-                      {isCameraStarted ? 'Capture Image' : 'Close'}
-                    </Button>
-                    <Button onClick={handleSaveImage} variant="contained" color="primary">
-                      Save
-                    </Button>
+                      <Button onClick={isCameraStarted ? handleCaptureImage : handleCloseProfileDialog} variant="contained" color="primary">
+                        {isCameraStarted ? 'Capture Image' : 'Close'}
+                      </Button>
+                      <Button onClick={handleSaveImage} variant="contained" color="primary">
+                        Save
+                      </Button>
                     </div>
                   </DialogContent>
                 </Dialog>
-                
+
               </div>
               <CardContent>
                 <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
@@ -405,51 +405,68 @@ function Profile() {
 
                       <div className="box">
 
-                        <div className="row d-flex justify-content-left   col">
+                        <div className="row   col">
                           <div className="col-md-4 mt-3">
-                            <select
+                            <label className="d-flex justify-content-left ">Job Title*</label>
+                             <input
+                              type="text"
+                              className="form-control border "
+                              placeholder="Ex: Full Stack Developer"
+                            />
+                          </div>
+
+                          <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">Profile Headline*</label>
+                            <input
+                              type="text"
+                              className="form-control border "
+                              placeholder="It will appear below your profile"
+                            />
+                          </div>
+
+                          <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">Employement Type*</label>
+                          <select
                               type="text"
                               className="form-select border"
                               placeholder="Title"
                             >
-                              <option disabled>Job Title*</option>
-                            </select>
-                          </div>
-
-                          <div className="col-md-4 mt-3">
-                            <input
-                              type="text"
-                              className="form-control border "
-                              placeholder="Profile Headline"
-                            />
-                          </div>
-
-                          <div className="col-md-4 mt-3">
-                            <input
-                              type="text"
-                              className="form-control border "
-                              placeholder="Employement Type"
-                            />
+                              <option disabled>Please Select</option>
+                              <option>Full Time</option>
+                              <option>Self-Employeed</option>
+                              <option>Freelance</option>
+                              <option>Internship</option>
+                              <option>Trainee</option>
+                            </select> 
                           </div>
                         </div>
                         <div className="row d-flex justify-content-left   col">
                           <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">Company Name*</label>
                             <input
                               type="text"
                               className="form-control border"
-                              placeholder="Company Name"
+                              placeholder="Ex: BytesFarms Technologies"
                             />
                           </div>
 
                           <div className="col-md-4 mt-3">
-                            <input
+                          <label className="d-flex justify-content-left ">Location*</label>
+                          <select
                               type="text"
-                              className="form-control border"
-                              placeholder="Location"
-                            />
+                              className="form-select border"
+                              placeholder="Title"
+                            >
+                              <option disabled>Please Select</option>
+                              <option>On-Site</option>
+                              <option>Hybrid</option>
+                              <option>Remote</option>
+                            </select> 
                           </div>
 
                           <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">Location Type*</label>
+
                             <input
                               type="text"
                               className="form-control border "
@@ -459,6 +476,7 @@ function Profile() {
                         </div>
                         <div className="row d-flex justify-content-left   col">
                           <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">Start Date*</label>
                             <input
                               type="date"
                               className="form-control border"
@@ -467,6 +485,7 @@ function Profile() {
                           </div>
 
                           <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">End Date*</label>
                             <input
                               type="Date"
                               className="form-control border"
@@ -475,13 +494,18 @@ function Profile() {
                           </div>
 
                           <div className="col-md-4 mt-3">
+                          <label className="d-flex justify-content-left ">Industry*</label>
                             <input
                               type="text"
                               className="form-control border "
                               placeholder="Industry"
                             />
                           </div>
-                          <div><textarea className="col-md-12 mt-3 py-1 " rows={5}></textarea></div>
+
+                          <div className="col-md-12 mt-3">
+                          <label className="d-flex justify-content-left ">Description*</label>
+                            <textarea className="col-md-12 mt-3 py-1 " rows={5}></textarea>
+                            </div>
 
 
                         </div>
@@ -493,38 +517,41 @@ function Profile() {
                   {/* Add experiences card end */}
                 </TabPanel>
                 <TabPanel value="3">
-      {resumePdf ? (
-        <div>
-          {/* Display the embedded PDF or use a PDF viewer here */}
-          <embed
-            src={URL.createObjectURL(resumePdf)}
-            title="Embedded PDF"
-            width="100%"
-            height="500px"
-          ></embed>
-          <button className="btn btn-danger" onClick={handleDeleteResume}>
-            <DeleteOutlineIcon /> Delete
-          </button>
-           <button className="btn btn-primary" onClick={handleUploadResume}>
-              <UploadFileIcon /> Upload Resume
-            </button>
-        </div>
-      ) : (
-        <div>
-          <input
-            type="file"
-            accept=".pdf"
-            onChange={handleResumeChange}
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-          />
-            
-          <button className="btn btn-success" onClick={handleChoosePdf}>
-            <UploadFileIcon /> Choose PDF
-          </button>
-        </div>
-      )}
-    </TabPanel>
+                  {resumePdf ? (
+                    <div>
+                      {/* Display the embedded PDF or use a PDF viewer here */}
+                   
+                        <iframe
+                          src={`${URL.createObjectURL(resumePdf)}#toolbar=0`}
+                          title="Embedded PDF"
+                          width="100%"
+                          height="1000vh"
+                        ></iframe>
+                      
+
+                      <button className="btn btn-danger" onClick={handleDeleteResume}>
+                        <DeleteOutlineIcon /> Delete
+                      </button>
+                      <button className="btn btn-primary" onClick={handleUploadResume}>
+                        <UploadFileIcon /> Upload Resume
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onChange={handleResumeChange}
+                        style={{ display: 'none' }}
+                        ref={fileInputRef}
+                      />
+
+                      <button className="btn btn-success" onClick={handleChoosePdf}>
+                        <UploadFileIcon /> Choose PDF
+                      </button>
+                    </div>
+                  )}
+                </TabPanel>
               </TabContext>
             </Box>
           </Card>
