@@ -75,22 +75,22 @@ function Profile() {
 
   const profileData = useSelector((state) => state.user.readOneUser);
 
-  const [username, setUsername] = useState(""); // Add state to store username
+  const [userName, setUserName] = useState(""); // Add state to store username
   const [profilePic, setProfileImage] = useState("");
-  const [email, setemail] = useState("");
-  const [firstname, setfirstname] = useState("");
-  const [lastname, setlastname] = useState("");
-  const [mobile, setmobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [mobile, setMobile] = useState("");
   const [coverPic, setCoverImage] = useState("");
-  const [address, setaddress] = useState("");
-  const [resume, setresume] = useState("");
-  const [about, setabout] = useState("");
+  const [address, setAddress] = useState("");
+  const [resume, setResume] = useState("");
+  const [about, setAbout] = useState("");
 
   useEffect(() => {
     const data = {
       user_id: localStorage.getItem("user_id"),
     };
-    
+
     dispatch(getProfileById(API_URL, data));
   }, [dispatch]);
 
@@ -107,13 +107,13 @@ function Profile() {
   };
 
   function handleUpate() {
-    
+
     const formData = new FormData();
     formData.append("user_id", localStorage.getItem("user_id"));
-    formData.append("username", username);
+    formData.append("username", userName);
     formData.append("email", email);
-    formData.append("first_name", firstname);
-    formData.append("last_name", lastname);
+    formData.append("first_name", firstName);
+    formData.append("last_name", lastName);
     formData.append("mobile", mobile);
     formData.append("profilePic", profilePic);
     formData.append("coverPic", coverPic);
@@ -122,7 +122,7 @@ function Profile() {
     formData.append("about", about);
 
     dispatch(updateProfile(API_URL, formData));
-  } 
+  }
 
   useEffect(() => {
     if (profileData !== null && profileData !== undefined) {
@@ -131,28 +131,28 @@ function Profile() {
         profileData.readOneUser !== undefined
       ) {
         const data = profileData.readOneUser;
-        setUsername(data.username);
-       setProfileImage(data.profilePic);
-       setCoverImage(data.coverPic)
-       setfirstname(data.firstname);
-       setlastname(data.lastname);
-       setemail(data.email);
-       setmobile(data.mobile);
-       setaddress(data.address);
-       setresume(data.resume);
-       setabout(data.about);
+        setUserName(data.userName);
+        setProfileImage(data.profilePic);
+        setCoverImage(data.coverPic)
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
+        setEmail(data.email);
+        setMobile(data.mobile);
+        setAddress(data.address);
+        setResume(data.resume);
+        setAbout(data.about);
 
       }
     }
   }, [profileData]);
 
   function handleAddSkills() {
-    
-      const formData = new FormData();
-      formData.append("skils_name", skill);
-      // formData.append("user_id", userId);
-      dispatch(addCreateSkills(API_URL, formData));
-    } 
+
+    const formData = new FormData();
+    formData.append("skils_name", skill);
+    // formData.append("user_id", userId);
+    dispatch(addCreateSkills(API_URL, formData));
+  }
 
   const handleResumeChange = (event) => {
     const file = event.target.files[0];
@@ -320,7 +320,7 @@ function Profile() {
                   className="cover-img justify-content-between"
                 />
                 <EditSharpIcon className="edit-icon" onClick={handleEditClick} />
-                
+
 
                 {isCoverEditable && (
                   <input
@@ -345,7 +345,7 @@ function Profile() {
                 <Dialog open={isProfileChangeDialogOpen} onClose={handleCloseProfileDialog}>
                   <DialogContent>
                     <div className="mb-2 ">
-                    <CameraAltOutlinedIcon onClick={startCamera} className="mx-2"/>
+                      <CameraAltOutlinedIcon onClick={startCamera} className="mx-2" />
                       <input
                         type="file"
                         accept="image/*"
@@ -371,7 +371,7 @@ function Profile() {
                       </div>
                     )}
                     <div className="d-flex justify-content-center mt-2 mx-2">
-                    <button className={isCameraStarted ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"} onClick={isCameraStarted ? handleCaptureImage : handleCloseProfileDialog}>                        {isCameraStarted ? 'Capture Image' : 'Close'}
+                      <button className={isCameraStarted ? "btn btn-primary mx-2" : "btn btn-secondary mx-2"} onClick={isCameraStarted ? handleCaptureImage : handleCloseProfileDialog}>                        {isCameraStarted ? 'Capture Image' : 'Close'}
                       </button>
                       <button onClick={handleSaveImage} className="btn btn-success mx-2">
                         Save
@@ -690,243 +690,51 @@ function Profile() {
         </Grid>
         {/* profile edit diagol box code start*/}
         <Dialog open={isDialogOpen} onClose={handleCloseDialog}
-         maxWidth="lg" fontwidth
+          maxWidth="lg" fontwidth
         >
           <DialogTitle>Edit Profile</DialogTitle>
           <DialogContent>
-          
-           
-            <div className="row">
-              {/* <div className="col-6">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  style={{
-                    fontWeight: "550",
-                    fontSize: "14px",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="First Name"
-                  style={{
-                    border: "1px solid grey",
 
-                    fontSize: "14px",
-                  }}
-                
+            <div className="modal-body row pt-0 grid gap-0 ">
+            <div className="col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">First Name <span className='text-danger'>*</span></label>
+                <div className="input-group col-md-12 px-0 ">
 
-                />
+                  <input type='number' className="form-control" placeholder="Enter First Name" aria-describedby="basic-addon2" required name="amount" value={firstName} />
+                </div>
               </div>
-              <div className="col-6">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  style={{
-                    fontWeight: "550",
-                    fontSize: "14px",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Email
-                </label>
-                <input
-                  type="text"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="First Name"
-                  style={{
-                    border: "1px solid grey",
+              <div className="col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">Last Name<span className='text-danger'></span></label>
+                <div className="input-group col-md-12 px-0 ">
 
-                    fontSize: "14px",
-                  }}
-                 
-                />
-              </div> */}
-            </div>
-            <div className="row mt-4">
-              <div className="col-12">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  // style={{
-                  //   fontWeight: "550",
-                  //   fontSize: "14px",
-                  //   fontFamily: "Poppins",
-                  // }}
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="First Name"
-                  style={{
-                    border: "1px solid grey",
-
-                    fontSize: "14px",
-                  }}
-                  
-                />
-              </div>
-
-             
-            </div>
-            <div className="row mt-4">
-            <div className="col-12">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  // style={{
-                  //   fontWeight: "550",
-                  //   fontSize: "14px",
-                  //   fontFamily: "Poppins",
-                  // }}
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="First Name"
-                  style={{
-                    border: "1px solid grey",
-
-                    fontSize: "14px",
-                  }}
-                  
-                />
-              </div>
-
-             
-            </div>
-            <div className="row mt-4">
-            <div className="col-12">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  // style={{
-                  //   fontWeight: "550",
-                  //   fontSize: "14px",
-                  //   fontFamily: "Poppins",
-                  // }}
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="email"
-                  style={{
-                    border: "1px solid grey",
-
-                    fontSize: "14px",
-                  }}
-
-                />
-              </div>
-             
-            </div>
-            <div className="row mt-4">
-            <div className="col-12">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  // style={{
-                  //   fontWeight: "550",
-                  //   fontSize: "14px",
-                  //   fontFamily: "Poppins",
-                  // }}
-                >
-                  UserName{" "}
-                </label>
-                <input
-                  type="text"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="First Name"
-                  style={{
-                    border: "1px solid grey",
-
-                    fontSize: "14px",
-                  }}
-                 
-                />
-              </div>
-             
-            </div>
-            <div className="row mt-4">
-            <div className="col-12">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  // style={{
-                  //   fontWeight: "550",
-                  //   fontSize: "14px",
-                  //   fontFamily: "Poppins",
-                  // }}
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="number"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="Phone Number"
-                  style={{
-                    border: "1px solid grey",
-
-                    fontSize: "14px",
-                  }}
-                 
-                />
-              </div>
-             
-            </div>
-            <div className="row mt-4">
-            <div className="col-12">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                  // style={{
-                  //   fontWeight: "550",
-                  //   fontSize: "14px",
-                  //   fontFamily: "Poppins",
-                  // }}
-                >
-                  City
-                </label>
-                <input
-                  type="text"
-                  className="form-control sign-up"
-                  id="exampleFormControlInput1"
-                  placeholder="Enter City"
-                  style={{
-                    border: "1px solid grey",
-
-                    fontSize: "14px",
-                  }}
-                 
-                />
-              </div>
-             
-            </div>
+                  <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={lastName} />
+                </div>
+                </div> 
             
+                <div className="col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
+                <div className="input-group col-md-12 px-0 ">
+
+                  <input type='number' className="form-control" placeholder="Enter Contact Number" aria-describedby="basic-addon2" required name="amount" value={mobile} />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">Address<span className='text-danger'></span></label>
+                <div className="input-group col-md-12 px-0 ">
+
+                  <input className="form-control" placeholder="Enter Address" aria-describedby="basic-addon2" required name="amountChangeNote" value={address} />
+                </div>
+                </div>
+                </div>
+           
+
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Cancel</Button>
-            <Button onClick={handleCloseDialog}>Save Changes</Button>
+          <DialogActions className="d-flex justify-content-center">
+            <button className="btn btn-primary" onClick={handleCloseDialog}>Cancel</button>
+            <button className="btn btn-primary" onClick={handleCloseDialog}>Save </button>
           </DialogActions>
         </Dialog>
-                {/* profile edit diagol box code end*/}
+        {/* profile edit diagol box code end*/}
 
       </Grid>
 
