@@ -142,7 +142,11 @@ const Home = () => {
           <div className="row">
         <div className="profile2 col-md-2 m-0 p-0">
           <img
-            src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+          src={
+            IMAGE_PATH +
+            "user/" +
+            (profileData ? profileData.profilePic : "")
+          }
             alt="Profile"
             className="profile-photo2"
           />
