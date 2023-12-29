@@ -10,6 +10,12 @@ import {image} from "../../assets/8.png";
 import { useNavigate } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
+import { getProfileById } from "../../store/action/action";
+import API_URL from "../../service";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import IMAGE_PATH from "../../imageService";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,9 +29,41 @@ const Item = styled(Paper)(({ theme }) => ({
 const Home = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const profileData = useSelector((state) => state.user.readOneUser);
+
+  const [username, setUsername] = useState(""); // Add state to store username
+  const [profilePic, setProfileImage] = useState("");
+  const [coverPic, setCoverImage] = useState("");
+
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+    
+    dispatch(getProfileById(API_URL, data));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (profileData !== null && profileData !== undefined) {
+      if (
+        profileData.readOneUser !== null &&
+        profileData.readOneUser !== undefined
+      ) {
+        const data = profileData.readOneUser;
+        setUsername(data.username);
+       setProfileImage(data.profilePic);
+       setCoverImage(data.coverPic)
+      }
+    }
+  }, [profileData]);
 
   const handleProfileClick = () => {
-    // Navigate to the profile page
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+    dispatch(getProfileById(API_URL, data));
     navigate('/profile'); // Replace '/profile' with the actual path to your profile page
   };
 
@@ -48,12 +86,16 @@ const Home = () => {
         <CardMedia
   component="img"
   alt="Cover Image"
-  image="https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"
+  image={IMAGE_PATH + "user/" + (profileData ? profileData.coverPic : "")}
   className="cover-img1"
 />
 <div className="profile1">
   <img
-    src="https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp"
+ src={
+  IMAGE_PATH +
+  "user/" +
+  (profileData ? profileData.profilePic : "")
+}
     alt="Profile"
     className="profile-photo1"
 
@@ -61,7 +103,7 @@ const Home = () => {
 </div>
 <CardContent>
                 <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
-                  <span className="fw-bold username1 "> name</span>
+                <span className="fw-bold username1 ">{profileData && profileData.username ? profileData.username : ""}</span>
                 </Typography>
               </CardContent>
               <CardContent sx={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -88,7 +130,7 @@ const Home = () => {
     </div>
   </CardContent>
   <CardContent>
-  <button type="button" onClick={handleProfileClick} class="btn btn-primary btn-lg rounded">My Profile</button>
+  <button type="button" onClick={handleProfileClick} class="btn btn-primary">My Profile</button>
               </CardContent>
 
 </div>

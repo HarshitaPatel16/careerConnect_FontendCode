@@ -42,9 +42,9 @@ const Login = () => {
           ) {
             const itemdata = User.customerloginData.data;
 
-            setitem(itemdata.id);
-            localStorage.setItem("user_id", itemdata.id);
-
+            setitem(itemdata.user_id);
+            localStorage.setItem("user_id", itemdata.user_id);
+            localStorage.setItem("username", itemdata.username);
             // localStorage.setItem("id", itemdata.id);
             navigate("/");
           }

@@ -25,6 +25,12 @@ export const ADD_CREATEPOST_FAILURE = "ADD_CREATEPOST_FAILURE";
 
 //end//
 
+//create skils
+
+export const ADD_CREATESKILLS_REQUEST = "ADD_CREATESKILLS_REQUEST";
+export const ADD_CREATESKILLS_SUCCESS = "ADD_CREATESKILLS_SUCCESS";
+export const ADD_CREATESKILLS_FAILURE = "ADD_CREATESKILLS_FAILURE";
+
 //PROFILE UPDATE 
 export const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
 export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
@@ -82,6 +88,22 @@ export const addCreatePost = (API_URL, data) => {
       })
       .catch((error) => {
         dispatch({ type: ADD_CREATEPOST_FAILURE, payload: error.message });
+      });
+  };
+};
+//end//
+
+//skills CREATE API  start//
+export const addCreateSkills = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: ADD_CREATESKILLS_REQUEST });
+    axios
+      .post(API_URL + "skills/createSkills", data)
+      .then((response) => {
+        dispatch({ type: ADD_CREATESKILLS_SUCCESS, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ADD_CREATESKILLS_FAILURE, payload: error.message });
       });
   };
 };

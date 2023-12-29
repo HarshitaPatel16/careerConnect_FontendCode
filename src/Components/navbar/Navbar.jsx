@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useState, useEffect } from 'react';
 import "./navbar.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import lightLogo from "../../assets/CareerConnect-black-logo.png";
@@ -13,14 +14,45 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import { Link, useNavigate } from 'react-router-dom';
+import { getProfileById } from "../../store/action/action";
+import API_URL from "../../service";
+import { useDispatch, useSelector } from "react-redux";
+import IMAGE_PATH from "../../imageService";
 
-const Navbar = () => {
+const Navbar = ({ userData }) =>{
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const handleHomeClick = () => {
     // Navigate to the home page
     navigate('/');
   };
+  const profileData = useSelector((state) => state.user.readOneUser);
+
+  const [username, setUsername] = useState(""); // Add state to store username
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+    
+    dispatch(getProfileById(API_URL, data));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (profileData !== null && profileData !== undefined) {
+      if (
+        profileData.readOneUser !== null &&
+        profileData.readOneUser !== undefined
+      ) {
+        const data = profileData.readOneUser;
+        setUsername(data.username);
+       
+       
+      }
+    }
+  }, [profileData]);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div className=" d-flex justify-content-between w-100">
@@ -83,12 +115,15 @@ const Navbar = () => {
            
           <div className="user">
        <img
-   src={avtart}
+   src={
+    IMAGE_PATH +
+    "user/" +
+    (profileData ? profileData.profilePic : "")
+  }
    alt="sunil"
    className="chat_profile"
  />
-         <span>UserName</span>
-          
+<span>{profileData && profileData.username}</span>          
        </div>
             
             
@@ -97,20 +132,7 @@ const Navbar = () => {
          
         </div>
 
-        {/* <div className="right">
-       
-       
-       <div className="user">
-       <img
-   src={avtart}
-   alt="sunil"
-   className="chat_profile"
- />
-         <span></span>
-          
-       </div>
-
-     </div> */}
+        
       </div>
     </nav>
   );

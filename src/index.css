@@ -31,3 +31,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-primary {
+  background-color: #9861DF;
+  border-color:  #9861DF;
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+}
+.btn-primary:hover {
+  background-color: #b78af3; /* Change this to the desired hover background color */
+  border-color:#b78af3; /* Change this to the desired hover border color */
+  color: #fff; /* Text color on hover */
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+}
+.css-1633um2-MuiPaper-root {
+  border-radius: 12px !important;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px !important;
+}
+
+.css-uxezyx {
+
+  background-color: #e2d1b63b;
+}

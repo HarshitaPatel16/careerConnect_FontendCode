@@ -3,6 +3,7 @@ const initialState = {
   customerloginData: null,
   customerregstionData:null,
   createPost:null,
+  createSkills:null,
   UpdateUser: null,
   readOneUser: null,
   loading: false,
@@ -73,6 +74,27 @@ const userReducer = (state = initialState, action) => {
         error: null,
       };
     case "ADD_CREATEPOST_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+// skils 
+
+case "ADD_CREATESKILLS_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case "ADD_CREATESKILLS_SUCCESS":
+      return {
+        ...state,
+        createSkils: action.payload,
+        loading: false,
+        error: null,
+      };
+    case "ADD_CREATESKILLS_FAILURE":
       return {
         ...state,
         loading: false,

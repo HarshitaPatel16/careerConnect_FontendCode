@@ -28,6 +28,14 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloseIcon from '@mui/icons-material/Close';
+import API_URL from "../../service";
+import { addCreateSkills, updateProfile } from "../../store/action/action";
+import { getProfileById } from "../../store/action/action";
+import { useDispatch, useSelector } from "react-redux";
+import IMAGE_PATH from "../../imageService";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -42,11 +50,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Profile() {
 
-
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState('1');
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [showAddExperience, setShowAddExperience] = useState(false);
   const [skill, setSkill] = useState("")
+  const [userId, setUserId] = useState("")
   const [experiences, setExperiences] = useState("");
   const addSkillCardRef = useRef(null);
   const addExperienceCardRef = useRef(null);
@@ -62,6 +71,88 @@ function Profile() {
   const [resumePdf, setResumePdf] = useState(null);
   const [showUploadButton, setShowUploadButton] = useState(false);
   const fileInputRef = useRef(null);
+
+
+  const profileData = useSelector((state) => state.user.readOneUser);
+
+  const [username, setUsername] = useState(""); // Add state to store username
+  const [profilePic, setProfileImage] = useState("");
+  const [email, setemail] = useState("");
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [mobile, setmobile] = useState("");
+  const [coverPic, setCoverImage] = useState("");
+  const [address, setaddress] = useState("");
+  const [resume, setresume] = useState("");
+  const [about, setabout] = useState("");
+
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+    
+    dispatch(getProfileById(API_URL, data));
+  }, [dispatch]);
+
+  const [isDialogOpen, setDialogOpen] = React.useState(false);
+
+  // Function to open the dialog
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  // Function to close the dialog
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  function handleUpate() {
+    
+    const formData = new FormData();
+    formData.append("user_id", localStorage.getItem("user_id"));
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("first_name", firstname);
+    formData.append("last_name", lastname);
+    formData.append("mobile", mobile);
+    formData.append("profilePic", profilePic);
+    formData.append("coverPic", coverPic);
+    formData.append("address", address);
+    formData.append("resume", resume);
+    formData.append("about", about);
+
+    dispatch(updateProfile(API_URL, formData));
+  } 
+
+  useEffect(() => {
+    if (profileData !== null && profileData !== undefined) {
+      if (
+        profileData.readOneUser !== null &&
+        profileData.readOneUser !== undefined
+      ) {
+        const data = profileData.readOneUser;
+        setUsername(data.username);
+       setProfileImage(data.profilePic);
+       setCoverImage(data.coverPic)
+       setfirstname(data.firstname);
+       setlastname(data.lastname);
+       setemail(data.email);
+       setmobile(data.mobile);
+       setaddress(data.address);
+       setresume(data.resume);
+       setabout(data.about);
+
+      }
+    }
+  }, [profileData]);
+
+  function handleAddSkills() {
+    
+      const formData = new FormData();
+      formData.append("skils_name", skill);
+      // formData.append("user_id", userId);
+      dispatch(addCreateSkills(API_URL, formData));
+    } 
 
   const handleResumeChange = (event) => {
     const file = event.target.files[0];
@@ -229,6 +320,7 @@ function Profile() {
                   className="cover-img justify-content-between"
                 />
                 <EditSharpIcon className="edit-icon" onClick={handleEditClick} />
+                
 
                 {isCoverEditable && (
                   <input
@@ -291,8 +383,9 @@ function Profile() {
               </div>
               <CardContent>
                 <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
-                  <span className="fw-bold username "> name</span>
-                  {/* <button type="button" className="btn btn-secondary">Edit</button> */}
+                  <span className="fw-bold username "> {profileData && profileData.username ? profileData.username : ""}</span>
+                  <EditOutlinedIcon onClick={handleOpenDialog} />
+                  {/* <button type="button" className="btn btn-se">Edit</button> */}
                 </Typography>
                 <Typography className="d-flex justify-align-left userinfo" variant="subtitle1" component="div">
                   Designation
@@ -338,7 +431,7 @@ function Profile() {
                           <input type="text" className="form-control" value={skill} onChange={handleSkill} />
                         </div>
                         <div className="ms-auto">
-                          <button type="button" className="btn btn-primary">
+                          <button type="button" className="btn btn-primary" onClick={handleAddSkills}>
                             Save
                           </button>
                         </div>
@@ -595,6 +688,246 @@ function Profile() {
             </div>
           </Item>
         </Grid>
+        {/* profile edit diagol box code start*/}
+        <Dialog open={isDialogOpen} onClose={handleCloseDialog}
+         maxWidth="lg" fontwidth
+        >
+          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogContent>
+          
+           
+            <div className="row">
+              {/* <div className="col-6">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  style={{
+                    fontWeight: "550",
+                    fontSize: "14px",
+                    fontFamily: "Poppins",
+                  }}
+                >
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="First Name"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                
+
+                />
+              </div>
+              <div className="col-6">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  style={{
+                    fontWeight: "550",
+                    fontSize: "14px",
+                    fontFamily: "Poppins",
+                  }}
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="First Name"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                 
+                />
+              </div> */}
+            </div>
+            <div className="row mt-4">
+              <div className="col-12">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  // style={{
+                  //   fontWeight: "550",
+                  //   fontSize: "14px",
+                  //   fontFamily: "Poppins",
+                  // }}
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="First Name"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                  
+                />
+              </div>
+
+             
+            </div>
+            <div className="row mt-4">
+            <div className="col-12">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  // style={{
+                  //   fontWeight: "550",
+                  //   fontSize: "14px",
+                  //   fontFamily: "Poppins",
+                  // }}
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="First Name"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                  
+                />
+              </div>
+
+             
+            </div>
+            <div className="row mt-4">
+            <div className="col-12">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  // style={{
+                  //   fontWeight: "550",
+                  //   fontSize: "14px",
+                  //   fontFamily: "Poppins",
+                  // }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="email"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+
+                />
+              </div>
+             
+            </div>
+            <div className="row mt-4">
+            <div className="col-12">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  // style={{
+                  //   fontWeight: "550",
+                  //   fontSize: "14px",
+                  //   fontFamily: "Poppins",
+                  // }}
+                >
+                  UserName{" "}
+                </label>
+                <input
+                  type="text"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="First Name"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                 
+                />
+              </div>
+             
+            </div>
+            <div className="row mt-4">
+            <div className="col-12">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  // style={{
+                  //   fontWeight: "550",
+                  //   fontSize: "14px",
+                  //   fontFamily: "Poppins",
+                  // }}
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="number"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="Phone Number"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                 
+                />
+              </div>
+             
+            </div>
+            <div className="row mt-4">
+            <div className="col-12">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                  // style={{
+                  //   fontWeight: "550",
+                  //   fontSize: "14px",
+                  //   fontFamily: "Poppins",
+                  // }}
+                >
+                  City
+                </label>
+                <input
+                  type="text"
+                  className="form-control sign-up"
+                  id="exampleFormControlInput1"
+                  placeholder="Enter City"
+                  style={{
+                    border: "1px solid grey",
+
+                    fontSize: "14px",
+                  }}
+                 
+                />
+              </div>
+             
+            </div>
+            
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>Cancel</Button>
+            <Button onClick={handleCloseDialog}>Save Changes</Button>
+          </DialogActions>
+        </Dialog>
+                {/* profile edit diagol box code end*/}
+
       </Grid>
 
     </Box>

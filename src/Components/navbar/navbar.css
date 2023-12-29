@@ -12,3 +12,8 @@
  .search {
 border-radius: 3.25rem;
  }
+
+ .bg-light {
+  --bs-bg-opacity: 1;
+  background-color: #fff !important;
+}
