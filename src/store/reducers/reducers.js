@@ -6,6 +6,7 @@ const initialState = {
   createSkills:null,
   UpdateUser: null,
   readOneUser: null,
+  readOneSkills: null,
   loading: false,
   error: null,
 };
@@ -135,13 +136,32 @@ case "ADD_CREATESKILLS_REQUEST":
         loading: false,
         error: null,
       };
-    case "GET_PROFILE_BY_ID_SUCCESS":
+    case "GET_PROFILE_BY_ID_FAILURE":
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
 
+      case "GET_SKILLS_BY_ID_REQUEST":
+        return {
+          ...state,
+          loading: true,
+          error: null,
+        };
+      case "GET_SKILLS_BY_ID_SUCCESS":
+        return {
+          ...state,
+          readOneSkills: action.payload,
+          loading: false,
+          error: null,
+        };
+      case "GET_SKILLS_BY_ID_FAILURE":
+        return {
+          ...state,
+          loading: false,
+          error: action.payload,
+        };
 
    
 

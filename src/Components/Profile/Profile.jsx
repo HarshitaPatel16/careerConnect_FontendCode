@@ -30,12 +30,14 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import API_URL from "../../service";
 import { addCreateSkills, updateProfile } from "../../store/action/action";
-import { getProfileById } from "../../store/action/action";
+import { getProfileById, getSkilsById } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
+import { useNavigate } from "react-router-dom";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -51,6 +53,8 @@ const Item = styled(Paper)(({ theme }) => ({
 function Profile() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [value, setValue] = React.useState('1');
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [showAddExperience, setShowAddExperience] = useState(false);
@@ -74,6 +78,8 @@ function Profile() {
 
 
   const profileData = useSelector((state) => state.user.readOneUser);
+  const skillsData = useSelector((state) => state.user.readOneSkills);
+
 
   const [userName, setUserName] = useState(""); // Add state to store username
   const [profilePic, setProfileImage] = useState("");
@@ -85,6 +91,7 @@ function Profile() {
   const [address, setAddress] = useState("");
   const [resume, setResume] = useState("");
   const [about, setAbout] = useState("");
+  const [skills, setSkills] = useState([]);
 
   useEffect(() => {
     const data = {
@@ -92,6 +99,13 @@ function Profile() {
     };
 
     dispatch(getProfileById(API_URL, data));
+  }, [dispatch]);
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+
+    dispatch(getSkilsById(API_URL, data));
   }, [dispatch]);
 
   const [isDialogOpen, setDialogOpen] = React.useState(false);
@@ -118,8 +132,11 @@ function Profile() {
     formData.append("profilePic", profilePic);
     formData.append("coverPic", coverPic);
     formData.append("address", address);
-    formData.append("resume", resume);
+    // formData.append("resume", resume);
     formData.append("about", about);
+    if (resumePdf) {
+      formData.append("resume", resumePdf);
+    }
 
     dispatch(updateProfile(API_URL, formData));
   }
@@ -146,11 +163,30 @@ function Profile() {
     }
   }, [profileData]);
 
+  useEffect(() => {
+    // if (skillsData !== null && skillsData !== undefined) {
+    //   if (
+    //     skillsData.readOneSkills !== null &&
+    //     skillsData.readOneSkills !== undefined
+    //   ) {
+    //     const data = skillsData.readOneSkills;
+    //     setSkills(data.skils_name);
+    //   }
+    // }
+    if (skillsData && Array.isArray(skillsData)) {
+      setSkills(skillsData);
+    }
+
+  }, [skillsData]);
+
   function handleAddSkills() {
 
     const formData = new FormData();
+    formData.append("user_id", localStorage.getItem("user_id"));
     formData.append("skils_name", skill);
-    // formData.append("user_id", userId);
+    setShowAddSkill(false);
+    setSkill('');
+
     dispatch(addCreateSkills(API_URL, formData));
   }
 
@@ -175,6 +211,7 @@ function Profile() {
   const handleUploadResume = () => {
     // Implement logic to upload the resume PDF
     if (resumePdf) {
+      handleUpate(); 
       console.log('Resume uploaded:', resumePdf);
       // You can send the resumePdf file to your server or perform other actions here
     } else {
@@ -184,6 +221,7 @@ function Profile() {
   const handleDeleteResume = () => {
     setResumePdf(null);
     setShowUploadButton(false);
+    handleUpate(); 
   };
 
   const startCamera = async () => {
@@ -414,7 +452,12 @@ function Profile() {
                         <span className="fs-3 text-dark">Skills</span>
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddSkillToggle} /></span>
                       </div>
-                      <span className="skill-btn ">HTML</span>
+                      {skills.map((skill) => (
+          <span key={skill.skills_id} className="skill-btn">
+            {skill.skils_name}
+          </span>
+        ))}
+                      {/* <span className="skill-btn ">html</span> */}
                     </Typography>
 
                   </Card>

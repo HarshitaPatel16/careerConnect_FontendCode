@@ -45,7 +45,6 @@ const Login = () => {
             setitem(itemdata.user_id);
             localStorage.setItem("user_id", itemdata.user_id);
             localStorage.setItem("username", itemdata.username);
-            // localStorage.setItem("id", itemdata.id);
             navigate("/");
           }
         }

@@ -41,6 +41,11 @@ export const GET_PROFILE_BY_ID_REQUEST = "GET_PROFILE_BY_ID_REQUEST";
 export const GET_PROFILE_BY_ID_SUCCESS = "GET_PROFILE_BY_ID_SUCCESS";
 export const GET_PROFILE_BY_ID_FAILURE = "GET_PROFILE_BY_ID_FAILURE";
 
+// GET BY SKILS DATA
+export const GET_SKILLS_BY_ID_REQUEST = "GET_SKILLS_BY_ID_REQUEST";
+export const GET_SKILLS_BY_ID_SUCCESS = "GET_SKILLS_BY_ID_SUCCESS";
+export const GET_SKILLS_BY_ID_FAILURE = "GET_SKILLS_BY_ID_FAILURE";
+
 
 //Login start //
 export const postCustomerLoginData = (API_URL, data) => {
@@ -140,6 +145,22 @@ export const getProfileById = (API_URL, data) => {
 
       .catch((error) => {
         dispatch({ type: GET_PROFILE_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
+//get by skills
+export const getSkilsById = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_SKILLS_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "skills/readOneSkills", data)
+      .then((response) => {
+        dispatch({ type: GET_SKILLS_BY_ID_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_SKILLS_BY_ID_FAILURE, payload: error.message });
       });
   };
 };
