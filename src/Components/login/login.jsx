@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../login/login.css";
 import logo from "../../assets/CareerConnect-white-logo.png";
+import { Grid, Card, CardContent, Typography } from '@mui/material';
 import API_URL from "../../service";
 import { postCustomerLoginData } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
@@ -81,34 +82,52 @@ const Login = () => {
 
   return (
     <div className="login">
-      <div className="card">
-        <div className="left">
-        <img src={logo} alt="" />
-          {/* <h1>Carrer Connet</h1> */}
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
-          </p>
-          <span>Don't you have an account?</span>
-          <Link to="/register">
-            <button>Register</button>
-          </Link>
-        </div>
-        <div className="right">
-          <h1>Login</h1>
-          <form>
-            <input type="text" placeholder="Username"
-                          onChange={(e) => setUsername(e.target.value)}
-                          />
-            <input type="password" placeholder="Password"
-                          onChange={(e) => setPassword(e.target.value)}
+      <Grid container className="justify-content-center ">
+        <Grid item xs={10} md={4} lg={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div">
+               
+              </Typography>
+              <div className="left">
+                  <img src={logo} alt="" />
+                  {/* <h1>Carrer Connet</h1> */}
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
+                    alias totam numquam ipsa exercitationem dignissimos, error nam,
+                    consequatur.
+                  </p>
+                  <span>Don't you have an account?</span>
+                  <Link to="/register">
+                    <button>Register</button>
+                  </Link>
+                </div>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={10} md={4} lg={4}>
+          <Card className="h-100">
+            <CardContent>
+              <Typography variant="h5" component="div">
+               
+              </Typography>
+              <div className="right">
+                  <h1>Login</h1>
+                  <form>
+                    <input type="text" placeholder="Username" className="form-control"
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <input type="password" placeholder="Password" className="form-control mt-3"
+                      onChange={(e) => setPassword(e.target.value)}
 
-             />
-            <button onClick={handleLogin}>Login</button>
-          </form>
-        </div>
-      </div>
+                    />
+                    <button onClick={handleLogin}>Login</button>
+                  </form>
+                </div>            
+                </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </div>
   );
 };

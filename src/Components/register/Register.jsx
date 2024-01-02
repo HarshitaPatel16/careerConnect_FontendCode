@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./register.css";
 import logo from "../../assets/CareerConnect-white-logo.png";
+import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { addCreateCustomer } from "../../store/action/action";
 import { useEffect, useState } from "react";
@@ -49,52 +50,71 @@ const Register = () => {
 
   return (
     <div className="register">
-      <div className="card">
-        <div className="left">
-          <img src={logo} alt="" />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
-          </p>
-          <span>Do you have an account?</span>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        </div>
-        <div className="right">
-          <h1>Register</h1>
-          <form>
-            <input
-              type="text"
-              placeholder="Username"
-              onChange={(e) => setusername(e.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setemail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setpassword(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Name"
-              onChange={(e) => setname(e.target.value)}
-            />
-            <button
-              disabled={isRegisterButtonDisabled} // Disable the button based on validation status
-              onClick={handleAddcustomer}
-            >
-              Register
-            </button>
-          </form>
-        </div>
-      </div>
+      <Grid container className="justify-content-center ">
+        <Grid item xs={10} md={4} lg={4}>
+          <Card className="h-100">
+            <CardContent>
+              <Typography variant="h5" component="div">
+
+              </Typography>
+              <div className="left h-100">
+                <img src={logo} alt="" style={{height:"100%"}} />
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
+                  alias totam numquam ipsa exercitationem dignissimos, error nam,
+                  consequatur.
+                </p>
+                <span>Do you have an account?</span>
+                <Link to="/login">
+                  <button>Login</button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={10} md={4} lg={4}>
+          <Card className="h-100">
+            <CardContent>
+              <Typography variant="h5" component="div">
+
+              </Typography>
+              <div className="right ">
+                <h1>Register</h1>
+                <form>
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    onChange={(e) => setusername(e.target.value)}
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setemail(e.target.value)}
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setpassword(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    onChange={(e) => setname(e.target.value)}
+                  />
+                  <button
+                    disabled={isRegisterButtonDisabled} // Disable the button based on validation status
+                    onClick={handleAddcustomer}
+                  >
+                    Register
+                  </button>
+                </form>
+              </div>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </div>
+
   );
 };
 

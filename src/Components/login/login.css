@@ -18,7 +18,7 @@
   }
   
   /* .left */
-  .login .card .left {
+  .left {
     flex: 1;
     background: linear-gradient(rgba(4, 0, 10, 0.5), rgba(0, 0, 0, 0.5)),
       url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600") center;
@@ -31,21 +31,21 @@
   }
   
   /* .left h1 */
-  .login .card .left h1 {
+  .left h1 {
     font-size: 100px;
     line-height: 100px;
   }
   
   /* .left p */
-  .login .card .left p {}
+  .left p {}
   
   /* .left span */
-  .login .card .left span {
+  .left span {
     font-size: 14px;
   }
   
   /* .left button */
-  .login .card .left button {
+ .left button {
     width: 50%;
     padding: 10px;
     border: none;
@@ -56,7 +56,7 @@
   }
   
   /* .right */
-  .login .card .right {
+  .right {
     flex: 1;
     padding: 50px;
     display: flex;
@@ -66,26 +66,26 @@
   }
   
   /* .right h1 */
-  .login .card .right h1 {
+  .right h1 {
     color: #555;
   }
   
   /* .right form */
-  .login .card .right form {
+  .right form {
     display: flex;
     flex-direction: column;
     gap: 30px;
   }
   
   /* .right input */
-  .login .card .right input {
+.right input {
     border: none;
     border-bottom: 1px solid lightgray;
     padding: 20px 10px;
   }
   
   /* .right button */
-  .login .card .right button {
+ .right button {
     width: 50%;
     padding: 10px;
     border: none;
@@ -96,7 +96,7 @@
   }
   
   /* .logo */
-  .login .card img.logo {
+ img.logo {
     height: 70px;
   }
   

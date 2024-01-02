@@ -11,7 +11,7 @@ import Job from './Components/job/job';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App"  style={{ backgroundColor: '#ddccb03b'}}>
       <Router>
         <Routes>
           <Route path="/profile" element={<Profile />} />
