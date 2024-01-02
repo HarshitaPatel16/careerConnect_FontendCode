@@ -4,7 +4,11 @@ const initialState = {
   customerregstionData:null,
   createPost:null,
   createSkills:null,
+  createExperience:null,
+  readOneExperience:null,
   UpdateUser: null,
+  deleteExperience: null,
+  deleteSkills: null,
   readOneUser: null,
   readOneSkills: null,
   loading: false,
@@ -102,6 +106,30 @@ case "ADD_CREATESKILLS_REQUEST":
         error: action.payload,
       };
 
+      //experinces
+      // skils 
+
+case "ADD_CREATEEXPERIENCE_REQUEST":
+  return {
+    ...state,
+    loading: true,
+    error: null,
+  };
+case "ADD_CREATEEXPERIENCE_SUCCESS":
+  return {
+    ...state,
+    createExperience: action.payload,
+    loading: false,
+    error: null,
+  };
+case "ADD_CREATEEXPERIENCE_FAILURE":
+  return {
+    ...state,
+    loading: false,
+    error: action.payload,
+  };
+
+
           //customer registion start
     case "UPDATE_PROFILE_REQUEST":
       return {
@@ -162,6 +190,64 @@ case "ADD_CREATESKILLS_REQUEST":
           loading: false,
           error: action.payload,
         };
+        case "GET_EXPERIENCE_BY_ID_REQUEST":
+          return {
+            ...state,
+            loading: true,
+            error: null,
+          };
+        case "GET_EXPERIENCE_BY_ID_SUCCESS":
+          return {
+            ...state,
+            readOneExperience: action.payload,
+            loading: false,
+            error: null,
+          };
+        case "GET_EXPERIENCE_BY_ID_FAILURE":
+          return {
+            ...state,
+            loading: false,
+            error: action.payload,
+          };
+          case " DELETE_SKILLS_REQUEST":
+            return {
+              ...state,
+              loading: true,
+              error: null,
+            };
+          case "DELETE_SKILLS_SUCCESS":
+            return {
+              ...state,
+              deleteSkills: action.payload,
+              loading: false,
+              error: null,
+            };
+          case " DELETE_SKILLS_FAILURE":
+            return {
+              ...state,
+              loading: false,
+              error: action.payload,
+            };
+            case " DELETE_EXPERIENCE_REQUEST":
+              return {
+                ...state,
+                loading: true,
+                error: null,
+              };
+            case "DELETE_EXPERIENCE_SUCCESS":
+              return {
+                ...state,
+                deleteExperience: action.payload,
+                loading: false,
+                error: null,
+              };
+            case " DELETE_EXPERIENCE_FAILURE":
+              return {
+                ...state,
+                loading: false,
+                error: action.payload,
+              };
+    
 
    
 

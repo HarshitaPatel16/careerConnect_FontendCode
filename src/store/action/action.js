@@ -46,6 +46,27 @@ export const GET_SKILLS_BY_ID_REQUEST = "GET_SKILLS_BY_ID_REQUEST";
 export const GET_SKILLS_BY_ID_SUCCESS = "GET_SKILLS_BY_ID_SUCCESS";
 export const GET_SKILLS_BY_ID_FAILURE = "GET_SKILLS_BY_ID_FAILURE";
 
+//expircane add
+
+export const ADD_CREATEEXPERIENCE_REQUEST = "ADD_CREATEEXPERIENCE_REQUEST";
+export const ADD_CREATEEXPERIENCE_SUCCESS = "ADD_CREATEEXPERIENCE_SUCCESS";
+export const ADD_CREATEEXPERIENCE_FAILURE = "ADD_CREATEEXPERIENCE_FAILURE";
+
+//expircane get by id
+
+export const GET_EXPERIENCE_BY_ID_REQUEST = "GET_EXPERIENCE_BY_ID_REQUEST";
+export const GET_EXPERIENCE_BY_ID_SUCCESS = "GET_EXPERIENCE_BY_ID_SUCCESS";
+export const GET_EXPERIENCE_BY_ID_FAILURE = "GET_EXPERIENCE_BY_ID_FAILURE";
+
+
+export const DELETE_SKILLS_REQUEST = "DELETE_SKILLS_REQUEST";
+export const DELETE_SKILLS_SUCCESS = "DELETE_SKILLS_SUCCESS";
+export const DELETE_SKILLS_FAILURE = "DELETE_SKILLS_FAILURE";
+
+export const DELETE_EXPERIENCE_REQUEST = "DELETE_EXPERIENCE_REQUEST";
+export const DELETE_EXPERIENCE_SUCCESS = "DELETE_EXPERIENCE_SUCCESS";
+export const DELETE_EXPERIENCE_FAILURE = "DELETE_EXPERIENCE_FAILURE";
+
 
 //Login start //
 export const postCustomerLoginData = (API_URL, data) => {
@@ -106,9 +127,27 @@ export const addCreateSkills = (API_URL, data) => {
       .post(API_URL + "skills/createSkills", data)
       .then((response) => {
         dispatch({ type: ADD_CREATESKILLS_SUCCESS, payload: response.data });
+        return dispatch(getSkilsById(API_URL,data));
       })
       .catch((error) => {
         dispatch({ type: ADD_CREATESKILLS_FAILURE, payload: error.message });
+      });
+  };
+};
+//end//
+
+//skills CREATE API  start//
+export const addCreateExperience = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: ADD_CREATEEXPERIENCE_REQUEST });
+    axios
+      .post(API_URL + "experience/createExperience", data)
+      .then((response) => {
+        dispatch({ type: ADD_CREATEEXPERIENCE_SUCCESS, payload: response.data });
+        return dispatch(getExperienceById(API_URL,data));
+      })
+      .catch((error) => {
+        dispatch({ type: ADD_CREATEEXPERIENCE_FAILURE, payload: error.message });
       });
   };
 };
@@ -161,6 +200,59 @@ export const getSkilsById = (API_URL, data) => {
 
       .catch((error) => {
         dispatch({ type: GET_SKILLS_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
+//get by Experiance
+export const getExperienceById = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_EXPERIENCE_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "experience/readOneExperience", data)
+      .then((response) => {
+        dispatch({ type: GET_EXPERIENCE_BY_ID_SUCCESS, payload: response.data });
+        
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_EXPERIENCE_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
+//delete skils
+
+export const deleteSkills= (API_URL,data) => {
+  return (dispatch) => {
+    dispatch({ type: DELETE_SKILLS_REQUEST });
+    axios
+      .post(API_URL + "skills/deleteSkills",data)
+      .then((response) => {
+        dispatch({ type: DELETE_SKILLS_SUCCESS, payload: response.data });
+        return dispatch(getSkilsById(API_URL, data));
+      })
+
+      .catch((error) => {
+        dispatch({ type: DELETE_SKILLS_FAILURE, payload: error.message });
+      });
+  };
+};
+
+//delete skils
+
+export const deleteExperience= (API_URL,data) => {
+  return (dispatch) => {
+    dispatch({ type: DELETE_EXPERIENCE_REQUEST });
+    axios
+      .post(API_URL + "experience/deleteExperience",data)
+      .then((response) => {
+        dispatch({ type: DELETE_EXPERIENCE_SUCCESS, payload: response.data });
+        return dispatch(getExperienceById(API_URL, data));
+      })
+
+      .catch((error) => {
+        dispatch({ type: DELETE_EXPERIENCE_FAILURE, payload: error.message });
       });
   };
 };

@@ -29,14 +29,15 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import API_URL from "../../service";
-import { addCreateSkills, updateProfile } from "../../store/action/action";
-import { getProfileById, getSkilsById } from "../../store/action/action";
+import { addCreateSkills, updateProfile, addCreateExperience } from "../../store/action/action";
+import { getProfileById, getSkilsById, getExperienceById, deleteSkills, deleteExperience } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import { useNavigate } from "react-router-dom";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -79,7 +80,8 @@ function Profile() {
 
   const profileData = useSelector((state) => state.user.readOneUser);
   const skillsData = useSelector((state) => state.user.readOneSkills);
-
+  const experienceData = useSelector((state) =>state.user.readOneExperience);
+  console.log(experienceData, "experienceData");
 
   const [userName, setUserName] = useState(""); // Add state to store username
   const [profilePic, setProfileImage] = useState("");
@@ -92,6 +94,15 @@ function Profile() {
   const [resume, setResume] = useState("");
   const [about, setAbout] = useState("");
   const [skills, setSkills] = useState([]);
+  const [companyName, setcompanyName] = useState("");
+  const [profileHeading, setprofileHeading] = useState("");
+  const [startYear, setstartYear] = useState("");
+  const [endYear, setendYear] = useState("");
+  const [description, setdescription] = useState("");
+  const [employeType, setemployeType] = useState("");
+  const [location, setlocation] = useState("");
+  const [locationType, setlocationType] = useState("");
+  const [jobTitle, setjobTitle] = useState("");
 
   useEffect(() => {
     const data = {
@@ -107,6 +118,32 @@ function Profile() {
 
     dispatch(getSkilsById(API_URL, data));
   }, [dispatch]);
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+
+    dispatch(getExperienceById(API_URL, data));
+  }, [dispatch]);
+
+  
+  const handeldeleteSkills = () => {
+    const data = {
+      skills_id: localStorage.getItem("skills_id"),
+      user_id: localStorage.getItem("user_id"),
+    };
+    dispatch(deleteSkills(API_URL, data));
+  };
+
+  const handeldeleteExperience = () => {
+    const data = {
+      experience_id: localStorage.getItem("experience_id"),
+      user_id: localStorage.getItem("user_id"),
+    };
+    console.log(data, "--console.log(data);");
+    dispatch(deleteExperience(API_URL, data));
+  };
+
 
   const [isDialogOpen, setDialogOpen] = React.useState(false);
 
@@ -132,7 +169,6 @@ function Profile() {
     formData.append("profilePic", profilePic);
     formData.append("coverPic", coverPic);
     formData.append("address", address);
-    // formData.append("resume", resume);
     formData.append("about", about);
     if (resumePdf) {
       formData.append("resume", resumePdf);
@@ -162,19 +198,18 @@ function Profile() {
       }
     }
   }, [profileData]);
+  const [skillsId, setSkillsId] = useState(null);
 
   useEffect(() => {
-    // if (skillsData !== null && skillsData !== undefined) {
-    //   if (
-    //     skillsData.readOneSkills !== null &&
-    //     skillsData.readOneSkills !== undefined
-    //   ) {
-    //     const data = skillsData.readOneSkills;
-    //     setSkills(data.skils_name);
-    //   }
-    // }
     if (skillsData && Array.isArray(skillsData)) {
       setSkills(skillsData);
+      const firstSkill = skillsData[0];
+      if (firstSkill && firstSkill.skills_id) {
+        setSkillsId(firstSkill.skills_id);
+        localStorage.setItem('skills_id', firstSkill.skills_id);
+        localStorage.setItem('user_id', firstSkill.user_id);
+
+      }
     }
 
   }, [skillsData]);
@@ -189,6 +224,46 @@ function Profile() {
 
     dispatch(addCreateSkills(API_URL, formData));
   }
+
+  function handleAddExperience() {
+
+    const formData = new FormData();
+    formData.append("user_id", localStorage.getItem("user_id"));
+    formData.append("company", companyName);
+    formData.append("profile_heading", profileHeading);
+    formData.append("start_year", startYear);
+    formData.append("end_year", endYear);
+    formData.append("description", description);
+    formData.append("employe_type", employeType);
+    formData.append("location", location);
+    formData.append("location_type", locationType);
+    formData.append("job_title", jobTitle);
+    setShowAddExperience(false);
+    setExperiences('');
+    dispatch(addCreateExperience(API_URL, formData));
+  }
+
+  useEffect(() => {
+    if (experienceData !== null && experienceData !== undefined && experienceData.length > 0)  {
+       {
+        const data = experienceData[0];
+        
+        setcompanyName(data.companyName);
+        setprofileHeading(data.profileHeading);
+        setstartYear(data.startYear)
+        setendYear(data.endYear);
+        setdescription(data.description);
+        setemployeType(data.employeType);
+        setlocation(data.location);
+        setlocationType(data.locationType);
+        setjobTitle(data.jobTitle);
+        
+        localStorage.setItem('experience_id', data.experience_id);
+
+
+      }
+    }
+  }, [experienceData]);
 
   const handleResumeChange = (event) => {
     const file = event.target.files[0];
@@ -209,11 +284,9 @@ function Profile() {
   };
 
   const handleUploadResume = () => {
-    // Implement logic to upload the resume PDF
     if (resumePdf) {
       handleUpate(); 
       console.log('Resume uploaded:', resumePdf);
-      // You can send the resumePdf file to your server or perform other actions here
     } else {
       console.error('No resume file selected.');
     }
@@ -294,6 +367,7 @@ function Profile() {
   };
 
   const handleSaveImage = () => {
+
     setisProfileChangeDialogOpen(false);
   };
   const handleEditClick = () => {
@@ -451,13 +525,17 @@ function Profile() {
                       <div className="d-flex justify-content-between">
                         <span className="fs-3 text-dark">Skills</span>
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddSkillToggle} /></span>
-                      </div>
-                      {skills.map((skill) => (
-          <span key={skill.skills_id} className="skill-btn">
-            {skill.skils_name}
-          </span>
-        ))}
-                      {/* <span className="skill-btn ">html</span> */}
+                      </div >
+                      <div>
+                      {skills.map((skill, index) => (
+    <React.Fragment key={skill.skills_id}>
+ <div className="d-flex align-items-center">
+        <span>{skill.skils_name}</span>
+        <DeleteForeverOutlinedIcon onClick={handeldeleteSkills} style={{ marginRight: '10px' }} />
+      </div>      {index < skills.length - 1 && <hr />}
+    </React.Fragment>
+  ))}
+  </div>
                     </Typography>
 
                   </Card>
@@ -502,29 +580,45 @@ function Profile() {
                         />
                       </div>
                       <div className="ms-3">
-                        <h6 className="fw-bold mt-2 mb-0 d-flex">Data Engineer</h6>
-                        <p className="fw-normal text-secondary mb-0 d-flex">BytesFarms Technologies,</p>
-                        <p className="fw-normal text-secondary mb-0 d-flex">June 22, 2022 - July 23, 2023</p>
-                        <p className="fw-normal text-secondary mb-0 d-flex">Indore, M.P., India     <ul className="fw-normal text-secondary mb-0">On Site</ul></p>
+     
+                      
+                      {experienceData && experienceData.map((experience) => (
+      <div key={experience.experience_id} className="ms-3">
+
+        <h6 className="fw-bold mt-2 mb-0 d-flex">{experience.job_title}                <DeleteForeverOutlinedIcon onClick={handeldeleteExperience} style={{ marginRight: '10px' }} />
+</h6>
+        <p className="fw-normal text-secondary mb-0 d-flex">{experience.company},</p>
+        <p className="fw-normal text-secondary mb-0 d-flex">
+          {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
+        </p>
+        <p className="fw-normal text-secondary mb-0 d-flex">
+          {experience.location}, {experience.location_type === 1 ? (
+  <span>On Site</span>
+) : experience.location_type === 2 ? (
+  <span>Hybrid</span>
+) : experience.location_type === 3 ? (
+  <span>Remote</span>
+) : null}{' '}
+         
+
+          {experience.employe_type === 1 ? (
+  <span>Full Time</span>
+) : experience.employe_type === 2 ? (
+  <span>Self-Employeed</span>
+) : experience.employe_type === 3 ? (
+  <span>Freelance</span>
+) : experience.employe_type === 4 ? (
+  <span>Trainee</span>
+) : null}
+
+        </p>
+
+      </div>
+    ))}
                       </div>
                     </div>
-                    <hr />
-                    <div className="d-flex justify-content-start">
-                      <div className="">
-                        <img
-                          src="https://st2.depositphotos.com/1065578/7533/i/450/depositphotos_75333451-stock-photo-abstract-geometric-company-logo.jpg"
-                          alt="Profile"
-                          className="company-logo"
-                        />
-                      </div>
-                      <div className="ms-3">
-                        <h6 className="fw-bold mt-2 mb-0 d-flex">Data Engineer</h6>
-                        <p className="fw-normal text-secondary mb-0 d-flex">BytesFarms Technologies,</p>
-                        <p className="fw-normal text-secondary mb-0 d-flex">June 22, 2022 - July 23, 2023</p>
-                        <p className="fw-normal text-secondary mb-0 d-flex">Indore, M.P., India     <ul className="fw-normal text-secondary mb-0">On Site</ul></p>
-                      </div>
-                    </div>
-                    <hr />
+                    
+                    
 
                   </Card>
                   {/* Add experiences card start */}
@@ -534,7 +628,7 @@ function Profile() {
                       <div className="justify-content-left d-flex">
                         <span className="fs-3 text-dark">Add Experience</span>
                         <div className="ms-auto">
-                          <button type="button" className="btn btn-primary">
+                          <button type="button" className="btn btn-primary" onClick={handleAddExperience}>
                             Save
                           </button>
                         </div>
@@ -550,6 +644,8 @@ function Profile() {
                               type="text"
                               className="form-control border "
                               placeholder="Ex: Full Stack Developer"
+                              value={jobTitle}
+                              onChange={(e) => setjobTitle(e.target.value)}
                             />
                           </div>
 
@@ -559,6 +655,8 @@ function Profile() {
                               type="text"
                               className="form-control border "
                               placeholder="It will appear below your profile"
+                              value={profileHeading}
+                              onChange={(e) => setprofileHeading(e.target.value)}
                             />
                           </div>
 
@@ -568,13 +666,15 @@ function Profile() {
                               type="text"
                               className="form-select border"
                               placeholder="Title"
+                              value={employeType}
+                              onChange={(e) => setemployeType(e.target.value)}
                             >
-                              <option disabled>Please Select</option>
-                              <option>Full Time</option>
-                              <option>Self-Employeed</option>
-                              <option>Freelance</option>
-                              <option>Internship</option>
-                              <option>Trainee</option>
+                              <option >Please Select</option>
+                              <option value={1}>Full Time</option>
+                              <option value={2}>Self-Employeed</option>
+                              <option value={3}>Freelance</option>
+                              <option value={4}>Internship</option>
+                              <option value={5}>Trainee</option>
                             </select>
                           </div>
                         </div>
@@ -585,30 +685,36 @@ function Profile() {
                               type="text"
                               className="form-control border"
                               placeholder="Ex: BytesFarms Technologies"
+                              value={companyName}
+                              onChange={(e) => setcompanyName(e.target.value)}
                             />
                           </div>
 
                           <div className="col-md-4 mt-3">
-                            <label className="d-flex justify-content-left ">Location*</label>
+                            <label className="d-flex justify-content-left ">Location Type*</label>
                             <select
                               type="text"
                               className="form-select border"
                               placeholder="Title"
+                              value={locationType}
+                              onChange={(e) => setlocationType(e.target.value)}
                             >
-                              <option disabled>Please Select</option>
-                              <option>On-Site</option>
-                              <option>Hybrid</option>
-                              <option>Remote</option>
+                              <option >Please Select</option>
+                              <option value={1}>On-Site</option>
+                              <option value={2}>Hybrid</option>
+                              <option value={3}>Remote</option>
                             </select>
                           </div>
 
                           <div className="col-md-4 mt-3">
-                            <label className="d-flex justify-content-left ">Location Type*</label>
+                            <label className="d-flex justify-content-left ">Location*</label>
 
                             <input
                               type="text"
                               className="form-control border "
-                              placeholder="Location Type"
+                              placeholder="Location"
+                              value={location}
+                              onChange={(e) => setlocation(e.target.value)}
                             />
                           </div>
                         </div>
@@ -619,6 +725,8 @@ function Profile() {
                               type="date"
                               className="form-control border"
                               placeholder="Start Date"
+                              value={startYear}
+                              onChange={(e) => setstartYear(e.target.value)}
                             />
                           </div>
 
@@ -628,9 +736,11 @@ function Profile() {
                               type="Date"
                               className="form-control border"
                               placeholder="End Date"
+                              value={endYear}
+                              onChange={(e) => setendYear(e.target.value)}
                             />
                           </div>
-
+{/* 
                           <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Industry*</label>
                             <input
@@ -638,11 +748,14 @@ function Profile() {
                               className="form-control border "
                               placeholder="Industry"
                             />
-                          </div>
+                          </div> */}
 
                           <div className="col-md-12 mt-3">
                             <label className="d-flex justify-content-left ">Description*</label>
-                            <textarea className="col-md-12 mt-3 py-1 " rows={5}></textarea>
+                            <textarea className="col-md-12 mt-3 py-1 " rows={5}
+                            value={description}
+                            onChange={(e) => setdescription(e.target.value)}
+                            ></textarea>
                           </div>
 
 
@@ -684,6 +797,15 @@ function Profile() {
                         ref={fileInputRef}
                       />
                       <div>
+                        <div>
+                        <iframe title="Resume PDF"  src={
+    IMAGE_PATH +
+    "user/" +
+    (profileData ? profileData.resume : "")
+  } width="100%" height="600px"></iframe>
+
+                       
+                        </div>
                         <button className="btn btn-primary mx-2" onClick={handleChoosePdf}>
                           <FileUploadIcon /> Choose PDF
                         </button>
