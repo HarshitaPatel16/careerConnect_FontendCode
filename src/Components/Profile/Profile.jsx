@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import SidebarRight from "../SidebarRight/SidebarRight";
+import Avatar from '@mui/material/Avatar';
 import "./Profile.css"
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -80,7 +81,7 @@ function Profile() {
 
   const profileData = useSelector((state) => state.user.readOneUser);
   const skillsData = useSelector((state) => state.user.readOneSkills);
-  const experienceData = useSelector((state) =>state.user.readOneExperience);
+  const experienceData = useSelector((state) => state.user.readOneExperience);
   console.log(experienceData, "experienceData");
 
   const [userName, setUserName] = useState(""); // Add state to store username
@@ -126,7 +127,7 @@ function Profile() {
     dispatch(getExperienceById(API_URL, data));
   }, [dispatch]);
 
-  
+
   const handeldeleteSkills = () => {
     const data = {
       skills_id: localStorage.getItem("skills_id"),
@@ -244,10 +245,10 @@ function Profile() {
   }
 
   useEffect(() => {
-    if (experienceData !== null && experienceData !== undefined && experienceData.length > 0)  {
-       {
+    if (experienceData !== null && experienceData !== undefined && experienceData.length > 0) {
+      {
         const data = experienceData[0];
-        
+
         setcompanyName(data.companyName);
         setprofileHeading(data.profileHeading);
         setstartYear(data.startYear)
@@ -257,7 +258,7 @@ function Profile() {
         setlocation(data.location);
         setlocationType(data.locationType);
         setjobTitle(data.jobTitle);
-        
+
         localStorage.setItem('experience_id', data.experience_id);
 
 
@@ -285,7 +286,7 @@ function Profile() {
 
   const handleUploadResume = () => {
     if (resumePdf) {
-      handleUpate(); 
+      handleUpate();
       console.log('Resume uploaded:', resumePdf);
     } else {
       console.error('No resume file selected.');
@@ -294,7 +295,7 @@ function Profile() {
   const handleDeleteResume = () => {
     setResumePdf(null);
     setShowUploadButton(false);
-    handleUpate(); 
+    handleUpate();
   };
 
   const startCamera = async () => {
@@ -527,15 +528,17 @@ function Profile() {
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddSkillToggle} /></span>
                       </div >
                       <div>
-                      {skills.map((skill, index) => (
-    <React.Fragment key={skill.skills_id}>
- <div className="d-flex align-items-center">
-        <span>{skill.skils_name}</span>
-        <DeleteForeverOutlinedIcon onClick={handeldeleteSkills} style={{ marginRight: '10px' }} />
-      </div>      {index < skills.length - 1 && <hr />}
-    </React.Fragment>
-  ))}
-  </div>
+                        {skills.map((skill, index) => (
+                          <React.Fragment key={skill.skills_id}>
+                            <div className="d-flex align-items-center justify-content-between">
+                              <span style={{ marginRight: '10px' }}>{skill.skils_name}</span>
+                              <DeleteForeverOutlinedIcon onClick={() => handeldeleteSkills(skill.skills_id)} />
+                            </div>
+                            {index < skills.length - 1 && <hr />}
+                          </React.Fragment>
+                        ))}
+                      </div>
+
                     </Typography>
 
                   </Card>
@@ -567,58 +570,57 @@ function Profile() {
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
                         <span className="fs-3 text-dark">Experience</span>
-                        <span className="ms-auto fs-2"><AddIcon onClick={handleAddExperienceToggle} /></span>
+                        <span className="ms-auto fs-2">
+                          <AddIcon onClick={handleAddExperienceToggle} />
+                        </span>
                       </div>
-
                     </Typography>
                     <div className="d-flex justify-content-start">
-                      <div className="">
-                        <img
-                          src="https://st2.depositphotos.com/1065578/7533/i/450/depositphotos_75333451-stock-photo-abstract-geometric-company-logo.jpg"
-                          alt="Profile"
-                          className="company-logo"
-                        />
-                      </div>
                       <div className="ms-3">
-     
-                      
-                      {experienceData && experienceData.map((experience) => (
-      <div key={experience.experience_id} className="ms-3">
+                        {experienceData &&
+                          experienceData.map((experience) => (
+                            <div key={experience.experience_id} className="d-flex align-items-center ms-3">
+                              {/* Map the Avatar for each experience */}
+                              <Avatar>{experience.company.charAt(0).toUpperCase()}</Avatar>
+                              <div className="ms-3 ">
+                                <h6 className="fw-bold mt-2 mb-0 d-flex">
+                                  {experience.job_title}{' '}
+                                  <DeleteForeverOutlinedIcon
+                                    onClick={() => handeldeleteExperience(experience.experience_id)}
+                                    style={{ marginRight: '10px' }}
+                                  />
+                                </h6>
+                                <p className="fw-normal text-secondary mb-0 d-flex">{experience.company},</p>
+                                <p className="fw-normal text-secondary mb-0 d-flex">
+                                  {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
+                                </p>
+                                <p className="fw-normal text-secondary mb-0 d-flex">
+                                  {experience.location}, {experience.location_type === 1 ? (
+                                    <span>On Site</span>
+                                  ) : experience.location_type === 2 ? (
+                                    <span>Hybrid</span>
+                                  ) : experience.location_type === 3 ? (
+                                    <span>Remote</span>
+                                  ) : null}{' '}
 
-        <h6 className="fw-bold mt-2 mb-0 d-flex">{experience.job_title}                <DeleteForeverOutlinedIcon onClick={handeldeleteExperience} style={{ marginRight: '10px' }} />
-</h6>
-        <p className="fw-normal text-secondary mb-0 d-flex">{experience.company},</p>
-        <p className="fw-normal text-secondary mb-0 d-flex">
-          {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
-        </p>
-        <p className="fw-normal text-secondary mb-0 d-flex">
-          {experience.location}, {experience.location_type === 1 ? (
-  <span>On Site</span>
-) : experience.location_type === 2 ? (
-  <span>Hybrid</span>
-) : experience.location_type === 3 ? (
-  <span>Remote</span>
-) : null}{' '}
-         
 
-          {experience.employe_type === 1 ? (
-  <span>Full Time</span>
-) : experience.employe_type === 2 ? (
-  <span>Self-Employeed</span>
-) : experience.employe_type === 3 ? (
-  <span>Freelance</span>
-) : experience.employe_type === 4 ? (
-  <span>Trainee</span>
-) : null}
+                                  {experience.employe_type === 1 ? (
+                                    <span>Full Time</span>
+                                  ) : experience.employe_type === 2 ? (
+                                    <span>Self-Employeed</span>
+                                  ) : experience.employe_type === 3 ? (
+                                    <span>Freelance</span>
+                                  ) : experience.employe_type === 4 ? (
+                                    <span>Trainee</span>
+                                  ) : null}
 
-        </p>
-
-      </div>
-    ))}
+                                </p>
+                              </div>
+                            </div>
+                          
+                          ))}
                       </div>
                     </div>
-                    
-                    
 
                   </Card>
                   {/* Add experiences card start */}
@@ -740,7 +742,7 @@ function Profile() {
                               onChange={(e) => setendYear(e.target.value)}
                             />
                           </div>
-{/* 
+                          {/* 
                           <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Industry*</label>
                             <input
@@ -753,8 +755,8 @@ function Profile() {
                           <div className="col-md-12 mt-3">
                             <label className="d-flex justify-content-left ">Description*</label>
                             <textarea className="col-md-12 mt-3 py-1 " rows={5}
-                            value={description}
-                            onChange={(e) => setdescription(e.target.value)}
+                              value={description}
+                              onChange={(e) => setdescription(e.target.value)}
                             ></textarea>
                           </div>
 
@@ -798,13 +800,21 @@ function Profile() {
                       />
                       <div>
                         <div>
-                        <iframe title="Resume PDF"  src={
-    IMAGE_PATH +
-    "user/" +
-    (profileData ? profileData.resume : "")
-  } width="100%" height="600px"></iframe>
+                          {/* <iframe title="Resume PDF" src={
+                            IMAGE_PATH +
+                            "user/" +
+                            (profileData ? profileData.resume : "")
+                          } width="100%" height="600px">
+                            
+                          </iframe> */}
+                          <iframe
+                            title="Resume PDF"
+                            src={`${IMAGE_PATH}user/${profileData ? profileData.resume : ""}#toolbar=0`}
+                            width="100%"
+                            height="600px"
+                          ></iframe>
 
-                       
+
                         </div>
                         <button className="btn btn-primary mx-2" onClick={handleChoosePdf}>
                           <FileUploadIcon /> Choose PDF
@@ -861,7 +871,7 @@ function Profile() {
           <DialogContent>
 
             <div className="modal-body row pt-0 grid gap-0 ">
-            <div className="col-md-6">
+              <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">First Name <span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
 
@@ -874,9 +884,9 @@ function Profile() {
 
                   <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={lastName} />
                 </div>
-                </div> 
-            
-                <div className="col-md-6">
+              </div>
+
+              <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
 
@@ -889,9 +899,9 @@ function Profile() {
 
                   <input className="form-control" placeholder="Enter Address" aria-describedby="basic-addon2" required name="amountChangeNote" value={address} />
                 </div>
-                </div>
-                </div>
-           
+              </div>
+            </div>
+
 
           </DialogContent>
           <DialogActions className="d-flex justify-content-center">
