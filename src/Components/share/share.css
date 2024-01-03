@@ -1,0 +1,77 @@
+
+.share {
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  color: themed("textColor");
+  margin-bottom: 20px;
+}
+
+.share .container {
+  padding: 20px;
+  background: white;
+  border-radius: 8px
+
+}
+
+.share .container .top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.share .container .top img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.share .container .top input {
+  border: none;
+  outline: none;
+  padding: 20px 10px;
+  background-color: transparent;
+  width: 60%;
+}
+
+.share .container hr {
+  margin: 20px 0px;
+  border: none;
+  height: 0.5px;
+}
+
+.share .container .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.share .container .bottom .left1 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.share .container .bottom .left1 .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.share .container .bottom .left1 .item img {
+  height: 20px;
+}
+
+.share .container .bottom .left1 .item span {
+  font-size: 12px;
+  color: gray;
+}
+
+.share .container .bottom .right1 button {
+  border: none;
+  color: white;
+  cursor: pointer;
+}

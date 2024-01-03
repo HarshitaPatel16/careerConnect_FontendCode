@@ -29,6 +29,10 @@ const Navbar = ({ userData }) =>{
     // Navigate to the home page
     navigate('/');
   };
+  const handleJobClick = () => {
+    // Navigate to the home page
+    navigate('/job');
+  };
   const profileData = useSelector((state) => state.user.readOneUser);
 
   const [username, setUsername] = useState(""); // Add state to store username
@@ -92,7 +96,7 @@ const Navbar = ({ userData }) =>{
             </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="#" onClick={handleJobClick}>
               <BusinessOutlinedIcon style={{ marginRight: '28px' }}/>
               </a>
             </li>

@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react';
 import IMAGE_PATH from "../../imageService";
 import avatar from '../../assets/avatar5.png';
 import background from '../../assets/dnAJUB.webp';
-
+import Share from "../share/share";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -90,13 +90,13 @@ const Home = () => {
   component="img"
   alt="Cover Image"
   // image={IMAGE_PATH + "user/" + (profileData ? profileData.coverPic : "")}
-  src={
+  // src={
            
-    (profileData?.profilePic
-      ? IMAGE_PATH + "user/" + profileData.coverPic
-      : background)
-  }
-
+  //   (profileData?.profilePic
+  //     ? IMAGE_PATH + "user/" + profileData.coverPic
+  //     : background)
+  // }
+src={background}
   className="cover-img1"
 />
 <div className="profile1">
@@ -154,44 +154,8 @@ src={
         </Grid>
         {/* myprofile card end */}
         <Grid item xs={12} md={12} lg={6}>
-          <Item style={{ marginBottom: '20px' }}>
-          <div className="row">
-        <div className="profile2 col-md-2 m-0 p-0">
-          <img
-          // src={
-          //   IMAGE_PATH +
-          //   "user/" +
-          //   (profileData ? profileData.profilePic : avatar)
-          // }
-          src={
-           
-            (profileData?.profilePic
-              ? IMAGE_PATH + "user/" + profileData.profilePic
-              : avatar)
-          }
-            alt="Profile"
-            className="profile-photo2"
-          />
-        </div>
-        <div className="input-container col-md-8 p-1">
-          <input type="text" placeholder="Enter something" className="form-control" />
-        </div>
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-around' }}>
-
-    <div>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-        Image
-      </Typography>
-    </div>
-
-    <div>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-        Video
-      </Typography>
-    </div>
-  </CardContent>
-      </div>
-          </Item>
+         
+          <Share />
           <Item>
           <div className="row">
           <div className='d-flex'>

@@ -144,24 +144,39 @@ function Profile() {
     console.log(data, "--console.log(data);");
     dispatch(deleteExperience(API_URL, data));
   };
+  const [id, setId] = useState(null);
+  const [idedit, setIdedit] = useState(null);
 
 
   const [isDialogOpen, setDialogOpen] = React.useState(false);
 
   // Function to open the dialog
-  const handleOpenDialog = () => {
+  const handleOpenDialog = (item) => {
     setDialogOpen(true);
+    setUserName(profileData?.username || '');
+    setFirstName(profileData?.first_name || '');
+    setLastName(profileData?.last_name || '');
+    setMobile(profileData?.mobile || '');
+    setAddress(profileData?.address || '');
+    setEmail(profileData?.email || '');
+
   };
 
+ 
   // Function to close the dialog
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
 
+  
+
   function handleUpate() {
 
     const formData = new FormData();
+    console.log("FormData values before appending:", formData);
+
     formData.append("user_id", localStorage.getItem("user_id"));
+    console.log("user_id:", userId);
     formData.append("username", userName);
     formData.append("email", email);
     formData.append("first_name", firstName);
@@ -177,8 +192,25 @@ function Profile() {
     if (resumePdf) {
       formData.append("resume", resumePdf);
     }
+    console.log("FormData values after appending:", formData);
 
-    dispatch(updateProfile(API_URL, formData));
+    if (
+      firstName ||
+      lastName ||
+      email ||
+      mobile ||
+      coverPic ||
+      address ||
+      about ||
+      profilePic ||
+      resumePdf
+    ) {
+      dispatch(updateProfile(API_URL, formData));
+    } else {
+      console.log("No fields are being updated");
+    }
+    // dispatch(updateProfile(API_URL, formData));
+   
   }
 
   useEffect(() => {
@@ -188,6 +220,8 @@ function Profile() {
         profileData.readOneUser !== undefined
       ) {
         const data = profileData.readOneUser;
+        console.log('Profile data:', data); // Check if this log shows the expected data
+
         setUserName(data.userName);
         setProfilePic(data.profilePic);
         setCoverImage(data.coverPic)
@@ -198,7 +232,12 @@ function Profile() {
         setAddress(data.address);
         setResume(data.resume);
         setAbout(data.about);
-
+        console.log('After setting state:', {
+          userName: data.userName,
+          mobile: data.mobile,
+          address: data.address,
+          // Add other fields as needed
+        });
       }
     }
   }, [profileData]);
@@ -510,10 +549,11 @@ function Profile() {
 
               </div>
               <CardContent>
-                <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
+                <Typography variant="subtitle1" component="div" className="d-flex align-items-center justify-content-between">
                   <span className="fw-bold username "> {profileData && profileData.username ? profileData.username : ""}</span>
+                  
                   <EditOutlinedIcon onClick={handleOpenDialog} />
-                  {/* <button type="button" className="btn btn-se">Edit</button> */}
+                
                 </Typography>
                 <Typography className="d-flex justify-align-left userinfo" variant="subtitle1" component="div">
                   Designation
@@ -890,14 +930,33 @@ function Profile() {
                 <label for="exampleFormControlInput1" className="form-label">First Name <span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
 
-                  <input type='number' className="form-control" placeholder="Enter First Name" aria-describedby="basic-addon2" required name="amount" value={firstName} />
+                  <input className="form-control" placeholder="Enter First Name" aria-describedby="basic-addon2" required name="amount" value={firstName}                      
+                   onChange={(e) => setFirstName(e.target.value)}
+/>
                 </div>
               </div>
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Last Name<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
 
-                  <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={lastName} />
+                  <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">User Name<span className='text-danger'></span></label>
+                <div className="input-group col-md-12 px-0 ">
+
+                  <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={userName}
+                  onChange={(e) => setUserName(e.target.value)}  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">Email<span className='text-danger'></span></label>
+                <div className="input-group col-md-12 px-0 ">
+
+                  <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={email}
+                  onChange={(e) => setEmail(e.target.value)}  />
                 </div>
               </div>
 
@@ -905,14 +964,16 @@ function Profile() {
                 <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
 
-                  <input type='number' className="form-control" placeholder="Enter Contact Number" aria-describedby="basic-addon2" required name="amount" value={mobile} />
+                  <input type='number' className="form-control" placeholder="Enter Contact Number" aria-describedby="basic-addon2" required name="amount" value={mobile} 
+                  onChange={(e) => setMobile(e.target.value)}/>
                 </div>
               </div>
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Address<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
 
-                  <input className="form-control" placeholder="Enter Address" aria-describedby="basic-addon2" required name="amountChangeNote" value={address} />
+                  <input className="form-control" placeholder="Enter Address" aria-describedby="basic-addon2" required name="amountChangeNote" value={address} 
+                  onChange={(e) => setAddress(e.target.value)}/>
                 </div>
               </div>
             </div>
@@ -921,7 +982,7 @@ function Profile() {
           </DialogContent>
           <DialogActions className="d-flex justify-content-center">
             <button className="btn btn-primary" onClick={handleCloseDialog}>Cancel</button>
-            <button className="btn btn-primary" onClick={handleCloseDialog}>Save </button>
+            <button className="btn btn-primary" onClick={handleUpate}>Save </button>
           </DialogActions>
         </Dialog>
         {/* profile edit diagol box code end*/}

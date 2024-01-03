@@ -8,6 +8,7 @@ import Registion from './Components/register/Register';
 import Navbar from "./Components/navbar/Navbar";
 import Home from "./Components/Home/home";
 import Job from './Components/job/job';
+import Share from './Components/share/share';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/" element={<Home />} />
           <Route path="/job" element={<Job />} />
+          <Route path="/share" element={<Share />} />
+
         </Routes>
       </Router>
     </div>
