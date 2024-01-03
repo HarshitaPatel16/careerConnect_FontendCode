@@ -15,6 +15,8 @@ import API_URL from "../../service";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import IMAGE_PATH from "../../imageService";
+import avatar from '../../assets/avatar5.png';
+import background from '../../assets/dnAJUB.webp';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -69,7 +71,8 @@ const Home = () => {
 
   
 
-   
+  console.log("Image path:", IMAGE_PATH + "user/" + (profileData ? profileData.profilePic : avatar));
+
 
   return (
    
@@ -86,15 +89,28 @@ const Home = () => {
         <CardMedia
   component="img"
   alt="Cover Image"
-  image={IMAGE_PATH + "user/" + (profileData ? profileData.coverPic : "")}
+  // image={IMAGE_PATH + "user/" + (profileData ? profileData.coverPic : "")}
+  src={
+           
+    (profileData?.profilePic
+      ? IMAGE_PATH + "user/" + profileData.coverPic
+      : background)
+  }
+
   className="cover-img1"
 />
 <div className="profile1">
   <img
- src={
-  IMAGE_PATH +
-  "user/" +
-  (profileData ? profileData.profilePic : "")
+//  src={
+//   IMAGE_PATH +
+//   "user/" +
+//   (profileData ? profileData.profilePic : "")
+// }
+src={
+           
+  (profileData?.profilePic
+    ? IMAGE_PATH + "user/" + profileData.profilePic
+    : avatar)
 }
     alt="Profile"
     className="profile-photo1"
@@ -142,10 +158,16 @@ const Home = () => {
           <div className="row">
         <div className="profile2 col-md-2 m-0 p-0">
           <img
+          // src={
+          //   IMAGE_PATH +
+          //   "user/" +
+          //   (profileData ? profileData.profilePic : avatar)
+          // }
           src={
-            IMAGE_PATH +
-            "user/" +
-            (profileData ? profileData.profilePic : "")
+           
+            (profileData?.profilePic
+              ? IMAGE_PATH + "user/" + profileData.profilePic
+              : avatar)
           }
             alt="Profile"
             className="profile-photo2"

@@ -18,6 +18,7 @@ import { getProfileById } from "../../store/action/action";
 import API_URL from "../../service";
 import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
+import avatar from '../../assets/avatar5.png';
 
 const Navbar = ({ userData }) =>{
   const navigate = useNavigate();
@@ -115,10 +116,16 @@ const Navbar = ({ userData }) =>{
            
           <div className="user">
        <img
-   src={
-    IMAGE_PATH +
-    "user/" +
-    (profileData ? profileData.profilePic : "")
+  //  src={
+  //   IMAGE_PATH +
+  //   "user/" +
+  //   (profileData ? profileData.profilePic : "")
+  // }
+  src={
+           
+    (profileData?.profilePic
+      ? IMAGE_PATH + "user/" + profileData.profilePic
+      : avatar)
   }
    alt="sunil"
    className="chat_profile"

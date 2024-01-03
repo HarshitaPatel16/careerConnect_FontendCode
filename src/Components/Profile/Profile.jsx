@@ -39,7 +39,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import { useNavigate } from "react-router-dom";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-
+import avatar from '../../assets/avatar5.png';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -68,7 +68,7 @@ function Profile() {
   const [isCoverEditable, setisCoverEditable] = useState(false);
   const [selectedCoverImage, setselectedCoverImage] = useState(null);
   const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('https://pics.craiyon.com/2023-05-30/eaab7f873e324b3e8f41f5aba2c2aeb2.webp');
+  const [selectedImage, setSelectedImage] = useState('');
   const videoRef = useRef(null);
   const [profileImg, setProfileImg] = useState([]);
   const [files, setFiles] = useState([]);
@@ -85,7 +85,7 @@ function Profile() {
   console.log(experienceData, "experienceData");
 
   const [userName, setUserName] = useState(""); // Add state to store username
-  const [profilePic, setProfileImage] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -167,10 +167,13 @@ function Profile() {
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
     formData.append("mobile", mobile);
-    formData.append("profilePic", profilePic);
+    // formData.append("profilePic", profilePic);
     formData.append("coverPic", coverPic);
     formData.append("address", address);
     formData.append("about", about);
+    if (profilePic) {
+      formData.append("profilePic", profilePic);
+    }
     if (resumePdf) {
       formData.append("resume", resumePdf);
     }
@@ -186,7 +189,7 @@ function Profile() {
       ) {
         const data = profileData.readOneUser;
         setUserName(data.userName);
-        setProfileImage(data.profilePic);
+        setProfilePic(data.profilePic);
         setCoverImage(data.coverPic)
         setFirstName(data.firstName);
         setLastName(data.lastName);
@@ -362,13 +365,19 @@ function Profile() {
   const handleProfileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
+      setProfilePic(file);
+            const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
     }
   };
 
   const handleSaveImage = () => {
-
+    if (profilePic) {
+      handleUpate(); 
+      console.log('profilePic uploaded:', profilePic);
+    } else {
+      console.error('No profilePic file selected.');
+    }    
     setisProfileChangeDialogOpen(false);
   };
   const handleEditClick = () => {
@@ -449,7 +458,13 @@ function Profile() {
 
               <div className="profile">
                 <img
-                  src={selectedImage}
+                
+                src={
+                  selectedImage ||
+                  (profileData?.profilePic
+                    ? IMAGE_PATH + "user/" + profileData.profilePic
+                    : avatar)
+                }
                   alt="Profile"
                   className="profile-photo"
                   onClick={handleProfileImageClick}
