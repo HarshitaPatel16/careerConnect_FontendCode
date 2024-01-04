@@ -602,7 +602,7 @@ function ConnectionDetail() {
                                     </Card>
                                 </TabPanel>
                                 <TabPanel value="3">
-                                    {!profileData.resume ? (
+                                    {/* {Resume ? ( */}
                                         <div>
                                             <img
                                                 src= {resumeImg}
@@ -611,7 +611,7 @@ function ConnectionDetail() {
 
                                             />
                                         </div>
-                                    ) : (
+                                    {/* ) : ( */}
                                         <div>
                                             <input
                                                 type="file"
@@ -637,7 +637,7 @@ function ConnectionDetail() {
                                             </div>
 
                                         </div>
-                                    )}
+                                    {/* )} */}
                                 </TabPanel>
                                 <TabPanel value="4">
                                 </TabPanel>
