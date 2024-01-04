@@ -67,8 +67,7 @@ function Education() {
                         <React.Fragment >
                             <div className="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <span style={{ marginRight: '10px' }}>Graduate</span>
-                                    <span style={{ marginRight: '10px' }}>Graduate</span>
+                                <p className="fw-normal text-secondary mb-0 d-flex"> </p>
                                 </div>
                                 <DeleteForeverOutlinedIcon />
                             </div>

@@ -10,6 +10,7 @@ import Home from "./Components/Home/home";
 import Job from './Components/job/job';
 import Share from './Components/share/share';
 import Forgot from './Components/forgetpassword/forgetPassword';
+import ConnectionDetail from './Components/ConNectionDetail/connection';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -29,7 +30,7 @@ function App() {
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       {/* Toggle button to switch between dark and light modes */}
-      <button onClick={toggleTheme}>Toggle Theme</button>
+      {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
 
       <Router>
         <Routes>
@@ -42,6 +43,7 @@ function App() {
           <Route path="/job" element={<Job />} />
           <Route path="/share" element={<Share />} />
           <Route path="/forgot" element={<Forgot />} />
+          <Route path="/detail" element={<ConnectionDetail />} />
         </Routes>
       </Router>
     </div>

@@ -58,7 +58,7 @@ const Register = () => {
 
               </Typography>
               <div className="left h-100">
-                <img src={logo} alt="" style={{height:"100%"}} />
+                <img src={logo} alt="" className="h-100" />
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
                   alias totam numquam ipsa exercitationem dignissimos, error nam,
