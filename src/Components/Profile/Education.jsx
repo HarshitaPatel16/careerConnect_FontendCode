@@ -1,0 +1,184 @@
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+
+
+
+function Education() {
+    
+
+    const [showAddEducation, setshowAddEducation] = useState(false);
+    const [value, setValue] = React.useState('1');
+    const [showAddSkill, setShowAddSkill] = useState(false);
+    const [showAddExperience, setShowAddExperience] = useState(false);
+    const [skill, setSkill] = useState("")
+    const [userId, setUserId] = useState("")
+    const [experiences, setExperiences] = useState("");
+
+    const [isCoverEditable, setisCoverEditable] = useState(false);
+    const [selectedCoverImage, setselectedCoverImage] = useState(null);
+    const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
+    const [profileImg, setProfileImg] = useState([]);
+    const [files, setFiles] = useState([]);
+    console.log("files", files)
+    const [isCameraStarted, setCameraStarted] = useState(false);
+    const [resumePdf, setResumePdf] = useState(null);
+    const [showUploadButton, setShowUploadButton] = useState(false);
+  
+  
+    const [userName, setUserName] = useState(""); // Add state to store username
+    const [profilePic, setProfilePic] = useState("");
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [coverPic, setCoverImage] = useState("");
+    const [address, setAddress] = useState("");
+    const [resume, setResume] = useState("");
+    const [about, setAbout] = useState("");
+    const [skills, setSkills] = useState([]);
+    const [companyName, setcompanyName] = useState("");
+    const [profileHeading, setprofileHeading] = useState("");
+    const [startYear, setstartYear] = useState("");
+    const [endYear, setendYear] = useState("");
+    const [description, setdescription] = useState("");
+    const [employeType, setemployeType] = useState("");
+    const [location, setlocation] = useState("");
+    const [locationType, setlocationType] = useState("");
+    const [jobTitle, setjobTitle] = useState("");
+
+    const handleAddEducationToggle = () => {
+        setshowAddEducation(!showAddEducation);
+    };
+
+    return (
+        <>
+            <Card className="p-4">
+                <Typography variant="subtitle1" component="div">
+                    <div className="d-flex justify-content-between">
+                        <span className="fs-3 text-dark">Education</span>
+                        <span className="ms-auto fs-2"><AddIcon onClick={handleAddEducationToggle} /></span>
+                    </div >
+                    <div>
+
+                        <React.Fragment >
+                            <div className="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <span style={{ marginRight: '10px' }}>Graduate</span>
+                                    <span style={{ marginRight: '10px' }}>Graduate</span>
+                                </div>
+                                <DeleteForeverOutlinedIcon />
+                            </div>
+                            <hr />
+                        </React.Fragment>
+
+                    </div>
+
+                </Typography>
+
+            </Card>
+            {showAddEducation && (
+                    <Card className="p-4 mt-2">
+
+                      <div className="justify-content-left d-flex">
+                        <span className="fs-3 text-dark">Add Education</span>
+                        <div className="ms-auto">
+                          <button type="button" className="btn btn-primary" >
+                            Save
+                          </button>
+                        </div>
+                      </div>
+
+
+                      <div className="box">
+
+                        <div className="row   col">
+                          <div className="col-md-4 mt-3">
+                            <label className="d-flex justify-content-left ">School*</label>
+                            <input
+                              type="text"
+                              className="form-control border "
+                              placeholder="Ex:Boston University"
+                              value={jobTitle}
+                              onChange={(e) => setjobTitle(e.target.value)}
+                            />
+                          </div>
+
+                          <div className="col-md-4 mt-3">
+                            <label className="d-flex justify-content-left ">Degree*</label>
+                            <input
+                              type="text"
+                              className="form-control border "
+                              placeholder="Ex. B.Tech"
+                              value={profileHeading}
+                              onChange={(e) => setprofileHeading(e.target.value)}
+                            />
+                          </div>
+
+                          <div className="col-md-4 mt-3">
+                            <label className="d-flex justify-content-left ">Field of Study*</label>
+                            <input
+                              type="text"
+                              className="form-control border"
+                              placeholder="Ex : IT"
+                              value={employeType}
+                              onChange={(e) => setemployeType(e.target.value)}
+                            />
+                            
+                          </div>
+                        </div>
+                        <div className="row d-flex justify-content-left   col">
+                          <div className="col-md-4 mt-3">
+                            <label className="d-flex justify-content-left ">Start Date*</label>
+                            <input
+                              type="date"
+                              className="form-control border"
+                              placeholder="Start Date"
+                              value={startYear}
+                              onChange={(e) => setstartYear(e.target.value)}
+                            />
+                          </div>
+
+                          <div className="col-md-4 mt-3">
+                            <label className="d-flex justify-content-left ">End Date*</label>
+                            <input
+                              type="Date"
+                              className="form-control border"
+                              placeholder="End Date"
+                              value={endYear}
+                              onChange={(e) => setendYear(e.target.value)}
+                            />
+                          </div>
+                          
+                          <div className="col-md-4 mt-3">
+                            <label className="d-flex justify-content-left ">Grade*</label>
+                            <input
+                              type="text"
+                              className="form-control border "
+                              placeholder="Industry"
+                            />
+                          </div>
+
+                          <div className="col-md-12 mt-3">
+                            <label className="d-flex justify-content-left ">Activity and Society*</label>
+                            <textarea className="col-md-12 mt-3 py-1 " rows={5}
+                              value={description}
+                              onChange={(e) => setdescription(e.target.value)}
+                            ></textarea>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+
+                    </Card>
+                  )}
+        </>
+    );
+}
+
+export default Education;

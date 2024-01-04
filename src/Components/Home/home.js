@@ -76,7 +76,7 @@ const Home = () => {
 
   return (
    
-     <Box sx={{ flexGrow: 1, backgroundColor: '#ddccb03b', height: "100vh", color: "black",  justifyContent: 'center',}}>
+     <Box sx={{ flexGrow: 1,  justifyContent: 'center',}}>
         <Navbar />
       <Grid container spacing={3} sx={{ display: 'flex', marginTop: '0vh', margin:"0 3vw", width:"91vw"}}>
 

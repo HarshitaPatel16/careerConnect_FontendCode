@@ -40,6 +40,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { useNavigate } from "react-router-dom";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import avatar from '../../assets/avatar5.png';
+import Education from "./Education";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -206,6 +207,7 @@ function Profile() {
       resumePdf
     ) {
       dispatch(updateProfile(API_URL, formData));
+      handleCloseDialog()
     } else {
       console.log("No fields are being updated");
     }
@@ -320,12 +322,25 @@ function Profile() {
   };
 
   const handleChoosePdf = () => {
-    // Trigger the file input when the "Choose PDF" button is clicked
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
-
+  const handleDownloadPdf = () => {
+    if (profileData && profileData.resume) {
+      const pdfUrl = `${IMAGE_PATH}user/${profileData.resume}`;
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.target = '_blank';
+      link.download = 'resume.pdf'; 
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      console.error('No resume available for download.');
+    }
+  };
+  
   const handleUploadResume = () => {
     if (resumePdf) {
       handleUpate();
@@ -572,7 +587,7 @@ function Profile() {
                     <Tab label="Skills" value="1" />
                     <Tab label="Experience" value="2" />
                     <Tab label="Resume" value="3" />
-                    <Tab label="About" value="4" />
+                    <Tab label="Education" value="4" />
                   </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -855,13 +870,6 @@ function Profile() {
                       />
                       <div>
                         <div>
-                          {/* <iframe title="Resume PDF" src={
-                            IMAGE_PATH +
-                            "user/" +
-                            (profileData ? profileData.resume : "")
-                          } width="100%" height="600px">
-                            
-                          </iframe> */}
                           <iframe
                             title="Resume PDF"
                             src={`${IMAGE_PATH}user/${profileData ? profileData.resume : ""}#toolbar=0`}
@@ -874,13 +882,16 @@ function Profile() {
                         <button className="btn btn-primary mx-2" onClick={handleChoosePdf}>
                           <FileUploadIcon /> Choose PDF
                         </button>
-                        <button className="btn btn-success mx-2" onClick={handleChoosePdf}>
+                        <button className="btn btn-success mx-2" onClick={handleDownloadPdf}>
                           <FileDownloadIcon /> Download PDF
                         </button>
                       </div>
 
                     </div>
                   )}
+                </TabPanel>
+                <TabPanel value="4">
+                 <Education/>
                 </TabPanel>
               </TabContext>
             </Box>
@@ -981,7 +992,7 @@ function Profile() {
 
           </DialogContent>
           <DialogActions className="d-flex justify-content-center">
-            <button className="btn btn-primary" onClick={handleCloseDialog}>Cancel</button>
+            <button className="btn btn-danger" onClick={handleCloseDialog}>Cancel</button>
             <button className="btn btn-primary" onClick={handleUpate}>Save </button>
           </DialogActions>
         </Dialog>
