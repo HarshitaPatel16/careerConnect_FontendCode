@@ -3,6 +3,7 @@ import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import edImg from "../../assets/Education.png"
 
 
 
@@ -62,6 +63,16 @@ function Education() {
                         <span className="fs-3 text-dark">Education</span>
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddEducationToggle} /></span>
                     </div >
+                    <div>
+                          <div>
+                            <img src={edImg} alt="Profile" className="trofie mt-2" />
+                          </div>
+                          <div>
+                            <button className="btn btn-primary mx-2" onClick={handleAddEducationToggle}>
+                              Add Education
+                            </button>
+                          </div>
+                        </div>
                     <div>
 
                         <React.Fragment >
