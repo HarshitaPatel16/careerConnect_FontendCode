@@ -18,6 +18,8 @@ import IMAGE_PATH from "../../imageService";
 import avatar from '../../assets/avatar5.png';
 import background from '../../assets/dnAJUB.webp';
 import Share from "../share/share";
+import Posts from "../posts/Posts";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -156,7 +158,7 @@ src={
         <Grid item xs={12} md={12} lg={6}>
          
           <Share />
-          <Item>
+          {/* <Item>
           <div className="row">
           <div className='d-flex'>
   <div className="profile2 col-md-2 m-0 p-2">
@@ -216,8 +218,9 @@ src={
         </div>
         
       </div>
-          </Item>
-        </Grid>
+          </Item> */}
+<Posts/>  
+      </Grid>
         
         <Grid item xs={12} md={12} lg={3}>
           <Item>

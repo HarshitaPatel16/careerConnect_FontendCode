@@ -11,6 +11,8 @@ import Job from './Components/job/job';
 import Share from './Components/share/share';
 import Forgot from './Components/forgetpassword/forgetPassword';
 import ConnectionDetail from './Components/ConNectionDetail/connection';
+import Post from './Components/post/Post';
+import Posts from './Components/posts/Posts';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -44,6 +46,10 @@ function App() {
           <Route path="/share" element={<Share />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/detail" element={<ConnectionDetail />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/posts" element={<Posts />} />
+
+
         </Routes>
       </Router>
     </div>

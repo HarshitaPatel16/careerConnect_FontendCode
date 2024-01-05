@@ -19,6 +19,52 @@ const Job = () => {
     <>
       <Navbar />
       <div className="container">
+      <div className='row' style={{ height: '8vh', border: '1px solid lightgray', borderRadius: '20px' }}>
+  <div className='col-md-12 d-flex align-items-center'>
+    <div className='col-md-3 'style={{borderRight:'2px solid lightgray' }}>
+      <input
+        type="text"
+        placeholder="Job title or Keyword"
+        style={{ width: '100%', border: 'none' }}
+      />
+    </div>
+ 
+    <div className='col-md-3'style={{borderRight:'2px solid lightgray' }}>
+      <select
+        placeholder="Select Option"
+        style={{ width: '100%', border: 'none' }}
+      >
+        <option value="" disabled>Location</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        {/* Add more options as needed */}
+      </select>
+    </div>
+ 
+    <div className='col-md-3'style={{borderRight:'2px solid lightgray' }}>
+      <select
+        placeholder="Select Option"
+        style={{ width: '100%', border: 'none' }}
+      >
+        <option value="" disabled>Job Type</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        {/* Add more options as needed */}
+      </select>
+    </div>
+ 
+    <div className='col-md-3 d-flex justify-content-end'>
+      <Button style={{
+        fontWeight: 600,
+        fontSize: '15px',
+        color: 'white',
+        background: '#9861DF',
+        borderRadius: '30px',
+        width:'40%'
+      }}>Search</Button>
+    </div>
+  </div>
+</div>
         <div className="row">
           {cardsData.map((card) => (
             <div key={card.id} className="col-md-4 p-2">

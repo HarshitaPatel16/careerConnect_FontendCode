@@ -10,7 +10,12 @@ const initialState = {
   deleteExperience: null,
   deleteSkills: null,
   readOneUser: null,
+  readAllPost: null,
   readOneSkills: null,
+  createComment: null,
+  readOneComment: null,
+  createLike: null,
+  readOneLike: null,
   loading: false,
   error: null,
 };
@@ -247,10 +252,104 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                 loading: false,
                 error: action.payload,
               };
-    
+              case "GET_POST_REQUEST":
+                return {
+                  ...state,
+                  loading: true,
+                  error: null,
+                };
+              case "GET_POST_SUCCESS":
+                return {
+                  ...state,
+                  readAllPost: action.payload,
+                  loading: false,
+                  error: null,
+                };
+              case "GET_POST_FAILURE":
+                return {
+                  ...state,
+                  loading: false,
+                  error: action.payload,
+                };
+                case "ADD_CREATECOMMENT_REQUEST":
+                return {
+                  ...state,
+                  loading: true,
+                  error: null,
+                };
+              case "ADD_CREATECOMMENT_SUCCESS":
+                return {
+                  ...state,
+                  createComment: action.payload,
+                  loading: false,
+                  error: null,
+                };
+              case "ADD_CREATECOMMENT_FAILURE":
+                return {
+                  ...state,
+                  loading: false,
+                  error: action.payload,
+                };
 
-   
+                case "GET_COMMENT_BY_ID_REQUEST":
+                  return {
+                    ...state,
+                    loading: true,
+                    error: null,
+                  };
+                case "GET_COMMENT_BY_ID_SUCCESS":
+                  return {
+                    ...state,
+                    readOneComment: action.payload,
+                    loading: false,
+                    error: null,
+                  };
+                case "GET_COMMENT_BY_ID_FAILURE":
+                  return {
+                    ...state,
+                    loading: false,
+                    error: action.payload,
+                  };
 
+                  case "ADD_CREATELIKE_REQUEST":
+                    return {
+                      ...state,
+                      loading: true,
+                      error: null,
+                    };
+                  case "ADD_CREATELIKE_SUCCESS":
+                    return {
+                      ...state,
+                      createLike: action.payload,
+                      loading: false,
+                      error: null,
+                    };
+                  case "ADD_CREATELIKE_FAILURE":
+                    return {
+                      ...state,
+                      loading: false,
+                      error: action.payload,
+                    };
+
+                    case "GET_LIKE_BY_ID_REQUEST":
+                      return {
+                        ...state,
+                        loading: true,
+                        error: null,
+                      };
+                    case "GET_LIKE_BY_ID_SUCCESS":
+                      return {
+                        ...state,
+                        readOneLike: action.payload,
+                        loading: false,
+                        error: null,
+                      };
+                    case "GET_LIKE_BY_ID_FAILURE":
+                      return {
+                        ...state,
+                        loading: false,
+                        error: action.payload,
+                      };
 
     default:
       return state;

@@ -25,6 +25,12 @@ export const ADD_CREATEPOST_FAILURE = "ADD_CREATEPOST_FAILURE";
 
 //end//
 
+
+export const ADD_CREATECOMMENT_REQUEST = "ADD_CREATEPOST_REQUEST";
+export const ADD_CREATECOMMENT_SUCCESS = "ADD_CREATEPOST_SUCCESS";
+export const ADD_CREATECOMMENT_FAILURE = "ADD_CREATEPOST_FAILURE";
+
+
 //create skils
 
 export const ADD_CREATESKILLS_REQUEST = "ADD_CREATESKILLS_REQUEST";
@@ -52,6 +58,11 @@ export const ADD_CREATEEXPERIENCE_REQUEST = "ADD_CREATEEXPERIENCE_REQUEST";
 export const ADD_CREATEEXPERIENCE_SUCCESS = "ADD_CREATEEXPERIENCE_SUCCESS";
 export const ADD_CREATEEXPERIENCE_FAILURE = "ADD_CREATEEXPERIENCE_FAILURE";
 
+export const ADD_CREATELIKE_REQUEST = "ADD_CREATELIKE_REQUEST";
+export const ADD_CREATELIKE_SUCCESS = "ADD_CREATELIKE_SUCCESS";
+export const ADD_CREATELIKE_FAILURE = "ADD_CREATELIKE_FAILURE";
+
+
 //expircane get by id
 
 export const GET_EXPERIENCE_BY_ID_REQUEST = "GET_EXPERIENCE_BY_ID_REQUEST";
@@ -66,6 +77,22 @@ export const DELETE_SKILLS_FAILURE = "DELETE_SKILLS_FAILURE";
 export const DELETE_EXPERIENCE_REQUEST = "DELETE_EXPERIENCE_REQUEST";
 export const DELETE_EXPERIENCE_SUCCESS = "DELETE_EXPERIENCE_SUCCESS";
 export const DELETE_EXPERIENCE_FAILURE = "DELETE_EXPERIENCE_FAILURE";
+
+
+
+// GET BY Post DATA
+export const GET_POST_REQUEST = "GET_POST_REQUEST";
+export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
+export const GET_POST_FAILURE = "GET_POST_FAILURE";
+
+
+export const GET_COMMENT_BY_ID_REQUEST = "GET_COMMENT_BY_ID_REQUEST";
+export const GET_COMMENT_BY_ID_SUCCESS = "GET_COMMENT_BY_ID_SUCCESS";
+export const GET_COMMENT_BY_ID_FAILURE = "GET_COMMENT_BY_ID_FAILURE";
+
+export const GET_LIKE_BY_ID_REQUEST = "GET_LIKE_BY_ID_REQUEST";
+export const GET_LIKE_BY_ID_SUCCESS = "GET_LIKE_BY_ID_SUCCESS";
+export const GET_LIKE_BY_ID_FAILURE = "GET_LIKE_BY_ID_FAILURE";
 
 
 //Login start //
@@ -111,6 +138,8 @@ export const addCreatePost = (API_URL, data) => {
       .post(API_URL + "post/createPost", data)
       .then((response) => {
         dispatch({ type: ADD_CREATEPOST_SUCCESS, payload: response.data });
+        return dispatch(getreadAllPostData(API_URL,data));
+
       })
       .catch((error) => {
         dispatch({ type: ADD_CREATEPOST_FAILURE, payload: error.message });
@@ -118,6 +147,43 @@ export const addCreatePost = (API_URL, data) => {
   };
 };
 //end//
+
+//POST CREATE API  start//
+export const addCreateLikes = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: ADD_CREATELIKE_REQUEST });
+    axios
+      .post(API_URL + "like/createLike", data)
+      .then((response) => {
+        dispatch({ type: ADD_CREATELIKE_SUCCESS, payload: response.data });
+        // return dispatch(getCommentById(API_URL,data));
+
+      })
+      .catch((error) => {
+        dispatch({ type: ADD_CREATELIKE_FAILURE, payload: error.message });
+      });
+  };
+};
+//end//
+
+//POST CREATE API  start//
+export const addCreateComment = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: ADD_CREATECOMMENT_REQUEST });
+    axios
+      .post(API_URL + "comment/createComment", data)
+      .then((response) => {
+        dispatch({ type: ADD_CREATECOMMENT_SUCCESS, payload: response.data });
+        return dispatch(getCommentById(API_URL,data));
+
+      })
+      .catch((error) => {
+        dispatch({ type: ADD_CREATECOMMENT_FAILURE, payload: error.message });
+      });
+  };
+};
+//end//
+
 
 //skills CREATE API  start//
 export const addCreateSkills = (API_URL, data) => {
@@ -171,6 +237,20 @@ export const updateProfile = (API_URL, data) => {
   };
 };
 
+export const getLikeById = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_LIKE_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "like/readOneLike", data)
+      .then((response) => {
+        dispatch({ type: GET_LIKE_BY_ID_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_LIKE_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
 //GET BY PROFILE DATA
 
 export const getProfileById = (API_URL, data) => {
@@ -184,6 +264,21 @@ export const getProfileById = (API_URL, data) => {
 
       .catch((error) => {
         dispatch({ type: GET_PROFILE_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
+export const getCommentById = (API_URL, postId) => {
+  return (dispatch) => {
+    dispatch({ type: GET_COMMENT_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "comment/readOneComment", { post_id: postId })
+      .then((response) => {
+        dispatch({ type: GET_COMMENT_BY_ID_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_COMMENT_BY_ID_FAILURE, payload: error.message });
       });
   };
 };
@@ -253,6 +348,21 @@ export const deleteExperience= (API_URL,data) => {
 
       .catch((error) => {
         dispatch({ type: DELETE_EXPERIENCE_FAILURE, payload: error.message });
+      });
+  };
+};
+
+export const getreadAllPostData = (API_URL) => {
+  return (dispatch) => {
+    dispatch({ type: GET_POST_REQUEST });
+    axios
+      .get(API_URL + "post/readAllPost")
+      .then((response) => {
+        dispatch({ type: GET_POST_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_POST_FAILURE, payload: error.message });
       });
   };
 };
