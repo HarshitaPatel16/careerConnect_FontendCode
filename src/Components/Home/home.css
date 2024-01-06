@@ -49,6 +49,10 @@
   border-radius: 3.25rem;
   width: 30vw;
 }
+.cover-img1{
+ border-radius: 5px;
+}
+
 @media (max-width: 1207px) {
   .profile1 {
       top: 24.5vh;
@@ -119,5 +123,6 @@
 }
 
 
-.my-profile {
+.text-title {
+  padding: 6px !important;
 }

@@ -125,8 +125,8 @@ src={
                 <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
                 <span className="username1 ">{profileData && profileData.username ? profileData.username : ""}</span>
                 </Typography>
-                <Typography variant="subtitle1" component="div" sx={{ display: 'flex', marginLeft: '6vw'}}>
-                <span className=" ">Web Developer</span>
+                <Typography variant="subtitle1" component="div" sx={{ display: 'flex', padding: '2px', fontSize: "14px"}}>
+                <span className="text-title"> {profileData && profileData.profile_heading ? profileData.profile_heading : "Default Heading"}</span>
                 </Typography>
               </CardContent>
               <CardContent sx={{ display: 'flex', justifyContent: 'space-around' }}>
