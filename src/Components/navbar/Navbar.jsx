@@ -51,7 +51,7 @@ const Navbar = () => {
   }, [profileData]);
 
   return (
-    <nav className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'} p-0`}>
+    <nav className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'} p-0 fixed-top`}>
       <div className="d-flex justify-content-between w-100 col-md-12">
         <div className='col-md-3 d-flex justify-content-center'>
           <a className="navbar-brand" href="#" style={{ marginRight: 0 }} onClick={handleHomeClick}>

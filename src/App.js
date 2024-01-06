@@ -13,6 +13,9 @@ import Forgot from './Components/forgetpassword/forgetPassword';
 import ConnectionDetail from './Components/ConNectionDetail/connection';
 import Post from './Components/post/Post';
 import Posts from './Components/posts/Posts';
+import "./Background.css"
+import BackgroundAnimation from './Background';
+
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -52,6 +55,7 @@ function App() {
 
         </Routes>
       </Router>
+      <BackgroundAnimation/>
     </div>
   );
 }
