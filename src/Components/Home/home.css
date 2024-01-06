@@ -7,12 +7,21 @@
 .profile1{
   position: absolute;
   top: 4vw;
-  left: 8vw;
+  left: 7vw;
 }
 .username1{
-  margin-left: 7vw;
+  margin-left: 6vw;
   justify-content: 'space-between';
-  margin-top: 5.5vh
+  margin-top: 9vh;
+  color: #353434;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.counts-css{
+  color: #353434;
+  font-weight: bold;
+  font-size: 20px;
 }
 .profile2{
   margin-right: 43em;
@@ -110,8 +119,5 @@
 }
 
 
-.left-card {
- position: sticky;
- z-index: 100%;
- 
+.my-profile {
 }

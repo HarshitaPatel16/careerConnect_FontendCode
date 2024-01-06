@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
 import avatar from '../../assets/avatar5.png';
 import { DarkModeContext } from "../context/darkModeContext";
+import homeicon from "../../assets/ic-home.png";
 
 
 const Navbar = () => {
@@ -82,7 +83,7 @@ const Navbar = () => {
           <ul className="navbar-nav ml-auto col-md-2">
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleHomeClick}>
-                <HomeOutlinedIcon style={{ marginRight: '28px' }} />
+                <img src={homeicon} alt="" style={{ marginRight: '28px' }}/>
               </a>
             </li>
             <li className="nav-item">

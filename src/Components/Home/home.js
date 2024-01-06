@@ -84,10 +84,11 @@ const Home = () => {
 
     {/* myprofile card start */}
 
-        <Grid item xs={12} md={12} lg={3} className='left-card' >
-          <div style={{ position: 'sticky', top: 100, zIndex: 1030 }}>
+        <Grid item xs={12} md={12} lg={3}>
+        <div style={{ position: 'sticky', top: 100, zIndex: 1030 }}>
+
           <Item>
-        <div >
+        <div>
 
         <CardMedia
   component="img"
@@ -122,44 +123,50 @@ src={
 </div>
 <CardContent>
                 <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
-                <span className="fw-bold username1 ">{profileData && profileData.username ? profileData.username : ""}</span>
+                <span className="username1 ">{profileData && profileData.username ? profileData.username : ""}</span>
+                </Typography>
+                <Typography variant="subtitle1" component="div" sx={{ display: 'flex', marginLeft: '6vw'}}>
+                <span className=" ">Web Developer</span>
                 </Typography>
               </CardContent>
               <CardContent sx={{ display: 'flex', justifyContent: 'space-around' }}>
 
-    <div>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-        <span>200</span><br/>
+    <div style={{ borderRight: '1px solid #ddd', paddingRight: '20px' }}>
+      <Typography variant="subtitle1">
+        <span className="counts-css">292</span><br/>
         Post
       </Typography>
     </div>
 
-    <div>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-      <span>200</span><br/>
+    <div style={{ borderRight: '1px solid #ddd', paddingRight: '20px' }}>
+      <Typography variant="subtitle1">
+      <span className="counts-css">2.5K</span><br/>
         Followers
       </Typography>
     </div>
 
-    <div>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-      <span>200</span><br/>
+    <div >
+      <Typography variant="subtitle1">
+      <span className="counts-css">164</span><br/>
         Following
       </Typography>
     </div>
+   
   </CardContent>
   <CardContent>
-  <button type="button" onClick={handleProfileClick} class="btn btn-primary">My Profile</button>
+    <div className='p-3'>
+  <button type="button" onClick={handleProfileClick} class="btn btn-primary my-profile">My Profile</button>
+  </div>
               </CardContent>
+              
 
 </div>
           </Item>
           </div>
         </Grid>
         {/* myprofile card end */}
-        <Grid item xs={12} md={12} lg={6}> 
-        
-
+        <Grid item xs={12} md={12} lg={6}>
+         
           <Share />
           {/* <Item>
           <div className="row">
@@ -223,11 +230,11 @@ src={
       </div>
           </Item> */}
 <Posts/>  
-
       </Grid>
         
         <Grid item xs={12} md={12} lg={3}>
         <div style={{ position: 'sticky', top: 100, zIndex: 1030 }}>
+
           <Item>
           <div className="row">
           <CardContent sx={{ display: 'flex', justifyContent: 'space-around'}}>
