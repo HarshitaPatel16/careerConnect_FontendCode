@@ -88,7 +88,6 @@ import NotificationIcon from "../../assets/colored/ic-notification.png"
               <a className="nav-link" href="#" onClick={handleHomeClick}>
                 {/* <HomeOutlinedIcon style={{ marginRight: '28px' }} /> */}
                 <img src={HomeIcon} alt="Home"  />
-
               </a>
             </li>
             <li className="nav-item">

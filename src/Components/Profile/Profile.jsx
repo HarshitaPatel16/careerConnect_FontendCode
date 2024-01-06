@@ -83,6 +83,7 @@ function Profile() {
 
 
   const profileData = useSelector((state) => state.user.readOneUser);
+  console.log(profileData, "profileData");
   const skillsData = useSelector((state) => state.user.readOneSkills);
   const experienceData = useSelector((state) => state.user.readOneExperience);
   console.log(experienceData, "experienceData");
@@ -162,7 +163,7 @@ function Profile() {
     setMobile(profileData?.mobile || '');
     setAddress(profileData?.address || '');
     setEmail(profileData?.email || '');
-
+    setprofileHeading(profileData?.profile_heading ||'');
   };
 
 
@@ -185,7 +186,7 @@ function Profile() {
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
     formData.append("mobile", mobile);
-    // formData.append("profilePic", profilePic);
+    formData.append("profile_heading", profileHeading);
     formData.append("coverPic", coverPic);
     formData.append("address", address);
     formData.append("about", about);
@@ -236,6 +237,7 @@ function Profile() {
         setAddress(data.address);
         setResume(data.resume);
         setAbout(data.about);
+        setprofileHeading(data.profileHeading);
         console.log('After setting state:', {
           userName: data.userName,
           mobile: data.mobile,
@@ -277,7 +279,7 @@ function Profile() {
     const formData = new FormData();
     formData.append("user_id", localStorage.getItem("user_id"));
     formData.append("company", companyName);
-    formData.append("profile_heading", profileHeading);
+    // formData.append("profile_heading", profileHeading);
     formData.append("start_year", startYear);
     formData.append("end_year", endYear);
     formData.append("description", description);
@@ -296,7 +298,7 @@ function Profile() {
         const data = experienceData[0];
 
         setcompanyName(data.companyName);
-        setprofileHeading(data.profileHeading);
+        // setprofileHeading(data.profileHeading);
         setstartYear(data.startYear)
         setendYear(data.endYear);
         setdescription(data.description);
@@ -572,9 +574,8 @@ function Profile() {
                   <EditOutlinedIcon onClick={handleOpenDialog} />
 
                 </Typography>
-                <Typography className="d-flex justify-align-left userinfo" variant="subtitle1" component="div">
-                  Designation
-                  {/* <button type="button" class="btn btn-secondary">Edit</button> */}
+                <Typography className=" col-md-8 userinfo" variant="subtitle1" component="div">
+                {profileData && profileData.profile_heading ? profileData.profile_heading : "Default Heading"}
                 </Typography>
               </CardContent>
 
@@ -771,7 +772,7 @@ function Profile() {
                             />
                           </div>
 
-                          <div className="col-md-4 mt-3">
+                          {/* <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Profile Headline*</label>
                             <input
                               type="text"
@@ -780,7 +781,7 @@ function Profile() {
                               value={profileHeading}
                               onChange={(e) => setprofileHeading(e.target.value)}
                             />
-                          </div>
+                          </div> */}
 
                           <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Employement Type*</label>
@@ -799,8 +800,6 @@ function Profile() {
                               <option value={5}>Trainee</option>
                             </select>
                           </div>
-                        </div>
-                        <div className="row d-flex justify-content-left   col">
                           <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Company Name*</label>
                             <input
@@ -811,6 +810,10 @@ function Profile() {
                               onChange={(e) => setcompanyName(e.target.value)}
                             />
                           </div>
+                        </div>
+                        
+                        <div className="row d-flex justify-content-left   col">
+                         
 
                           <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Location Type*</label>
@@ -982,12 +985,13 @@ function Profile() {
         </Grid>
         {/* profile edit diagol box code start*/}
         <Dialog open={isDialogOpen} onClose={handleCloseDialog}
-          maxWidth="lg" fontwidth
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogTitle> Edit Profile</DialogTitle>
           <DialogContent>
 
-            <div className="modal-body row pt-0 grid gap-0 ">
+            <div className="row mt-4 p-0">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">First Name <span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -997,6 +1001,7 @@ function Profile() {
                   />
                 </div>
               </div>
+             
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Last Name<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1005,6 +1010,8 @@ function Profile() {
                     onChange={(e) => setLastName(e.target.value)} />
                 </div>
               </div>
+              </div>
+              <div className="row mt-4">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">User Name<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1021,7 +1028,8 @@ function Profile() {
                     onChange={(e) => setEmail(e.target.value)} />
                 </div>
               </div>
-
+              </div>
+              <div className="row mt-4">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1039,12 +1047,25 @@ function Profile() {
                 </div>
               </div>
             </div>
+            <div className="row mt-4">
+              <div className="col-md-12">
+                <label for="exampleFormControlInput1" className="form-label">Profile Headline<span className='text-danger'>*</span></label>
+                <div className="input-group col-md-12 px-0 ">
+
+                  <input type='text' className="form-control" placeholder="Enter Contact Number" aria-describedby="basic-addon2" required name="amount"
+                   value={profileHeading}
+                   onChange={(e) => setprofileHeading(e.target.value)} />
+                </div>
+              </div>
+              </div>
 
 
           </DialogContent>
-          <DialogActions className="d-flex justify-content-center">
-            <button className="btn btn-danger" onClick={handleCloseDialog}>Cancel</button>
-            <button className="btn btn-primary" onClick={handleUpate}>Save </button>
+          <DialogActions>
+          <div className="col-md-12 d-flex justify-content-end">
+            <button className="btn btn-outline-secondary m-2" onClick={handleCloseDialog}>Cancel</button>
+            <button className="btn btn-primary m-2" onClick={handleUpate}>Save </button>
+            </div>
           </DialogActions>
         </Dialog>
         {/* profile edit diagol box code end*/}

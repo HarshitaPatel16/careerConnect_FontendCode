@@ -34,12 +34,16 @@
     width:"2vw"
   }
 .username{
-  margin-left: 1.0vw;
+  margin-left: 2vw;
   justify-content: 'space-between';
-  margin-top: 5.5vh
+  margin-top: 6.5vh
 }
 .userinfo{
-  margin-left: 2.5vw;
+  font-size: 0.9rem !important;
+  text-align: justify;
+  padding-left: 26px ;
+  margin-bottom: 1% !important;
+
 }
 
   .skill-btn{
@@ -101,8 +105,8 @@
 
   @media (min-width: 1208px) {
     .profile {
-        top: 23.5vh;
-        left: 6vw;
+        top: 26.5vh;
+        left: 6.5vw;
     }
 
     .profile-photo {
