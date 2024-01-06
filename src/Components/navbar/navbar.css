@@ -15,5 +15,14 @@ border-radius: 3.25rem;
 
  .bg-light {
   --bs-bg-opacity: 1;
-  background-color: #fff !important;
+  background-color: #fff 
+}
+
+.bg-dark {
+  --bs-bg-opacity: 1;
+  background-color: #000 
+}
+
+.navbar-dark{
+  background-color: #000 
 }

@@ -17,7 +17,7 @@ const Job = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container">
       <div className='row' style={{ height: '8vh', border: '1px solid lightgray', borderRadius: '20px' }}>
   <div className='col-md-12 d-flex align-items-center'>

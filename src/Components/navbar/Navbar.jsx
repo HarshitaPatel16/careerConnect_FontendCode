@@ -14,12 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
 import avatar from '../../assets/avatar5.png';
 import { DarkModeContext } from "../context/darkModeContext";
+import HomeIcon from "../../assets/colored/ic-home.png"
+import JobIcon from "../../assets/colored/ic-job.png"
+import NotificationIcon from "../../assets/colored/ic-notification.png"
+// import JobIcon from "../../assets/colored/ic-job.png"
 
-
-const Navbar = () => {
+//const Navbar = () => {
+   const Navbar = ({ isDarkMode, toggleTheme }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isDarkMode, setIsDarkMode] = useState('');
+  const [DarkMode, setDarkMode] = useState('');
 
   const { toggle, darkMode } = useContext(DarkModeContext);
 
@@ -46,7 +50,7 @@ const Navbar = () => {
   useEffect(() => {
     if (profileData && profileData.readOneUser) {
       const data = profileData.readOneUser;
-      setIsDarkMode(data.isDarkMode);  // Assuming the user data contains the dark mode preference
+      setDarkMode(data.DarkMode);  // Assuming the user data contains the dark mode preference
     }
   }, [profileData]);
 
@@ -82,22 +86,21 @@ const Navbar = () => {
           <ul className="navbar-nav ml-auto col-md-2">
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleHomeClick}>
-                <HomeOutlinedIcon style={{ marginRight: '28px' }} />
+                {/* <HomeOutlinedIcon style={{ marginRight: '28px' }} /> */}
+                <img src={HomeIcon} alt="Home"  />
+
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleJobClick}>
-                <BusinessOutlinedIcon style={{ marginRight: '28px' }} />
+                {/* <BusinessOutlinedIcon style={{ marginRight: '28px' }} /> */}
+                <img src={JobIcon} alt="Job"  />
               </a>
             </li>
+            
             <li className="nav-item">
               <a className="nav-link" href="#">
-                <EmailOutlinedIcon style={{ marginRight: '28px' }} />
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                <NotificationsOutlinedIcon />
+              <img src={NotificationIcon} alt="Home"  />
               </a>
             </li>
             <li className="nav-item">

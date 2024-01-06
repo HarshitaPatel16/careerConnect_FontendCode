@@ -43,7 +43,7 @@ function App() {
           <Route path="/sidebar" element={<SidebarRight />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
-          <Route path="/navbar" element={<Navbar  toggleTheme={toggleTheme} />} />
+          <Route path="/navbar"  element={<Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
           <Route path="/" element={<Home />} />
           <Route path="/job" element={<Job />} />
           <Route path="/share" element={<Share />} />
