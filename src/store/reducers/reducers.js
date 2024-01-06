@@ -16,6 +16,7 @@ const initialState = {
   readOneComment: null,
   createLike: null,
   readOneLike: null,
+  toggleLike: null,
   loading: false,
   error: null,
 };
@@ -350,6 +351,24 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                         loading: false,
                         error: action.payload,
                       };
+                      case "TOGGLE_LIKE_REQUEST":
+                      return {
+                        ...state,
+                        loading: true,
+                        error: null,
+                      };
+                      case "TOGGLE_LIKE_SUCCESS":
+                        return {
+                          ...state,
+                          toggleLike: action.payload,
+                          error: null,
+                        };
+                      case "TOGGLE_LIKE_FAILURE":
+                        return {
+                          ...state,
+                          toggleLike: null,
+                          error: action.payload,
+                        };
 
     default:
       return state;

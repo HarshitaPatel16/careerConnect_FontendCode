@@ -28,6 +28,7 @@
     flex-direction: column;
     gap: 30px;
     color: white;
+    height: 500px; 
   }
   
   /* .left h1 */
@@ -100,3 +101,6 @@
     height: 70px;
   }
   
+  .css-46bh2p-MuiCardContent-root {
+    padding: 0px !important;
+}

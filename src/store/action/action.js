@@ -366,3 +366,20 @@ export const getreadAllPostData = (API_URL) => {
       });
   };
 };
+
+export const TOGGLE_LIKE_REQUEST = "TOGGLE_LIKE_REQUEST";
+export const TOGGLE_LIKE_SUCCESS = "TOGGLE_LIKE_SUCCESS";
+export const TOGGLE_LIKE_FAILURE = "TOGGLE_LIKE_FAILURE";
+
+export const toggleLike = (API_URL, formData) => {
+  return async (dispatch) => {
+    dispatch({ type: TOGGLE_LIKE_REQUEST });
+
+    try {
+      const response = await axios.post(`${API_URL}/like/toggleLike`, formData);
+      dispatch({ type: TOGGLE_LIKE_SUCCESS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: TOGGLE_LIKE_FAILURE, payload: error.message });
+    }
+  };
+};

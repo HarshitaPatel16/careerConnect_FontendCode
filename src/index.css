@@ -48,7 +48,7 @@ code {
   padding: 0.5rem 1.5rem;
 }
 .css-1633um2-MuiPaper-root {
-  border-radius: 12px !important;
+  border-radius: 8px !important;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px !important;
 }
 
@@ -64,4 +64,11 @@ code {
 .btn{
   border-radius: 30px;
   padding: 0.5rem 1.5rem;
+}
+
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  
+  border-radius: 8px !important;
+  border: 1px solid #80808038 !important;
+
 }

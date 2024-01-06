@@ -78,15 +78,16 @@ const Home = () => {
 
   return (
    
-     <Box sx={{ flexGrow: 1,  justifyContent: 'center', marginTop: '64px'}}>
+     <Box sx={{ flexGrow: 1,  justifyContent: 'center', marginTop: '80px'}}>
         <Navbar />
       <Grid container spacing={3} sx={{ display: 'flex', marginTop: '0vh', margin:"0 3vw", width:"91vw"}}>
 
     {/* myprofile card start */}
 
-        <Grid item xs={12} md={12} lg={3}>
+        <Grid item xs={12} md={12} lg={3} className='left-card' >
+          <div style={{ position: 'sticky', top: 100, zIndex: 1030 }}>
           <Item>
-        <div>
+        <div >
 
         <CardMedia
   component="img"
@@ -153,10 +154,12 @@ src={
 
 </div>
           </Item>
+          </div>
         </Grid>
         {/* myprofile card end */}
-        <Grid item xs={12} md={12} lg={6}>
-         
+        <Grid item xs={12} md={12} lg={6}> 
+        
+
           <Share />
           {/* <Item>
           <div className="row">
@@ -220,9 +223,11 @@ src={
       </div>
           </Item> */}
 <Posts/>  
+
       </Grid>
         
         <Grid item xs={12} md={12} lg={3}>
+        <div style={{ position: 'sticky', top: 100, zIndex: 1030 }}>
           <Item>
           <div className="row">
           <CardContent sx={{ display: 'flex', justifyContent: 'space-around'}}>
@@ -280,6 +285,7 @@ src={
 </CardContent>
 </div>
           </Item>
+          </div>
         </Grid>
         
         

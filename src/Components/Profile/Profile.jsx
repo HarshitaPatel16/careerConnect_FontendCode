@@ -484,7 +484,7 @@ function Profile() {
 
 
   return (
-    <Box sx={{ flexGrow: 1, marginTop: '64px' }}>
+    <Box sx={{ flexGrow: 1, marginTop: '80px' }}>
       <Navbar />
       <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'center', marginTop: '0vh' }}>
         <Grid item xs={12} md={8} lg={8}>
@@ -581,7 +581,11 @@ function Profile() {
 
             </div>
           </Item>
-          <Card sx={{ marginTop: "10px" }}>
+          <Card  sx={{
+    marginTop: '10px',
+    borderRadius: '8px !important',
+    boxShadow: 'rgba(17, 17, 26, 0.1) 0px 0px 16px !important',
+  }}>
             <Box sx={{ width: '100%', typography: 'body1' }}>
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
