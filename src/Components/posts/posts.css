@@ -3,3 +3,15 @@
   flex-direction: column;
   gap: 20px;
 }
+
+/* Card.css */
+
+.dark-card {
+  background-color: #333;
+  color: #fff;
+}
+
+.light-card {
+  /* background-color: #f4f4f4; */
+  color: #333;
+}

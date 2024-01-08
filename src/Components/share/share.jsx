@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../share/share.css";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
@@ -16,11 +16,14 @@ import { useEffect } from 'react';
 import IMAGE_PATH from "../../imageService";
 import avatar from '../../assets/avatar5.png';
 import { useNavigate } from 'react-router-dom';
+import { DarkModeContext } from "../context/darkModeContext";
 
 const Share = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const profileData = useSelector((state) => state.user.readOneUser);
+    const { toggle, darkMode } = useContext(DarkModeContext);
+
 
     const [username, setUsername] = useState(""); // Add state to store username
     const [profilePic, setProfileImage] = useState("");
@@ -103,7 +106,7 @@ const Share = () => {
 
     return (
         <div className="share">
-            <div className="container">
+            <div className={`container ${darkMode ? 'dark-card' : 'light-card'}`}>
                 <div className="top">
                     <img
                         src={

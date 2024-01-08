@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import edImg from "../../assets/Education.png"
+import { DarkModeContext } from '../context/darkModeContext';
 
 
 
@@ -17,7 +18,6 @@ function Education() {
     const [skill, setSkill] = useState("")
     const [userId, setUserId] = useState("")
     const [experiences, setExperiences] = useState("");
-
     const [isCoverEditable, setisCoverEditable] = useState(false);
     const [selectedCoverImage, setselectedCoverImage] = useState(null);
     const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
@@ -28,8 +28,6 @@ function Education() {
     const [isCameraStarted, setCameraStarted] = useState(false);
     const [resumePdf, setResumePdf] = useState(null);
     const [showUploadButton, setShowUploadButton] = useState(false);
-  
-  
     const [userName, setUserName] = useState(""); // Add state to store username
     const [profilePic, setProfilePic] = useState("");
     const [email, setEmail] = useState("");
@@ -50,6 +48,8 @@ function Education() {
     const [location, setlocation] = useState("");
     const [locationType, setlocationType] = useState("");
     const [jobTitle, setjobTitle] = useState("");
+    const { toggle, darkMode } = useContext(DarkModeContext);
+
 
     const handleAddEducationToggle = () => {
         setshowAddEducation(!showAddEducation);
@@ -57,10 +57,10 @@ function Education() {
 
     return (
         <>
-            <Card className="p-4">
+            <Card className={`p-4 ${darkMode ? 'dark-card' : 'light-card'}`}>
                 <Typography variant="subtitle1" component="div">
                     <div className="d-flex justify-content-between">
-                        <span className="fs-3 text-dark">Education</span>
+                        <span className="fs-3 ">Education</span>
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddEducationToggle} /></span>
                     </div >
                     <div>
@@ -68,7 +68,7 @@ function Education() {
                             <img src={edImg} alt="Profile" className="trofie mt-2" />
                           </div>
                           <div>
-                            <button className="btn btn-primary mx-2" onClick={handleAddEducationToggle}>
+                            <button className="btn btn-primary mx-2 mt-5" onClick={handleAddEducationToggle}>
                               Add Education
                             </button>
                           </div>
@@ -91,10 +91,10 @@ function Education() {
 
             </Card>
             {showAddEducation && (
-                    <Card className="p-4 mt-2">
+                    <Card className={`p-4 mt-2 ${darkMode ? 'dark-card' : 'light-card'}`}>
 
                       <div className="justify-content-left d-flex">
-                        <span className="fs-3 text-dark">Add Education</span>
+                        <span className="fs-3 ">Add Education</span>
                         <div className="ms-auto">
                           <button type="button" className="btn btn-primary" >
                             Save
@@ -110,7 +110,7 @@ function Education() {
                             <label className="d-flex justify-content-left ">School*</label>
                             <input
                               type="text"
-                              className="form-control border "
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex:Boston University"
                               value={jobTitle}
                               onChange={(e) => setjobTitle(e.target.value)}
@@ -121,7 +121,7 @@ function Education() {
                             <label className="d-flex justify-content-left ">Degree*</label>
                             <input
                               type="text"
-                              className="form-control border "
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex. B.Tech"
                               value={profileHeading}
                               onChange={(e) => setprofileHeading(e.target.value)}
@@ -132,7 +132,7 @@ function Education() {
                             <label className="d-flex justify-content-left ">Field of Study*</label>
                             <input
                               type="text"
-                              className="form-control border"
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex : IT"
                               value={employeType}
                               onChange={(e) => setemployeType(e.target.value)}
@@ -145,7 +145,7 @@ function Education() {
                             <label className="d-flex justify-content-left ">Start Date*</label>
                             <input
                               type="date"
-                              className="form-control border"
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Start Date"
                               value={startYear}
                               onChange={(e) => setstartYear(e.target.value)}
@@ -156,7 +156,7 @@ function Education() {
                             <label className="d-flex justify-content-left ">End Date*</label>
                             <input
                               type="Date"
-                              className="form-control border"
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="End Date"
                               value={endYear}
                               onChange={(e) => setendYear(e.target.value)}
@@ -167,14 +167,14 @@ function Education() {
                             <label className="d-flex justify-content-left ">Grade*</label>
                             <input
                               type="text"
-                              className="form-control border "
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Industry"
                             />
                           </div>
 
                           <div className="col-md-12 mt-3">
                             <label className="d-flex justify-content-left ">Activity and Society*</label>
-                            <textarea className="col-md-12 mt-3 py-1 " rows={5}
+                            <textarea className={`form-control border py-1 ${darkMode ? 'dark-input' : 'light-input'}`} rows={5}
                               value={description}
                               onChange={(e) => setdescription(e.target.value)}
                             ></textarea>

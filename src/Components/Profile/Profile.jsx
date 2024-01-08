@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import SidebarRight from "../SidebarRight/SidebarRight";
 import Avatar from '@mui/material/Avatar';
@@ -43,6 +43,7 @@ import Education from "./Education";
 import skillImg from "../../assets/Skills.png"
 import expImg from "../../assets/experience.png"
 import resumeImg from "../../assets/resume.png"
+import { DarkModeContext } from "../context/darkModeContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -59,7 +60,7 @@ function Profile() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { toggle, darkMode } = useContext(DarkModeContext);
   const [value, setValue] = React.useState('1');
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [showAddExperience, setShowAddExperience] = useState(false);
@@ -163,7 +164,7 @@ function Profile() {
     setMobile(profileData?.mobile || '');
     setAddress(profileData?.address || '');
     setEmail(profileData?.email || '');
-    setprofileHeading(profileData?.profile_heading ||'');
+    setprofileHeading(profileData?.profile_heading || '');
   };
 
 
@@ -490,7 +491,7 @@ function Profile() {
       <Navbar />
       <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'center', marginTop: '0vh' }}>
         <Grid item xs={12} md={8} lg={8}>
-          <Item>
+          <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
             <div>
               <div className="cover-container">
                 <CardMedia
@@ -575,30 +576,30 @@ function Profile() {
 
                 </Typography>
                 <Typography className=" col-md-8 userinfo" variant="subtitle1" component="div">
-                {profileData && profileData.profile_heading ? profileData.profile_heading : "Default Heading"}
+                  {profileData && profileData.profile_heading ? profileData.profile_heading : "Default Heading"}
                 </Typography>
               </CardContent>
 
 
             </div>
           </Item>
-          <Card  sx={{
-    marginTop: '10px',
-    borderRadius: '8px !important',
-    boxShadow: 'rgba(17, 17, 26, 0.1) 0px 0px 16px !important',
-  }}>
-            <Box sx={{ width: '100%', typography: 'body1' }}>
-              <TabContext value={value}>
+          <Card className={`${darkMode ? 'dark-card' : 'light-card'}`}  sx={{
+            marginTop: '10px',
+            borderRadius: '8px !important',
+            boxShadow: 'rgba(17, 17, 26, 0.1) 0px 0px 16px !important',
+          }}>
+            <Box sx={{ width: '100%', typography: 'body1' }} >
+              <TabContext value={value} >
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <TabList onChange={handleChange} aria-label="lab API tabs example">
-                    <Tab label="Skills" value="1" />
-                    <Tab label="Experience" value="2" />
-                    <Tab label="Resume" value="3" />
-                    <Tab label="Education" value="4" />
+                  <TabList onChange={handleChange} aria-label="lab API tabs example" className={`${darkMode ? 'dark-card' : 'light-card'}`}>
+                    <Tab label="Skills" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="1" />
+                    <Tab label="Experience" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="2"  />
+                    <Tab label="Resume" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="3" />
+                    <Tab label="Education" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="4"/>
                   </TabList>
                 </Box>
-                <TabPanel value="1">
-                  <Card ref={addSkillCardRef} className="p-4">
+                <TabPanel value="1" >
+                  <Card ref={addSkillCardRef} className={`p-4 ${darkMode ? 'dark-card' : 'light-card'}`}  >
                     {/* <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
                         <span className="fs-3 text-dark">Skills</span>
@@ -619,7 +620,7 @@ function Profile() {
                     </Typography> */}
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
-                        <span className="fs-3 text-dark">Skills</span>
+                        <span className="fs-3">Skills</span>
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddSkillToggle} /></span>
                       </div>
                       {skills ? (
@@ -640,7 +641,7 @@ function Profile() {
                             <img src={skillImg} alt="Profile" className="trofie mt-2" />
                           </div>
                           <div>
-                            <button className="btn btn-primary" onClick={handleAddSkillToggle}>
+                            <button className="btn btn-primary mt-4" onClick={handleAddSkillToggle}>
                               Add Skill
                             </button>
                           </div>
@@ -653,14 +654,14 @@ function Profile() {
 
                   {/* Add skills card start */}
                   {showAddSkill &&
-                    <Card className="p-4 mt-2">
+                    <Card className={`p-4 mt-2 ${darkMode ? 'dark-card' : 'light-card'}`} >
 
                       <div className="justify-content-left d-flex">
-                        <span className="fs-3 text-dark">Add Skill*</span>
+                        <span className="fs-3 ">Add Skill*</span>
                       </div>
                       <div className="d-flex">
                         <div className="col-md-8">
-                          <input type="text" className="form-control" value={skill} onChange={handleSkill} />
+                          <input type="text" className={`form-control ${darkMode ? 'dark-input' : 'light-input'}`} value={skill} onChange={handleSkill} />
                         </div>
                         <div className="ms-auto">
                           <button type="button" className="btn btn-primary" onClick={handleAddSkills}>
@@ -674,10 +675,10 @@ function Profile() {
                   {/* Add skills card end */}
                 </TabPanel>
                 <TabPanel ref={addExperienceCardRef} value="2">
-                  <Card className="p-4">
+                  <Card className={`p-4 ${darkMode ? 'dark-card' : 'light-card'}`} >
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
-                        <span className="fs-3 text-dark">Experience</span>
+                        <span className="fs-3">Experience</span>
                         <span className="ms-auto fs-2">
                           <AddIcon onClick={handleAddExperienceToggle} />
                         </span>
@@ -736,7 +737,7 @@ function Profile() {
                           <img src={expImg} alt="Profile" className="trofie mt-2" />
                         </div>
                         <div>
-                          <button className="btn btn-primary" onClick={handleAddExperienceToggle}>
+                          <button className="btn btn-primary mt-4" onClick={handleAddExperienceToggle}>
                             Add Experience
                           </button>
                         </div>
@@ -746,10 +747,10 @@ function Profile() {
                   </Card>
                   {/* Add experiences card start */}
                   {showAddExperience && (
-                    <Card className="p-4 mt-2">
+                    <Card className={`p-4 mt-2 ${darkMode ? 'dark-card' : 'light-card'}`}>
 
                       <div className="justify-content-left d-flex">
-                        <span className="fs-3 text-dark">Add Experience</span>
+                        <span className="fs-3">Add Experience</span>
                         <div className="ms-auto">
                           <button type="button" className="btn btn-primary" onClick={handleAddExperience}>
                             Save
@@ -765,7 +766,7 @@ function Profile() {
                             <label className="d-flex justify-content-left ">Job Title*</label>
                             <input
                               type="text"
-                              className="form-control border "
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex: Full Stack Developer"
                               value={jobTitle}
                               onChange={(e) => setjobTitle(e.target.value)}
@@ -787,7 +788,7 @@ function Profile() {
                             <label className="d-flex justify-content-left ">Employement Type*</label>
                             <select
                               type="text"
-                              className="form-select border"
+                              className={`form-select border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Title"
                               value={employeType}
                               onChange={(e) => setemployeType(e.target.value)}
@@ -804,22 +805,22 @@ function Profile() {
                             <label className="d-flex justify-content-left ">Company Name*</label>
                             <input
                               type="text"
-                              className="form-control border"
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex: BytesFarms Technologies"
                               value={companyName}
                               onChange={(e) => setcompanyName(e.target.value)}
                             />
                           </div>
                         </div>
-                        
+
                         <div className="row d-flex justify-content-left   col">
-                         
+
 
                           <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Location Type*</label>
                             <select
                               type="text"
-                              className="form-select border"
+                              className={`form-select border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Title"
                               value={locationType}
                               onChange={(e) => setlocationType(e.target.value)}
@@ -836,7 +837,7 @@ function Profile() {
 
                             <input
                               type="text"
-                              className="form-control border "
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Location"
                               value={location}
                               onChange={(e) => setlocation(e.target.value)}
@@ -848,7 +849,7 @@ function Profile() {
                             <label className="d-flex justify-content-left ">Start Date*</label>
                             <input
                               type="date"
-                              className="form-control border"
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Start Date"
                               value={startYear}
                               onChange={(e) => setstartYear(e.target.value)}
@@ -859,7 +860,7 @@ function Profile() {
                             <label className="d-flex justify-content-left ">End Date*</label>
                             <input
                               type="Date"
-                              className="form-control border"
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="End Date"
                               value={endYear}
                               onChange={(e) => setendYear(e.target.value)}
@@ -877,7 +878,9 @@ function Profile() {
 
                           <div className="col-md-12 mt-3">
                             <label className="d-flex justify-content-left ">Description*</label>
-                            <textarea className="col-md-12 mt-3 py-1 " rows={5}
+                            <textarea 
+                            className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
+                             rows={5}
                               value={description}
                               onChange={(e) => setdescription(e.target.value)}
                             ></textarea>
@@ -894,7 +897,7 @@ function Profile() {
                 </TabPanel>
                 <TabPanel value="3">
                   {resumePdf ? (
-                    <div>
+                    <div className={`${darkMode ? 'dark-card' : 'light-card'}`}>
                       {/* Display the embedded PDF or use a PDF viewer here */}
                       <iframe
                         src={`${URL.createObjectURL(resumePdf)}#toolbar=0`}
@@ -910,7 +913,7 @@ function Profile() {
                       </button>
                     </div>
                   ) : (
-                    <div>
+                    <div className={`${darkMode ? 'dark-card' : 'light-card'}`}>
                       {profileData && profileData.resume ? (
                         <div>
                           <iframe
@@ -955,7 +958,7 @@ function Profile() {
 
 
         <Grid item xs={12} md={4} lg={3} >
-          <Item>
+          <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
             <div>
 
               <div className="trofie">
@@ -1001,7 +1004,7 @@ function Profile() {
                   />
                 </div>
               </div>
-             
+
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Last Name<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1010,8 +1013,8 @@ function Profile() {
                     onChange={(e) => setLastName(e.target.value)} />
                 </div>
               </div>
-              </div>
-              <div className="row mt-4">
+            </div>
+            <div className="row mt-4">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">User Name<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1028,8 +1031,8 @@ function Profile() {
                     onChange={(e) => setEmail(e.target.value)} />
                 </div>
               </div>
-              </div>
-              <div className="row mt-4">
+            </div>
+            <div className="row mt-4">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1053,18 +1056,18 @@ function Profile() {
                 <div className="input-group col-md-12 px-0 ">
 
                   <input type='text' className="form-control" placeholder="Enter Contact Number" aria-describedby="basic-addon2" required name="amount"
-                   value={profileHeading}
-                   onChange={(e) => setprofileHeading(e.target.value)} />
+                    value={profileHeading}
+                    onChange={(e) => setprofileHeading(e.target.value)} />
                 </div>
               </div>
-              </div>
+            </div>
 
 
           </DialogContent>
           <DialogActions>
-          <div className="col-md-12 d-flex justify-content-end">
-            <button className="btn btn-outline-secondary m-2" onClick={handleCloseDialog}>Cancel</button>
-            <button className="btn btn-primary m-2" onClick={handleUpate}>Save </button>
+            <div className="col-md-12 d-flex justify-content-end">
+              <button className="btn btn-outline-secondary m-2" onClick={handleCloseDialog}>Cancel</button>
+              <button className="btn btn-primary m-2" onClick={handleUpate}>Save </button>
             </div>
           </DialogActions>
         </Dialog>

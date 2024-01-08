@@ -9,7 +9,7 @@
   top: 4vw;
   left: 7vw;
 }
-.username1{
+.username-light{
   margin-left: 6vw;
   justify-content: 'space-between';
   margin-top: 9vh;
@@ -17,9 +17,18 @@
   font-weight: bold;
   font-size: 20px;
 }
+.username-dark{
+  margin-left: 6vw;
+  justify-content: 'space-between';
+  margin-top: 9vh;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 
 .counts-css{
-  color: #353434;
+  /* color: #353434; */
   font-weight: bold;
   font-size: 20px;
 }
@@ -125,4 +134,14 @@
 
 .text-title {
   padding: 6px !important;
+}
+
+.dark-card {
+  background-color: #333;
+  color: #fff;
+}
+
+.light-card {
+  /* background-color: #f4f4f4; */
+  color: #333;
 }

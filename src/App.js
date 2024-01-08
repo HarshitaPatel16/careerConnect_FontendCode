@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Profile from './Components/Profile/Profile';
@@ -15,35 +15,23 @@ import Post from './Components/post/Post';
 import Posts from './Components/posts/Posts';
 import "./Background.css"
 import BackgroundAnimation from './Background';
+import { DarkModeContext } from "./Components/context/darkModeContext"
 
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { toggle, darkMode } = useContext(DarkModeContext);
 
-  useEffect(() => {
-    applyTheme();
-  }, [isDarkMode]);
-  const applyTheme = () => {
-    document.documentElement.className = isDarkMode ? 'dark-mode' : 'light-mode';
-  };
-
-  const toggleTheme = () => {
-    // Toggle between dark and light modes
-    setIsDarkMode(prevMode => !prevMode);
-  };
 
   return (
-    <div className={`App ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      {/* Toggle button to switch between dark and light modes */}
-      {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
-
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+     
       <Router>
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/sidebar" element={<SidebarRight />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
-          <Route path="/navbar"  element={<Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
+          <Route path="/navbar"  element={<Navbar/>} />
           <Route path="/" element={<Home />} />
           <Route path="/job" element={<Job />} />
           <Route path="/share" element={<Share />} />

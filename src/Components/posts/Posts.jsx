@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../post/Post";
 import "./posts.css";
@@ -15,8 +15,6 @@ const Posts = () => {
   const reduxPosts = useSelector((state) => state.post);
   console.log(reduxPosts, "reduxPosts");
   console.log("Posts component - posts111:", posts);
-
-
   
   useEffect(() => {
     if (reduxPosts.readAllPost && reduxPosts.readAllPost.data) {

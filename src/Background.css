@@ -121,3 +121,58 @@
     bottom: 10vh;
     right: 50vw;
   }
+
+  .square13 {
+    width: 25px;
+    height: 25px;
+    background-color: #2ecc71; /* Square color */
+    bottom: 50vh;
+    left: 50vw;
+  }
+  .square14 {
+    width: 20px;
+    height: 20px;
+    background-color: #3498db; /* Square color */
+    top: 10vh;
+    right: 10vw;
+  }
+  
+  .square15 {
+    width: 30px;
+    height: 30px;
+    background-color: #e74c3c; /* Square color */
+    bottom: 10vh;
+    right: 10vw;
+  }
+  
+  .square16 {
+    width: 25px;
+    height: 25px;
+    background-color: #2ecc71; /* Square color */
+    bottom: 50%;
+    right: 20%;
+  }
+  
+  .square17 {
+    width: 20px;
+    height: 20px;
+    background-color: #3498db; /* Square color */
+    bottom: 40%;
+    right: 10%;
+  }
+  
+  .square18 {
+    width: 30px;
+    height: 30px;
+    background-color: #e74c3c; /* Square color */
+    bottom: 20vh;
+    right: 30vw;
+  }
+  
+  .square19 {
+    width: 25px;
+    height: 25px;
+    background-color: #2ecc71; /* Square color */
+    bottom: 10vh;
+    right: 50vw;
+  }

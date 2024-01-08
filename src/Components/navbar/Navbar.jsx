@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import "./navbar.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import lightLogo from "../../assets/CareerConnect-black-logo.png";
+import darklogo from "../../assets/CareerConnect-white-logo.png"
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
@@ -17,24 +18,23 @@ import { DarkModeContext } from "../context/darkModeContext";
 import HomeIcon from "../../assets/colored/ic-home.png"
 import JobIcon from "../../assets/colored/ic-job.png"
 import NotificationIcon from "../../assets/colored/ic-notification.png"
-// import JobIcon from "../../assets/colored/ic-job.png"
+import MoonIcon from "../../assets/colored/moon.png"
+import SunIcon from "../../assets/colored/sun.png"
+import ConnectIcon from "../../assets/ic-connections.png"
 
 //const Navbar = () => {
-   const Navbar = ({ isDarkMode, toggleTheme }) => {
+   const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [DarkMode, setDarkMode] = useState('');
 
   const { toggle, darkMode } = useContext(DarkModeContext);
 
 
   const handleHomeClick = () => {
-    // Navigate to the home page
     navigate('/');
   };
 
   const handleJobClick = () => {
-    // Navigate to the job page
     navigate('/job');
   };
 
@@ -50,16 +50,15 @@ import NotificationIcon from "../../assets/colored/ic-notification.png"
   useEffect(() => {
     if (profileData && profileData.readOneUser) {
       const data = profileData.readOneUser;
-      setDarkMode(data.DarkMode);  // Assuming the user data contains the dark mode preference
     }
   }, [profileData]);
 
   return (
-    <nav className={`navbar navbar-expand-lg ${isDarkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'} p-0 fixed-top`}>
+    <nav className={`navbar navbar-expand-lg ${darkMode ? 'navbar-dark' : 'navbar-light'} p-0 fixed-top`}>
       <div className="d-flex justify-content-between w-100 col-md-12">
         <div className='col-md-3 d-flex justify-content-center'>
           <a className="navbar-brand" href="#" style={{ marginRight: 0 }} onClick={handleHomeClick}>
-            <img src={lightLogo} alt="" />
+          {darkMode ? <img src={darklogo} alt="" /> : <img src={lightLogo} />}
           </a>
           <button
             className="navbar-toggler"
@@ -86,28 +85,31 @@ import NotificationIcon from "../../assets/colored/ic-notification.png"
           <ul className="navbar-nav ml-auto col-md-2">
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleHomeClick}>
-                {/* <HomeOutlinedIcon style={{ marginRight: '28px' }} /> */}
-                <img src={HomeIcon} alt="Home"  />
+                <img src={HomeIcon} alt="Home" style={{ marginRight: '32px' }} />
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#" onClick={handleHomeClick}>
+                <img src={ConnectIcon} alt="Home" style={{ marginRight: '32px' }} />
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleJobClick}>
-                {/* <BusinessOutlinedIcon style={{ marginRight: '28px' }} /> */}
-                <img src={JobIcon} alt="Job"  />
+                <img src={JobIcon} alt="Job" style={{ marginRight: '32px' }} />
               </a>
             </li>
             
             <li className="nav-item">
               <a className="nav-link" href="#">
-              <img src={NotificationIcon} alt="Home"  />
+              <img src={NotificationIcon} alt="Home" style={{ marginRight: '32px' }}  />
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" >
                 {darkMode ? (
-                  <WbSunnyOutlinedIcon onClick={toggle} />
+                  <img src={SunIcon} onClick={toggle} style={{ marginRight: '32px' }}/>
                 ) : (
-                  <DarkModeOutlinedIcon onClick={toggle} />
+                  <img src={MoonIcon} onClick={toggle} style={{ marginRight: '32px' }} />
                 )}
               </a>
             </li>
@@ -122,7 +124,7 @@ import NotificationIcon from "../../assets/colored/ic-notification.png"
                 src={profileData?.profilePic ? IMAGE_PATH + "user/" + profileData.profilePic : avatar}
                 className="chat_profile"
               />
-              <span>{profileData && profileData.username}</span>
+              <span className={`${darkMode? "text-light" : "text-dark"}`}>{profileData && profileData.username}</span>
             </div>
           </ul>
         </div>
