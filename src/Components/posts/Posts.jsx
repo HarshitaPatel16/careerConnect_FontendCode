@@ -13,12 +13,14 @@ const Posts = () => {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   const reduxPosts = useSelector((state) => state.post);
-  console.log(reduxPosts, "reduxPosts");
+  console.log(reduxPosts, "reduxPosts222");
   console.log("Posts component - posts111:", posts);
   
   useEffect(() => {
     if (reduxPosts.readAllPost && reduxPosts.readAllPost.data) {
       setPosts(reduxPosts.readAllPost.data);
+      console.log("chandanana",reduxPosts.readAllPost.data[0].post_id)
+      // localStorage.setItem("post_id", reduxPosts.readAllPost.data[0].post_id);
     }
   }, [reduxPosts]);
 

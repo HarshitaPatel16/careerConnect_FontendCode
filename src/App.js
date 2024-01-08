@@ -13,6 +13,7 @@ import Forgot from './Components/forgetpassword/forgetPassword';
 import ConnectionDetail from './Components/ConNectionDetail/connection';
 import Post from './Components/post/Post';
 import Posts from './Components/posts/Posts';
+import Otp from './Components/otppage/otp';
 import "./Background.css"
 import BackgroundAnimation from './Background';
 import { DarkModeContext } from "./Components/context/darkModeContext"
@@ -39,6 +40,8 @@ function App() {
           <Route path="/detail" element={<ConnectionDetail />} />
           <Route path="/post" element={<Post />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/otp" element={<Otp />} />
+
 
 
         </Routes>

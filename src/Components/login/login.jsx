@@ -84,7 +84,7 @@ const Login = () => {
   };
 
   const handleForgotPassword = () => {
-    navigate("/forgot")
+    navigate("/otp")
   };
 
   return (
