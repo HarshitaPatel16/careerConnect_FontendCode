@@ -14,9 +14,11 @@ import API_URL from "../../service";
 import React, { useEffect, useContext } from "react";
 import { DarkModeContext } from "../context/darkModeContext";
 import { addCreateLikes, getLikeById } from "../../store/action/action";
+import axios from 'axios'; 
 
 const Post = ({ post }) => {
   const { toggle, darkMode } = useContext(DarkModeContext);
+  const [commentOpen, setCommentOpen] = useState(false);
   const reduxLike = useSelector((state) => state.like);
 
 
@@ -37,32 +39,26 @@ const Post = ({ post }) => {
 
 
   const handleLikesClick = async () => {
-    // Check if the user has already liked the post
-    if (liked) {
-      // Handle case where the user has already liked the post
-      console.log('User has already liked the post');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("user_id", localStorage.getItem("user_id"));
-    formData.append('post_id', post.post_id);
-    formData.append("IsLiked", true);
-
     try {
+      const formData = new FormData();
+      formData.append("user_id", localStorage.getItem("user_id"));
+      formData.append("post_id", post.post_id);
+      formData.append("IsLiked", !liked);
+
       // Assuming your addCreateLikes action is asynchronous and returns a promise
       await dispatch(addCreateLikes(API_URL, formData));
 
-      // Update the liked state based on the action response
-      setLiked(true);
-      setLikeCount(likeCount + 1);
+      // Update the liked state and like count based on the action response
+      setLiked(!liked);
+      setLikeCount((count) => (liked ? count - 1 : count + 1));
     } catch (error) {
       console.error("Error handling like:", error);
       // Handle the error if needed
     }
   };
 
-  const [commentOpen, setCommentOpen] = useState(false);
+
+
   //TEMPORARY
   const [likeCount, setLikeCount] = useState(post.likes || 0); // Use post.likes if available, otherwise default to 0
   const [liked, setLiked] = useState(false);

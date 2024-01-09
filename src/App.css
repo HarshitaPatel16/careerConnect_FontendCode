@@ -38,16 +38,16 @@
 }
 
 body {
-  background-color: white;
+  background-color: #e2d1b63b;
 }
 
 .dark-mode {
   background-color: black;
 }
 
-.light-mode {
+/* .light-mode {
   background-color: #e2d1b63b;
-}
+} */
 
 .transition-group {
   position: relative;
@@ -61,15 +61,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.css-1l8wntm-MuiTypography-root {
- 
-  line-height: 1.50 !important;
-  
-}
-.css-iiuq3g-MuiGrid-root {
-  height: 100vh;
 }
 
 /* Add your existing styles for dark-mode and light-mode */

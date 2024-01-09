@@ -893,7 +893,7 @@ function Profile() {
 
                         </div>
 
-                        <div className="row   col">
+                        <div className="row col">
 
                           {/* <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Profile Headline*</label>
@@ -1058,7 +1058,7 @@ function Profile() {
                       ) : (
                         <div>
                           <div>
-                            <img src={expImg} alt="Profile" className="trofie mt-2" />
+                            <img src={resumeImg} alt="Profile" className="trofie mt-2" />
                           </div>
                           <div>
                             <button className="btn btn-primary mx-2" onClick={handleResumeChange}>
@@ -1067,12 +1067,9 @@ function Profile() {
                           </div>
                         </div>
                       )}
-
-
                     </div>
                   )}
                 </TabPanel>
-
                 <TabPanel value="4">
                   <Education />
                 </TabPanel>
