@@ -780,6 +780,9 @@ function Profile() {
                           <button type="button" className="btn btn-primary" onClick={handleAddSkills}>
                             Save
                           </button>
+                          <button type="button" className="btn btn-outline-secondary m-2" onClick={handleAddSkills}>
+                            Cancel
+                          </button>
                         </div>
                       </div>
 
