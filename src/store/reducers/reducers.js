@@ -4,7 +4,7 @@ const initialState = {
   customerregstionData:null,
   createPost:null,
   createSkills:null,
-  createExperience:null,
+  createEducation:null,
   readOneExperience:null,
   UpdateUser: null,
   deleteExperience: null,
@@ -15,8 +15,10 @@ const initialState = {
   readOneSkills: null,
   createComment: null,
   readOneComment: null,
+  createExperience: null,
   createLike: null,
   readOneLike: null,
+  readOneEducations: null,
   toggleLike: null,
   loading: false,
   error: null,
@@ -311,6 +313,25 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                   loading: false,
                   error: action.payload,
                 };
+                case "ADD_CREATEEDUCATIONS_REQUEST":
+                return {
+                  ...state,
+                  loading: true,
+                  error: null,
+                };
+              case "ADD_CREATEEDUCATIONS_SUCCESS":
+                return {
+                  ...state,
+                  createEducation: action.payload,
+                  loading: false,
+                  error: null,
+                };
+              case "ADD_CREATEEDUCATIONS_FAILURE":
+                return {
+                  ...state,
+                  loading: false,
+                  error: action.payload,
+                };
 
                 case "GET_COMMENT_BY_ID_REQUEST":
                   return {
@@ -389,6 +410,26 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                           toggleLike: null,
                           error: action.payload,
                         };
+
+                        case "GET_EDUCATIONS_BY_ID_REQUEST":
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case "GET_EDUCATIONS_BY_ID_SUCCESS":
+                          return {
+                            ...state,
+                            readOneEducations: action.payload,
+                            loading: false,
+                            error: null,
+                          };
+                        case "GET_EDUCATIONS_BY_ID_FAILURE":
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
 
     default:
       return state;

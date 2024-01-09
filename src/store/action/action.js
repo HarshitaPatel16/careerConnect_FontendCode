@@ -58,6 +58,10 @@ export const ADD_CREATEEXPERIENCE_REQUEST = "ADD_CREATEEXPERIENCE_REQUEST";
 export const ADD_CREATEEXPERIENCE_SUCCESS = "ADD_CREATEEXPERIENCE_SUCCESS";
 export const ADD_CREATEEXPERIENCE_FAILURE = "ADD_CREATEEXPERIENCE_FAILURE";
 
+export const ADD_CREATEEDUCATIONS_REQUEST = "ADD_CREATEEDUCATIONS_REQUEST";
+export const ADD_CREATEEDUCATIONS_SUCCESS = "ADD_CREATEEDUCATIONS_SUCCESS";
+export const ADD_CREATEEDUCATIONS_FAILURE = "ADD_CREATEEDUCATIONS_FAILURE";
+
 export const ADD_CREATELIKE_REQUEST = "ADD_CREATELIKE_REQUEST";
 export const ADD_CREATELIKE_SUCCESS = "ADD_CREATELIKE_SUCCESS";
 export const ADD_CREATELIKE_FAILURE = "ADD_CREATELIKE_FAILURE";
@@ -68,6 +72,10 @@ export const ADD_CREATELIKE_FAILURE = "ADD_CREATELIKE_FAILURE";
 export const GET_EXPERIENCE_BY_ID_REQUEST = "GET_EXPERIENCE_BY_ID_REQUEST";
 export const GET_EXPERIENCE_BY_ID_SUCCESS = "GET_EXPERIENCE_BY_ID_SUCCESS";
 export const GET_EXPERIENCE_BY_ID_FAILURE = "GET_EXPERIENCE_BY_ID_FAILURE";
+
+export const GET_EDUCATIONS_BY_ID_REQUEST = "GET_EDUCATIONS_BY_ID_REQUEST";
+export const GET_EDUCATIONS_BY_ID_SUCCESS = "GET_EDUCATIONS_BY_ID_SUCCESS";
+export const GET_EDUCATIONS_BY_ID_FAILURE = "GET_EDUCATIONS_BY_ID_FAILURE";
 
 
 export const DELETE_SKILLS_REQUEST = "DELETE_SKILLS_REQUEST";
@@ -224,6 +232,21 @@ export const addCreateExperience = (API_URL, data) => {
 };
 //end//
 
+export const addCreateEducations = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: ADD_CREATEEDUCATIONS_REQUEST });
+    axios
+      .post(API_URL + "educations/createEducation", data)
+      .then((response) => {
+        dispatch({ type: ADD_CREATEEDUCATIONS_SUCCESS, payload: response.data });
+        // return dispatch(getExperienceById(API_URL,data));
+      })
+      .catch((error) => {
+        dispatch({ type: ADD_CREATEEDUCATIONS_FAILURE, payload: error.message });
+      });
+  };
+};
+
 //profile update api start
 
 export const updateProfile = (API_URL, data) => {
@@ -317,6 +340,22 @@ export const getExperienceById = (API_URL, data) => {
 
       .catch((error) => {
         dispatch({ type: GET_EXPERIENCE_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
+export const getEducationsById = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_EDUCATIONS_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "educations/readOneEducations", data)
+      .then((response) => {
+        dispatch({ type: GET_EDUCATIONS_BY_ID_SUCCESS, payload: response.data });
+        
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_EDUCATIONS_BY_ID_FAILURE, payload: error.message });
       });
   };
 };

@@ -5,55 +5,98 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import edImg from "../../assets/Education.png"
 import { DarkModeContext } from '../context/darkModeContext';
+import { addCreateEducations, getEducationsById } from "../../store/action/action";
+import { useDispatch, useSelector } from "react-redux";
+import API_URL from "../../service";
 
 
 
 function Education() {
-    
+  const dispatch = useDispatch();
+
 
     const [showAddEducation, setshowAddEducation] = useState(false);
-    const [value, setValue] = React.useState('1');
-    const [showAddSkill, setShowAddSkill] = useState(false);
-    const [showAddExperience, setShowAddExperience] = useState(false);
-    const [skill, setSkill] = useState("")
-    const [userId, setUserId] = useState("")
-    const [experiences, setExperiences] = useState("");
-    const [isCoverEditable, setisCoverEditable] = useState(false);
-    const [selectedCoverImage, setselectedCoverImage] = useState(null);
-    const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState('');
-    const [profileImg, setProfileImg] = useState([]);
-    const [files, setFiles] = useState([]);
-    console.log("files", files)
-    const [isCameraStarted, setCameraStarted] = useState(false);
-    const [resumePdf, setResumePdf] = useState(null);
-    const [showUploadButton, setShowUploadButton] = useState(false);
-    const [userName, setUserName] = useState(""); // Add state to store username
-    const [profilePic, setProfilePic] = useState("");
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [coverPic, setCoverImage] = useState("");
-    const [address, setAddress] = useState("");
-    const [resume, setResume] = useState("");
-    const [about, setAbout] = useState("");
-    const [skills, setSkills] = useState([]);
-    const [companyName, setcompanyName] = useState("");
-    const [profileHeading, setprofileHeading] = useState("");
+
+
+    const [activities, setactivities] = useState("");
+    const [fieldofstudy, setfieldofstudy] = useState("");
+    const [institutionName, setinstitutionName] = useState("");
+    const [degree, setdegree] = useState("");
     const [startYear, setstartYear] = useState("");
     const [endYear, setendYear] = useState("");
-    const [description, setdescription] = useState("");
-    const [employeType, setemployeType] = useState("");
-    const [location, setlocation] = useState("");
-    const [locationType, setlocationType] = useState("");
-    const [jobTitle, setjobTitle] = useState("");
+    const [errors, setErrors] = useState({});
     const { toggle, darkMode } = useContext(DarkModeContext);
 
+
+    function handleAddEducations() {
+      const newErrors = {};
+  
+      // Validate Job Title
+      if (!institutionName || !institutionName.trim()) {
+        newErrors.institutionName = 'school is required.';
+      }
+  
+      // Validate Employment Type
+      if (!degree || !degree.trim()) {
+        newErrors.degree = 'degree Type is required.';
+      }
+  
+      // Validate Company Name
+      if (!activities || !activities.trim()) {
+        newErrors.activities = 'activities Name is required.';
+      }
+  
+      // Validate Location Type
+      if (!fieldofstudy || !fieldofstudy.trim()) {
+        newErrors.fieldofstudy = 'fieldofstudy Type is required.';
+      }
+  
+      // Validate Start Date
+      if (!startYear || !startYear.trim()) {
+        newErrors.startYear = 'Start Date is required.';
+      }
+  
+      // Validate End Date
+      if (!endYear || !endYear.trim()) {
+        newErrors.endYear = 'End Date is required.';
+      }
+  
+     
+      // If there are errors, set them and prevent further action
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+  
+      // If no errors, proceed with form submission
+      const formData = new FormData();
+      formData.append("user_id", localStorage.getItem("user_id"));
+      formData.append("institution_name", institutionName);
+      formData.append("start_year", startYear);
+      formData.append("end_year", endYear);
+      formData.append("degree", degree);
+      formData.append("field_of_study", fieldofstudy);
+      formData.append("activities", activities);
+    
+      // Dispatch action for adding experience
+      setshowAddEducation(false);
+      setErrors({});
+      dispatch(addCreateEducations(API_URL, formData));
+    }
+
+    useEffect(() => {
+      const data = {
+        user_id: localStorage.getItem("user_id"),
+      };
+  
+      dispatch(getEducationsById(API_URL, data));
+    }, [dispatch]);
+  
 
     const handleAddEducationToggle = () => {
         setshowAddEducation(!showAddEducation);
     };
+    
 
     return (
         <>
@@ -61,9 +104,9 @@ function Education() {
                 <Typography variant="subtitle1" component="div">
                     <div className="d-flex justify-content-between">
                         <span className="fs-3 ">Education</span>
-                        <span className="ms-auto fs-2"><AddIcon onClick={handleAddEducationToggle} /></span>
+                        <span className="ms-auto fs-2"><AddIcon onClick={handleAddEducationToggle}  /></span>
                     </div >
-                    <div>
+                        <div>
                           <div>
                             <img src={edImg} alt="Profile" className="trofie mt-2" />
                           </div>
@@ -96,7 +139,7 @@ function Education() {
                       <div className="justify-content-left d-flex">
                         <span className="fs-3 ">Add Education</span>
                         <div className="ms-auto">
-                          <button type="button" className="btn btn-primary" >
+                          <button type="button" className="btn btn-primary" onClick={handleAddEducations} >
                             Save
                           </button>
                         </div>
@@ -112,8 +155,8 @@ function Education() {
                               type="text"
                               className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex:Boston University"
-                              value={jobTitle}
-                              onChange={(e) => setjobTitle(e.target.value)}
+                              value={institutionName}
+                              onChange={(e) => setinstitutionName(e.target.value)}
                             />
                           </div>
 
@@ -123,8 +166,8 @@ function Education() {
                               type="text"
                               className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex. B.Tech"
-                              value={profileHeading}
-                              onChange={(e) => setprofileHeading(e.target.value)}
+                              value={degree}
+                              onChange={(e) => setdegree(e.target.value)}
                             />
                           </div>
 
@@ -134,8 +177,8 @@ function Education() {
                               type="text"
                               className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
                               placeholder="Ex : IT"
-                              value={employeType}
-                              onChange={(e) => setemployeType(e.target.value)}
+                              value={fieldofstudy}
+                              onChange={(e) => setfieldofstudy(e.target.value)}
                             />
                             
                           </div>
@@ -175,8 +218,8 @@ function Education() {
                           <div className="col-md-12 mt-3">
                             <label className="d-flex justify-content-left ">Activity and Society*</label>
                             <textarea className={`form-control border py-1 ${darkMode ? 'dark-input' : 'light-input'}`} rows={5}
-                              value={description}
-                              onChange={(e) => setdescription(e.target.value)}
+                              value={activities}
+                              onChange={(e) => setactivities(e.target.value)}
                             ></textarea>
                           </div>
 
