@@ -63,9 +63,10 @@ function Profile() {
   const { toggle, darkMode } = useContext(DarkModeContext);
   const [value, setValue] = React.useState('1');
   const [showAddSkill, setShowAddSkill] = useState(false);
+  const [showEditSkill, setShowEditSkill] = useState(false)
   const [showAddExperience, setShowAddExperience] = useState(false);
   const [skill, setSkill] = useState("")
-  const [skillError, setSkillError] = useState ("")
+  const [skillError, setSkillError] = useState("")
   const [userId, setUserId] = useState("")
   const [experiences, setExperiences] = useState("");
   const addSkillCardRef = useRef(null);
@@ -301,53 +302,53 @@ function Profile() {
 
   function handleAddExperience() {
     const newErrors = {};
-  
+
     // Validate Job Title
     if (!jobTitle || !jobTitle.trim()) {
       newErrors.jobTitle = 'Job Title is required.';
     }
-  
+
     // Validate Employment Type
     if (!employeType || !employeType.trim()) {
       newErrors.employeType = 'Employment Type is required.';
     }
-  
+
     // Validate Company Name
     if (!companyName || !companyName.trim()) {
       newErrors.companyName = 'Company Name is required.';
     }
-  
+
     // Validate Location Type
     if (!locationType || !locationType.trim()) {
       newErrors.locationType = 'Location Type is required.';
     }
-  
+
     // Validate Location
     if (!location || !location.trim()) {
       newErrors.location = 'Location is required.';
     }
-  
+
     // Validate Start Date
     if (!startYear || !startYear.trim()) {
       newErrors.startYear = 'Start Date is required.';
     }
-  
+
     // Validate End Date
     if (!endYear || !endYear.trim()) {
       newErrors.endYear = 'End Date is required.';
     }
-  
+
     // Validate Description
     if (!description || !description.trim()) {
       newErrors.description = 'Description is required.';
     }
-  
+
     // If there are errors, set them and prevent further action
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-  
+
     // If no errors, proceed with form submission
     const formData = new FormData();
     formData.append("user_id", localStorage.getItem("user_id"));
@@ -359,13 +360,13 @@ function Profile() {
     formData.append("location", location);
     formData.append("location_type", locationType);
     formData.append("job_title", jobTitle);
-  
+
     // Dispatch action for adding experience
     setShowAddExperience(false);
     setErrors({});
     dispatch(addCreateExperience(API_URL, formData));
   }
-  
+
   useEffect(() => {
     if (experienceData !== null && experienceData !== undefined && experienceData.length > 0) {
       {
@@ -539,6 +540,10 @@ function Profile() {
     setShowAddSkill(!showAddSkill);
   };
 
+  const handleEditSkillToggle = () => {
+    setShowEditSkill(!showEditSkill);
+  };
+
   const handleAddExperienceToggle = () => {
     setShowAddExperience(!showAddExperience);
   };
@@ -557,15 +562,15 @@ function Profile() {
     setSkillError('');
   };
 
-  const handleOpenExperience=()=>{
-       setcompanyName("");
-        setstartYear("")
-        setendYear("");
-        setdescription("");
-        setemployeType("");
-        setlocation("");
-        setlocationType("");
-        setjobTitle("");
+  const handleOpenExperience = () => {
+    setcompanyName("");
+    setstartYear("")
+    setendYear("");
+    setdescription("");
+    setemployeType("");
+    setlocation("");
+    setlocationType("");
+    setjobTitle("");
   }
 
 
@@ -667,7 +672,7 @@ function Profile() {
 
             </div>
           </Item>
-          <Card className={`${darkMode ? 'dark-card' : 'light-card'}`}  sx={{
+          <Card className={`${darkMode ? 'dark-card' : 'light-card'}`} sx={{
             marginTop: '10px',
             borderRadius: '8px !important',
             boxShadow: 'rgba(17, 17, 26, 0.1) 0px 0px 16px !important',
@@ -677,9 +682,9 @@ function Profile() {
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <TabList onChange={handleChange} aria-label="lab API tabs example" className={`${darkMode ? 'dark-card' : 'light-card'}`}>
                     <Tab label="Skills" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="1" />
-                    <Tab label="Experience" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="2"  />
+                    <Tab label="Experience" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="2" />
                     <Tab label="Resume" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="3" />
-                    <Tab label="Education" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="4"/>
+                    <Tab label="Education" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="4" />
                   </TabList>
                 </Box>
                 <TabPanel value="1" >
@@ -713,7 +718,10 @@ function Profile() {
                             <React.Fragment key={skill.skills_id}>
                               <div className="d-flex align-items-center justify-content-between">
                                 <span style={{ marginRight: '10px' }}>{skill.skils_name}</span>
+                                <div>
+                                <EditOutlinedIcon onClick={handleEditSkillToggle} />
                                 <DeleteForeverOutlinedIcon onClick={() => handeldeleteSkills(skill.skills_id)} />
+                                </div>
                               </div>
                               {index < skills.length - 1 && <hr />}
                             </React.Fragment>
@@ -757,6 +765,26 @@ function Profile() {
 
                     </Card>
                   }
+                   {showEditSkill &&
+                    <Card className={`p-4 mt-2 ${darkMode ? 'dark-card' : 'light-card'}`} >
+
+                      <div className="justify-content-left d-flex">
+                        <span className="fs-3 ">Edit Skill*</span>
+                      </div>
+                      <div className="d-flex">
+                        <div className="col-md-8">
+                          <input type="text" className={`form-control ${darkMode ? 'dark-input' : 'light-input'}`} value={skill} onChange={handleSkill} />
+                          {skillError && <div className="text-danger">{skillError}</div>}
+                        </div>
+                        <div className="ms-auto">
+                          <button type="button" className="btn btn-primary" onClick={handleAddSkills}>
+                            Save
+                          </button>
+                        </div>
+                      </div>
+
+                    </Card>
+                  }
                   {/* Add skills card end */}
                 </TabPanel>
                 <TabPanel ref={addExperienceCardRef} value="2">
@@ -774,48 +802,51 @@ function Profile() {
                         <div className="col-md-12">
                           {experienceData &&
                             experienceData.map((experience) => (
-                              <div key={experience.experience_id} className="d-flex align-items-center ms-3 justify-content-between ">
-                                {/* Map the Avatar for each experience */}
-                                <div className="col-md-1">
-                                <Avatar>{experience.company.charAt(0).toUpperCase()}</Avatar>
-                                </div>
-                                <div className="col-md-10 ">
-                                  <h6 className="fw-bold mt-2 mb-0 d-flex">
-                                    {experience.job_title}{' '}
-                                  </h6>
-                                  <p className="fw-normal mb-0 d-flex">{experience.company},</p>
-                                  <p className="fw-normal  mb-0 d-flex">
-                                    {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
-                                  </p>
-                                  <p className="fw-normal mb-0 d-flex">
-                                    {experience.location}, {experience.location_type === 1 ? (
-                                      <span>On Site</span>
-                                    ) : experience.location_type === 2 ? (
-                                      <span>Hybrid</span>
-                                    ) : experience.location_type === 3 ? (
-                                      <span>Remote</span>
-                                    ) : null}{' '}
-                                    {experience.employe_type === 1 ? (
-                                      <span>Full Time</span>
-                                    ) : experience.employe_type === 2 ? (
-                                      <span>Self-Employeed</span>
-                                    ) : experience.employe_type === 3 ? (
-                                      <span>Freelance</span>
-                                    ) : experience.employe_type === 4 ? (
-                                      <span>Trainee</span>
-                                    ) : null}
+                              <div>
+                                <div key={experience.experience_id} className="d-flex align-items-center ms-3 justify-content-between ">
+                                  {/* Map the Avatar for each experience */}
+                                  <div className="col-md-1">
+                                    <Avatar>{experience.company.charAt(0).toUpperCase()}</Avatar>
+                                  </div>
+                                  <div className="col-md-10 ">
+                                    <h6 className="fw-bold mt-2 mb-0 d-flex">
+                                      {experience.job_title}{' '}
+                                    </h6>
+                                    <p className="fw-normal mb-0 d-flex">{experience.company},</p>
+                                    <p className="fw-normal  mb-0 d-flex">
+                                      {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
+                                    </p>
+                                    <p className="fw-normal mb-0 d-flex">
+                                      {experience.location}, {experience.location_type === 1 ? (
+                                        <span>On Site</span>
+                                      ) : experience.location_type === 2 ? (
+                                        <span>Hybrid</span>
+                                      ) : experience.location_type === 3 ? (
+                                        <span>Remote</span>
+                                      ) : null}{' '}
+                                      {experience.employe_type === 1 ? (
+                                        <span>Full Time</span>
+                                      ) : experience.employe_type === 2 ? (
+                                        <span>Self-Employeed</span>
+                                      ) : experience.employe_type === 3 ? (
+                                        <span>Freelance</span>
+                                      ) : experience.employe_type === 4 ? (
+                                        <span>Trainee</span>
+                                      ) : null}
 
-                                  </p>
-                                </div>
-                                <div className="col-md-1">
-                                <DeleteForeverOutlinedIcon
+                                    </p>
+                                  </div>
+                                  <div className="col-md-1">
+                                    <DeleteForeverOutlinedIcon
                                       onClick={() => handeldeleteExperience(experience.experience_id)}
                                       style={{ marginLeft: '0.7rem', cursor: 'pointer' }}
                                     />
 
+                                  </div>
+                                  <hr/>
                                 </div>
+                                <hr/>
                               </div>
-
                             ))}
                         </div>
                       </div>
@@ -846,18 +877,18 @@ function Profile() {
                         </div>
                       </div>
                       <div className="box">
-                      <div className="col-md-6 mt-3">
-                            <label className="d-flex justify-content-left ">Job Title*</label>
-                            <input
-                              type="text"
-                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
-                              placeholder="Ex: Full Stack Developer"
-                              value={jobTitle}
-                              onChange={(e) => setjobTitle(e.target.value)}
-                            />
-                            {errors.jobTitle && <div className="text-danger">{errors.jobTitle}</div>}
+                        <div className="col-md-6 mt-3">
+                          <label className="d-flex justify-content-left ">Job Title*</label>
+                          <input
+                            type="text"
+                            className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
+                            placeholder="Ex: Full Stack Developer"
+                            value={jobTitle}
+                            onChange={(e) => setjobTitle(e.target.value)}
+                          />
+                          {errors.jobTitle && <div className="text-danger">{errors.jobTitle}</div>}
 
-                          </div>
+                        </div>
 
                         <div className="row   col">
 
@@ -904,7 +935,7 @@ function Profile() {
                         </div>
 
                         <div className="row d-flex justify-content-left   col">
-                         <div className="col-md-6 mt-3">
+                          <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Location Type*</label>
                             <select
                               type="text"
@@ -970,9 +1001,9 @@ function Profile() {
 
                           <div className="col-md-12 mt-3">
                             <label className="d-flex justify-content-left ">Description*</label>
-                            <textarea 
-                            className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
-                             rows={5}
+                            <textarea
+                              className={`form-control border ${darkMode ? 'dark-input' : 'light-input'}`}
+                              rows={5}
                               value={description}
                               onChange={(e) => setdescription(e.target.value)}
                             ></textarea>
@@ -982,7 +1013,7 @@ function Profile() {
                         </div>
                       </div>
 
-
+                      <hr/>
                     </Card>
                   )}
                   {/* Add experiences card end */}
@@ -1057,7 +1088,7 @@ function Profile() {
                   className="trofie"
 
                 />
-             </div>
+              </div>
               <CardContent>
                 <Typography variant="subtitle1" component="div">
                   Upgrade to Pro
