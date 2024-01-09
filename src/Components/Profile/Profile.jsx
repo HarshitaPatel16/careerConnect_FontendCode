@@ -65,6 +65,7 @@ function Profile() {
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [showAddExperience, setShowAddExperience] = useState(false);
   const [skill, setSkill] = useState("")
+  const [skillError, setSkillError] = useState ("")
   const [userId, setUserId] = useState("")
   const [experiences, setExperiences] = useState("");
   const addSkillCardRef = useRef(null);
@@ -109,6 +110,8 @@ function Profile() {
   const [location, setlocation] = useState("");
   const [locationType, setlocationType] = useState("");
   const [jobTitle, setjobTitle] = useState("");
+  const [errors, setErrors] = useState({});
+
 
   useEffect(() => {
     const data = {
@@ -121,7 +124,6 @@ function Profile() {
     const data = {
       user_id: localStorage.getItem("user_id"),
     };
-
     dispatch(getSkilsById(API_URL, data));
   }, [dispatch]);
   useEffect(() => {
@@ -266,21 +268,90 @@ function Profile() {
 
   function handleAddSkills() {
 
+    if (!skill.trim()) {
+      setSkillError('Skill is required.');
+      return;
+    }
     const formData = new FormData();
     formData.append("user_id", localStorage.getItem("user_id"));
     formData.append("skils_name", skill);
     setShowAddSkill(false);
     setSkill('');
-
+    setSkillError("")
     dispatch(addCreateSkills(API_URL, formData));
   }
 
-  function handleAddExperience() {
+  // function handleAddExperience() {
 
+  //   const formData = new FormData();
+  //   formData.append("user_id", localStorage.getItem("user_id"));
+  //   formData.append("company", companyName);
+  //   // formData.append("profile_heading", profileHeading);
+  //   formData.append("start_year", startYear);
+  //   formData.append("end_year", endYear);
+  //   formData.append("description", description);
+  //   formData.append("employe_type", employeType);
+  //   formData.append("location", location);
+  //   formData.append("location_type", locationType);
+  //   formData.append("job_title", jobTitle);
+  //   setShowAddExperience(false);
+  //   setExperiences('');
+  //   dispatch(addCreateExperience(API_URL, formData));
+  // }
+
+  function handleAddExperience() {
+    const newErrors = {};
+  
+    // Validate Job Title
+    if (!jobTitle || !jobTitle.trim()) {
+      newErrors.jobTitle = 'Job Title is required.';
+    }
+  
+    // Validate Employment Type
+    if (!employeType || !employeType.trim()) {
+      newErrors.employeType = 'Employment Type is required.';
+    }
+  
+    // Validate Company Name
+    if (!companyName || !companyName.trim()) {
+      newErrors.companyName = 'Company Name is required.';
+    }
+  
+    // Validate Location Type
+    if (!locationType || !locationType.trim()) {
+      newErrors.locationType = 'Location Type is required.';
+    }
+  
+    // Validate Location
+    if (!location || !location.trim()) {
+      newErrors.location = 'Location is required.';
+    }
+  
+    // Validate Start Date
+    if (!startYear || !startYear.trim()) {
+      newErrors.startYear = 'Start Date is required.';
+    }
+  
+    // Validate End Date
+    if (!endYear || !endYear.trim()) {
+      newErrors.endYear = 'End Date is required.';
+    }
+  
+    // Validate Description
+    if (!description || !description.trim()) {
+      newErrors.description = 'Description is required.';
+    }
+  
+    // If there are errors, set them and prevent further action
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    // If no errors, proceed with form submission
     const formData = new FormData();
     formData.append("user_id", localStorage.getItem("user_id"));
     formData.append("company", companyName);
-    // formData.append("profile_heading", profileHeading);
     formData.append("start_year", startYear);
     formData.append("end_year", endYear);
     formData.append("description", description);
@@ -288,11 +359,13 @@ function Profile() {
     formData.append("location", location);
     formData.append("location_type", locationType);
     formData.append("job_title", jobTitle);
+  
+    // Dispatch action for adding experience
     setShowAddExperience(false);
-    setExperiences('');
+    setErrors({});
     dispatch(addCreateExperience(API_URL, formData));
   }
-
+  
   useEffect(() => {
     if (experienceData !== null && experienceData !== undefined && experienceData.length > 0) {
       {
@@ -307,13 +380,12 @@ function Profile() {
         setlocation(data.location);
         setlocationType(data.locationType);
         setjobTitle(data.jobTitle);
-
         localStorage.setItem('experience_id', data.experience_id);
-
-
       }
     }
   }, [experienceData]);
+
+
 
   const handleResumeChange = (event) => {
     const file = event.target.files[0];
@@ -481,7 +553,19 @@ function Profile() {
   }, [showAddSkill, showAddExperience]);
 
   const handleSkill = (e) => {
-    setSkill(e.target.value)
+    setSkill(e.target.value);
+    setSkillError('');
+  };
+
+  const handleOpenExperience=()=>{
+       setcompanyName("");
+        setstartYear("")
+        setendYear("");
+        setdescription("");
+        setemployeType("");
+        setlocation("");
+        setlocationType("");
+        setjobTitle("");
   }
 
 
@@ -662,6 +746,7 @@ function Profile() {
                       <div className="d-flex">
                         <div className="col-md-8">
                           <input type="text" className={`form-control ${darkMode ? 'dark-input' : 'light-input'}`} value={skill} onChange={handleSkill} />
+                          {skillError && <div className="text-danger">{skillError}</div>}
                         </div>
                         <div className="ms-auto">
                           <button type="button" className="btn btn-primary" onClick={handleAddSkills}>
@@ -680,7 +765,7 @@ function Profile() {
                       <div className="d-flex justify-content-between">
                         <span className="fs-3">Experience</span>
                         <span className="ms-auto fs-2">
-                          <AddIcon onClick={handleAddExperienceToggle} />
+                          <AddIcon onClick={handleAddExperienceToggle} onChange={handleOpenExperience} />
                         </span>
                       </div>
                     </Typography>
@@ -697,16 +782,12 @@ function Profile() {
                                 <div className="col-md-10 ">
                                   <h6 className="fw-bold mt-2 mb-0 d-flex">
                                     {experience.job_title}{' '}
-                                    {/* <DeleteForeverOutlinedIcon
-                                      onClick={() => handeldeleteExperience(experience.experience_id)}
-                                      style={{ marginLeft: '40rem', cursor: 'pointer' }}
-                                    /> */}
                                   </h6>
-                                  <p className="fw-normal text-secondary mb-0 d-flex">{experience.company},</p>
-                                  <p className="fw-normal text-secondary mb-0 d-flex">
+                                  <p className="fw-normal mb-0 d-flex">{experience.company},</p>
+                                  <p className="fw-normal  mb-0 d-flex">
                                     {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
                                   </p>
-                                  <p className="fw-normal text-secondary mb-0 d-flex">
+                                  <p className="fw-normal mb-0 d-flex">
                                     {experience.location}, {experience.location_type === 1 ? (
                                       <span>On Site</span>
                                     ) : experience.location_type === 2 ? (
@@ -714,8 +795,6 @@ function Profile() {
                                     ) : experience.location_type === 3 ? (
                                       <span>Remote</span>
                                     ) : null}{' '}
-
-
                                     {experience.employe_type === 1 ? (
                                       <span>Full Time</span>
                                     ) : experience.employe_type === 2 ? (
@@ -733,6 +812,7 @@ function Profile() {
                                       onClick={() => handeldeleteExperience(experience.experience_id)}
                                       style={{ marginLeft: '0.7rem', cursor: 'pointer' }}
                                     />
+
                                 </div>
                               </div>
 
@@ -765,12 +845,8 @@ function Profile() {
                           </button>
                         </div>
                       </div>
-
-
                       <div className="box">
-
-                        <div className="row   col">
-                          <div className="col-md-4 mt-3">
+                      <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Job Title*</label>
                             <input
                               type="text"
@@ -779,7 +855,11 @@ function Profile() {
                               value={jobTitle}
                               onChange={(e) => setjobTitle(e.target.value)}
                             />
+                            {errors.jobTitle && <div className="text-danger">{errors.jobTitle}</div>}
+
                           </div>
+
+                        <div className="row   col">
 
                           {/* <div className="col-md-4 mt-3">
                             <label className="d-flex justify-content-left ">Profile Headline*</label>
@@ -792,7 +872,7 @@ function Profile() {
                             />
                           </div> */}
 
-                          <div className="col-md-4 mt-3">
+                          <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Employement Type*</label>
                             <select
                               type="text"
@@ -808,8 +888,9 @@ function Profile() {
                               <option value={4}>Internship</option>
                               <option value={5}>Trainee</option>
                             </select>
+                            {errors.employeType && <div className="text-danger">{errors.employeType}</div>}
                           </div>
-                          <div className="col-md-4 mt-3">
+                          <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Company Name*</label>
                             <input
                               type="text"
@@ -818,13 +899,12 @@ function Profile() {
                               value={companyName}
                               onChange={(e) => setcompanyName(e.target.value)}
                             />
+                            {errors.companyName && <div className="text-danger">{errors.companyName}</div>}
                           </div>
                         </div>
 
                         <div className="row d-flex justify-content-left   col">
-
-
-                          <div className="col-md-4 mt-3">
+                         <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Location Type*</label>
                             <select
                               type="text"
@@ -838,9 +918,10 @@ function Profile() {
                               <option value={2}>Hybrid</option>
                               <option value={3}>Remote</option>
                             </select>
+                            {errors.locationType && <div className="text-danger">{errors.locationType}</div>}
                           </div>
 
-                          <div className="col-md-4 mt-3">
+                          <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Location*</label>
 
                             <input
@@ -850,10 +931,11 @@ function Profile() {
                               value={location}
                               onChange={(e) => setlocation(e.target.value)}
                             />
+                            {errors.location && <div className="text-danger">{errors.location}</div>}
                           </div>
                         </div>
                         <div className="row d-flex justify-content-left   col">
-                          <div className="col-md-4 mt-3">
+                          <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">Start Date*</label>
                             <input
                               type="date"
@@ -862,9 +944,10 @@ function Profile() {
                               value={startYear}
                               onChange={(e) => setstartYear(e.target.value)}
                             />
+                            {errors.startYear && <div className="text-danger">{errors.startYear}</div>}
                           </div>
 
-                          <div className="col-md-4 mt-3">
+                          <div className="col-md-6 mt-3">
                             <label className="d-flex justify-content-left ">End Date*</label>
                             <input
                               type="Date"
@@ -873,6 +956,7 @@ function Profile() {
                               value={endYear}
                               onChange={(e) => setendYear(e.target.value)}
                             />
+                            {errors.endYear && <div className="text-danger">{errors.endYear}</div>}
                           </div>
                           {/* 
                           <div className="col-md-4 mt-3">
@@ -943,7 +1027,7 @@ function Profile() {
                             <img src={expImg} alt="Profile" className="trofie mt-2" />
                           </div>
                           <div>
-                            <button className="btn btn-primary mx-2" onClick={handleChoosePdf}>
+                            <button className="btn btn-primary mx-2" onClick={handleResumeChange}>
                               <FileUploadIcon /> Choose PDF
                             </button>
                           </div>
@@ -963,12 +1047,9 @@ function Profile() {
           </Card>
 
         </Grid>
-
-
         <Grid item xs={12} md={4} lg={3} >
           <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
             <div>
-
               <div className="trofie">
                 <img
                   src={trofe}
@@ -976,9 +1057,7 @@ function Profile() {
                   className="trofie"
 
                 />
-
-
-              </div>
+             </div>
               <CardContent>
                 <Typography variant="subtitle1" component="div">
                   Upgrade to Pro
@@ -986,11 +1065,7 @@ function Profile() {
                 <Typography variant="subtitle1" component="div">
                   Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical
                 </Typography>
-
-
               </CardContent>
-
-
             </div>
           </Item>
         </Grid>
@@ -1034,7 +1109,6 @@ function Profile() {
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Email<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
-
                   <input className="form-control" placeholder="Enter Last Name" aria-describedby="basic-addon2" required name="amountChangeNote" value={email}
                     onChange={(e) => setEmail(e.target.value)} />
                 </div>
@@ -1044,7 +1118,6 @@ function Profile() {
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
-
                   <input type='number' className="form-control" placeholder="Enter Contact Number" aria-describedby="basic-addon2" required name="amount" value={mobile}
                     onChange={(e) => setMobile(e.target.value)} />
                 </div>
@@ -1069,8 +1142,6 @@ function Profile() {
                 </div>
               </div>
             </div>
-
-
           </DialogContent>
           <DialogActions>
             <div className="col-md-12 d-flex justify-content-end">

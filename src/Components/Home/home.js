@@ -111,11 +111,11 @@ const Home = () => {
                   />
                 </div>
                 <CardContent >
-                  <Typography variant="subtitle1" component="div" sx={{ display: 'flex', }}>
+                  <Typography  variant="subtitle1" component="div" sx={{ display: 'flex', }}>
                     <span className={darkMode ? 'username-dark' : 'username-light'}>{profileData && profileData.username ? profileData.username : ""}</span>
                   </Typography>
-                  <Typography variant="subtitle1" component="div" sx={{ display: 'flex', padding: '2px', fontSize: "14px" }}>
-                    <span className="text-title"> {profileData && profileData.profile_heading ? profileData.profile_heading : "Default Heading"}</span>
+                  <Typography  className="d-flex justify-content-center" variant="subtitle1" component="div" sx={{ display: 'flex', padding: '2px', fontSize: "14px" }}>
+                    <span > {profileData && profileData.profile_heading ? profileData.profile_heading : ""}</span>
                   </Typography>
                 </CardContent>
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-around' }}>

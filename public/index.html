@@ -70,17 +70,17 @@
         embedded_svc.settings.entryFeature = 'LiveAgent';
      
         embedded_svc.init(
-          'https://cargosprint2--mamoonfull.sandbox.my.salesforce.com',
-          'https://cargosprint2--mamoonfull.sandbox.my.salesforce-sites.com/liveAgentSetupFlow',
+          'https://scs54-dev-ed.develop.my.salesforce.com',
+          'https://scs54-dev-ed.develop.my.salesforce-sites.com/liveAgentSetupFlow',
           gslbBaseURL,
-          '00DDT000000BzFP',
-          'Demo',
+          '00D2w00000RsCQl',
+          'career_connect',
           {
-            baseLiveAgentContentURL: 'https://c.la2s-core1.sfdc-lywfpd.salesforceliveagent.com/content',
-            deploymentId: '572Nq000000JIVv',
-            buttonId: '573Nq0000006Vh6',
-            baseLiveAgentURL: 'https://d.la2s-core1.sfdc-lywfpd.salesforceliveagent.com/chat',
-            eswLiveAgentDevName: 'Demo',
+            baseLiveAgentContentURL: 'https://c.la2-c2-ukb.salesforceliveagent.com/content',
+            deploymentId: '5722w0000006A9y',
+            buttonId: '5732w0000006Ct6',
+            baseLiveAgentURL: 'https://d.la2-c2-ukb.salesforceliveagent.com/chat',
+            eswLiveAgentDevName: 'career_connect',
             isOfflineSupportEnabled: false
           }
         );
@@ -88,7 +88,7 @@
      
       if (!window.embedded_svc) {
         var s = document.createElement('script');
-        s.setAttribute('src', 'https://cargosprint2--mamoonfull.sandbox.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+        s.setAttribute('src', 'https://scs54-dev-ed.develop.my.salesforce.com/embeddedservice/5.0/esw.min.js');
         s.onload = function() {
           initESW(null);
         };
@@ -96,7 +96,10 @@
       } else {
         initESW('https://service.force.com');
       }
+      
     </script>
+
+    
 
     <!-- Your other scripts can go here -->
 

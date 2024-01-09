@@ -106,3 +106,32 @@
   .css-46bh2p-MuiCardContent-root {
     padding: 0px !important;
 }
+
+@keyframes sprinkleAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100vh);
+  }
+}
+
+.sprinkle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sprinkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: #f00; /* Set your desired sprinkle color */
+  border-radius: 50%;
+  animation: sprinkleAnimation 2s linear infinite;
+  opacity: 0.8;
+}
