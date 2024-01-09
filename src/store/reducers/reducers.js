@@ -11,6 +11,7 @@ const initialState = {
   deleteSkills: null,
   readOneUser: null,
   readAllPost: null,
+  readAllSumPOST: null,
   readOneSkills: null,
   createComment: null,
   readOneComment: null,
@@ -272,6 +273,25 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                   loading: false,
                   error: action.payload,
                 };
+                case "GET_POSTSUM_REQUEST":
+                  return {
+                    ...state,
+                    loading: true,
+                    error: null,
+                  };
+                case "GET_POSTSUM_SUCCESS":
+                  return {
+                    ...state,
+                    readAllSumPOST: action.payload,
+                    loading: false,
+                    error: null,
+                  };
+                case "GET_POSTSUM_FAILURE":
+                  return {
+                    ...state,
+                    loading: false,
+                    error: action.payload,
+                  };
                 case "ADD_CREATECOMMENT_REQUEST":
                 return {
                   ...state,

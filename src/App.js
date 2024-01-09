@@ -14,6 +14,10 @@ import ConnectionDetail from './Components/ConNectionDetail/connection';
 import Post from './Components/post/Post';
 import Posts from './Components/posts/Posts';
 import Otp from './Components/otppage/otp';
+import Email from './Components/email/email';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import "./Background.css"
 import BackgroundAnimation from './Background';
 import { DarkModeContext } from "./Components/context/darkModeContext"
@@ -41,11 +45,14 @@ function App() {
           <Route path="/post" element={<Post />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/otp" element={<Otp />} />
+          <Route path="/email" element={<Email />} />
+
 
 
 
         </Routes>
       </Router>
+      <ToastContainer />
       <BackgroundAnimation/>
     </div>
   );

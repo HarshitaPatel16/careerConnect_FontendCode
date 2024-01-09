@@ -133,17 +133,17 @@ function Profile() {
   }, [dispatch]);
 
 
-  const handeldeleteSkills = () => {
+  const handeldeleteSkills = (id) => {
     const data = {
-      skills_id: localStorage.getItem("skills_id"),
+      skills_id: id,
       user_id: localStorage.getItem("user_id"),
     };
     dispatch(deleteSkills(API_URL, data));
   };
 
-  const handeldeleteExperience = () => {
+  const handeldeleteExperience = (id) => {
     const data = {
-      experience_id: localStorage.getItem("experience_id"),
+      experience_id: id,
       user_id: localStorage.getItem("user_id"),
     };
     console.log(data, "--console.log(data);");
@@ -685,20 +685,22 @@ function Profile() {
                       </div>
                     </Typography>
                     {experienceData ? (
-                      <div className="d-flex justify-content-start">
-                        <div className="ms-3">
+                      <div className="d-flex justify-content-between">
+                        <div className="col-md-12">
                           {experienceData &&
                             experienceData.map((experience) => (
-                              <div key={experience.experience_id} className="d-flex align-items-center ms-3">
+                              <div key={experience.experience_id} className="d-flex align-items-center ms-3 justify-content-between ">
                                 {/* Map the Avatar for each experience */}
+                                <div className="col-md-1">
                                 <Avatar>{experience.company.charAt(0).toUpperCase()}</Avatar>
-                                <div className="ms-3 ">
+                                </div>
+                                <div className="col-md-10 ">
                                   <h6 className="fw-bold mt-2 mb-0 d-flex">
                                     {experience.job_title}{' '}
-                                    <DeleteForeverOutlinedIcon
+                                    {/* <DeleteForeverOutlinedIcon
                                       onClick={() => handeldeleteExperience(experience.experience_id)}
-                                      style={{ marginRight: '10px' }}
-                                    />
+                                      style={{ marginLeft: '40rem', cursor: 'pointer' }}
+                                    /> */}
                                   </h6>
                                   <p className="fw-normal text-secondary mb-0 d-flex">{experience.company},</p>
                                   <p className="fw-normal text-secondary mb-0 d-flex">
@@ -725,6 +727,12 @@ function Profile() {
                                     ) : null}
 
                                   </p>
+                                </div>
+                                <div className="col-md-1">
+                                <DeleteForeverOutlinedIcon
+                                      onClick={() => handeldeleteExperience(experience.experience_id)}
+                                      style={{ marginLeft: '0.7rem', cursor: 'pointer' }}
+                                    />
                                 </div>
                               </div>
 

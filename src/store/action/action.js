@@ -85,6 +85,11 @@ export const GET_POST_REQUEST = "GET_POST_REQUEST";
 export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
 export const GET_POST_FAILURE = "GET_POST_FAILURE";
 
+// GET BY Post DATA
+export const GET_POSTSUM_REQUEST = "GET_POSTSUM_REQUEST";
+export const GET_POSTSUM_SUCCESS = "GET_POSTSUM_SUCCESS";
+export const GET_POSTSUM_FAILURE = "GET_POSTSUM_FAILURE";
+
 
 export const GET_COMMENT_BY_ID_REQUEST = "GET_COMMENT_BY_ID_REQUEST";
 export const GET_COMMENT_BY_ID_SUCCESS = "GET_COMMENT_BY_ID_SUCCESS";
@@ -363,6 +368,21 @@ export const getreadAllPostData = (API_URL) => {
 
       .catch((error) => {
         dispatch({ type: GET_POST_FAILURE, payload: error.message });
+      });
+  };
+};
+
+export const getreadAllPostSum = (API_URL) => {
+  return (dispatch) => {
+    dispatch({ type: GET_POSTSUM_REQUEST });
+    axios
+      .get(API_URL + "post/readAllSumPOST")
+      .then((response) => {
+        dispatch({ type: GET_POSTSUM_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_POSTSUM_FAILURE, payload: error.message });
       });
   };
 };

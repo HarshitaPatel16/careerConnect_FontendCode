@@ -19,7 +19,7 @@ const Posts = () => {
   useEffect(() => {
     if (reduxPosts.readAllPost && reduxPosts.readAllPost.data) {
       setPosts(reduxPosts.readAllPost.data);
-      console.log("chandanana",reduxPosts.readAllPost.data[0].post_id)
+      console.log("reduxPosts",reduxPosts.readAllPost.data[0].post_id)
       // localStorage.setItem("post_id", reduxPosts.readAllPost.data[0].post_id);
     }
   }, [reduxPosts]);

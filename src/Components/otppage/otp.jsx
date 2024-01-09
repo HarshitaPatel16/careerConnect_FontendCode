@@ -41,7 +41,7 @@ const Otp = () => {
                 <MuiOtpInput value={otp} onChange={handleChange} />
 
               </div>
-              <button class="btn btn-primary">verify</button>
+              <button class="btn btn-primary">Resend OTP</button>
             </CardContent>
           </Card>
          

@@ -7,6 +7,8 @@ import { addCreateCustomer } from "../../store/action/action";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../../service";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   const [username, setusername] = useState("");
@@ -45,7 +47,23 @@ const Register = () => {
     formData.append("password", password);
     formData.append("first_name", name);
 
-    dispatch(addCreateCustomer(API_URL, formData));
+    dispatch(addCreateCustomer(API_URL, formData))
+    .then((response) => {
+      if (response && response.success) {
+        // Show success toast
+        toast.success('Registration successful!');
+        // Redirect to login page or perform other actions
+        navigate('/login');
+      } else {
+        // Show error toast if necessary
+        toast.error('Registration failed. Please check your input.');
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Show error toast
+      toast.error('An error occurred. Please try again later.');
+    });
   }
 
   return (

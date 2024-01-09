@@ -1,0 +1,108 @@
+/* .otp */
+.otp {
+    height: 100vh;
+    /* background: 
+      url("../../assets/otp\ 1.png"); */
+    background-color: rgb(193, 190, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* .card */
+  .otp .card {
+    width: 50%;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 600px;
+    overflow: hidden;
+  }
+  
+  /* .left */
+  .left {
+    flex: 1;
+    background: linear-gradient(rgba(4, 0, 10, 0.5), rgba(0, 0, 0, 0.5)),
+      url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600") center;
+    background-size: cover;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: white;
+    height: 500px; 
+  }
+  
+  /* .left h1 */
+  .left h1 {
+    font-size: 100px;
+    line-height: 100px;
+  }
+  
+  /* .left p */
+  .left p {}
+  
+  /* .left span */
+  .left span {
+    font-size: 14px;
+  }
+  
+  /* .left button */
+ .left button {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    background-color: white;
+    color: rebeccapurple;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* .right */
+  .right {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: center;
+  }
+  
+  /* .right h1 */
+  .right h1 {
+    color: #555;
+  }
+  
+  /* .right form */
+  .right form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  /* .right input */
+.right input {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 20px 10px;
+  }
+  
+  /* .right button */
+ .right button {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    background-color: #938eef;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* .logo */
+ img.logo {
+    height: 70px;
+  }
+  
+  .css-46bh2p-MuiCardContent-root {
+    padding: 0px !important;
+}

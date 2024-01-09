@@ -65,26 +65,52 @@ const Login = () => {
       username: username,
       password: password,
     };
-
+  
     try {
       const response = await dispatch(postCustomerLoginData(API_URL, data));
-      console.log("API Response:", data);
-      console.log(response.data.message,"Invalid login attempt");
-
-      if (response && response.data.message === "User User Successfully") {
-        console.log(response.data.message,"Successful login");
+      console.log("API Response:", response.data); // Log the entire response for debugging
+  
+      if (response && response.data.message === "User Successfully") {
+        console.log("Successful login");
         toast.success("Login Successfully");
-      } else if (response && response.data.message === "User not found")
-       {
+      } else if (response && response.data.message === "User not found") {
+        console.log("Invalid username or password");
         toast.error("Invalid username or password");
+      } else {
+        console.log("Unexpected response:", response.data.message);
       }
     } catch (error) {
       console.error("Login error:", error);
     }
   };
+  
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   const data = {
+  //     username: username,
+  //     password: password,
+  //   };
+
+  //   try {
+  //     const response = await dispatch(postCustomerLoginData(API_URL, data));
+  //     console.log("API Response:", data);
+  //     console.log(response.data.message,"Invalid login attempt");
+
+  //     if (response && response.data.message === "User Successfully") {
+  //       console.log(response.data.message,"Successful login");
+  //       toast.success("Login Successfully");
+  //     } else if (response && response.data.message === "User not found")
+  //      {
+  //       toast.error("Invalid username or password");
+  //     }
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //   }
+  // };
 
   const handleForgotPassword = () => {
-    navigate("/otp")
+    navigate("/email")
   };
 
   return (
@@ -150,7 +176,7 @@ const Login = () => {
           </Card>
         </Grid>
       </Grid>
-      <ToastContainer position="top-center" autoClose={2000} />
+      <ToastContainer autoClose={2000} />
 
     </div>
   );
