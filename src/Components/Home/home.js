@@ -10,7 +10,7 @@ import { image } from "../../assets/8.png";
 import { useNavigate } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
-import { getProfileById } from "../../store/action/action";
+import { getProfileById, getreadAllPostSum } from "../../store/action/action";
 import API_URL from "../../service";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useContext } from 'react';
@@ -72,7 +72,25 @@ const Home = () => {
     navigate('/profile'); // Replace '/profile' with the actual path to your profile page
   };
 
+  const reduxPostssum = useSelector((state) => state.post);
+  const [postssum, setPostssum] = useState([]);
 
+  console.log(reduxPostssum, "reduxPostssum");
+  
+  useEffect(() => {
+    if (reduxPostssum.readAllSumPOST && reduxPostssum.readAllSumPOST.data) {
+      const data = reduxPostssum.readAllSumPOST.data;
+      setPostssum(data.post_sum);
+    }
+  }, [reduxPostssum]);
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+    dispatch(getreadAllPostSum(API_URL, data));
+  }, [dispatch]);
+
+  
 
   console.log("Image path:", IMAGE_PATH + "user/" + (profileData ? profileData.profilePic : avatar));
 
@@ -122,21 +140,22 @@ const Home = () => {
 
                   <div style={{ borderRight: '1px solid #ddd', paddingRight: '20px' }}>
                     <Typography variant="subtitle1">
-                      <span className="counts-css">292</span><br />
+                      <span className="counts-css">        {reduxPostssum && reduxPostssum.readAllSumPOST && reduxPostssum.readAllSumPOST.post_sum ? reduxPostssum.readAllSumPOST.post_sum : ""}
+</span><br />
                       Post
                     </Typography>
                   </div>
 
                   <div style={{ borderRight: '1px solid #ddd', paddingRight: '20px' }}>
                     <Typography variant="subtitle1">
-                      <span className="counts-css">2.5K</span><br />
+                      <span className="counts-css">0</span><br />
                       Followers
                     </Typography>
                   </div>
 
                   <div >
                     <Typography variant="subtitle1">
-                      <span className="counts-css">164</span><br />
+                      <span className="counts-css">0</span><br />
                       Following
                     </Typography>
                   </div>

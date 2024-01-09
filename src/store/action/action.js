@@ -372,12 +372,13 @@ export const getreadAllPostData = (API_URL) => {
   };
 };
 
-export const getreadAllPostSum = (API_URL) => {
+export const getreadAllPostSum = (API_URL,data) => {
   return (dispatch) => {
     dispatch({ type: GET_POSTSUM_REQUEST });
     axios
-      .get(API_URL + "post/readAllSumPOST")
+      .post(API_URL + "post/readAllSumPOST",data)
       .then((response) => {
+        console.log(response.data, "API response");
         dispatch({ type: GET_POSTSUM_SUCCESS, payload: response.data });
       })
 
