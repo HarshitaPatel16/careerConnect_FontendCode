@@ -44,6 +44,7 @@ import skillImg from "../../assets/Skills.png"
 import expImg from "../../assets/experience.png"
 import resumeImg from "../../assets/resume.png"
 import { DarkModeContext } from "../context/darkModeContext";
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -231,6 +232,38 @@ function Profile() {
     // dispatch(updateProfile(API_URL, formData));
 
   }
+
+  function handleEditSkills() {
+
+    const formData = new FormData();
+
+    formData.append("user_id", localStorage.getItem("user_id"));
+    formData.append("skils_name", skils_name);
+
+     
+      dispatch(updateProfile(API_URL, formData));
+      handleCloseDialog()
+
+  }
+
+
+//   const handleEditSkills = async () => {
+//     try {
+
+
+//         const response = await axios.post(
+//             API_URL + `skills/updateSkills`,
+//             {
+//               "user_id": localStorage.getItem("user_id"),
+//               "skills_id": localStorage.getItem("skills_id"),
+//               "skils_name": skill
+//             },
+          
+//         );
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// }
 
   useEffect(() => {
     if (profileData !== null && profileData !== undefined) {
@@ -429,22 +462,41 @@ function Profile() {
 
 
 
-  const handleResumeChange = (event) => {
-    const file = event.target.files[0];
+  // const handleResumeChange = (event) => {
+  //   const file = event.target.files[0];
 
-    if (file && file.type === 'application/pdf') {
-      setResumePdf(file);
-      setShowUploadButton(true);
+  //   if (file && file.type === 'application/pdf') {
+  //     setResumePdf(file);
+  //     setShowUploadButton(true);
+  //   } else {
+  //     console.error('Invalid file format. Please select a PDF file.');
+  //   }
+  // };
+  const handleResumeChange = (event) => {
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      if (file && file.type === 'application/pdf') {
+        setResumePdf(file);
+        setShowUploadButton(true);
+      } else {
+        console.error('Invalid file format. Please select a PDF file.');
+      }
     } else {
-      console.error('Invalid file format. Please select a PDF file.');
+      console.error('No file selected.');
     }
   };
+
+
 
   const handleChoosePdf = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
+
   const handleDownloadPdf = () => {
     if (profileData && profileData.resume) {
       const pdfUrl = `${IMAGE_PATH}user/${profileData.resume}`;
@@ -581,9 +633,10 @@ function Profile() {
     setShowAddSkill(!showAddSkill);
   };
 
-  const handleEditSkillToggle = () => {
+  const handleEditSkillToggle = (skills_id) => {
     setShowEditSkill(!showEditSkill);
   };
+  
 
   const handleAddExperienceToggle = () => {
     setShowAddExperience(!showAddExperience);
@@ -760,8 +813,8 @@ function Profile() {
                               <div className="d-flex align-items-center justify-content-between">
                                 <span style={{ marginRight: '10px' }}>{skill.skils_name}</span>
                                 <div>
-                                <EditOutlinedIcon onClick={handleEditSkillToggle} />
-                                <DeleteForeverOutlinedIcon onClick={() => handeldeleteSkills(skill.skills_id)} />
+                                <EditOutlinedIcon onClick={() => handleEditSkillToggle(skill.skills_id)} />
+                                  <DeleteForeverOutlinedIcon onClick={() => handeldeleteSkills(skill.skills_id)} />
                                 </div>
                               </div>
                               {index < skills.length - 1 && <hr />}
@@ -806,7 +859,7 @@ function Profile() {
 
                     </Card>
                   }
-                   {showEditSkill &&
+                  {showEditSkill &&
                     <Card className={`p-4 mt-2 ${darkMode ? 'dark-card' : 'light-card'}`} >
 
                       <div className="justify-content-left d-flex">
@@ -814,14 +867,14 @@ function Profile() {
                       </div>
                       <div className="d-flex">
                         <div className="col-md-8">
-                          <input type="text" className={`form-control ${darkMode ? 'dark-input' : 'light-input'}`} value={skill} onChange={handleSkill} />
+                        <input type="text" className={`form-control ${darkMode ? 'dark-input' : 'light-input'}`} value={skill} onChange={handleSkill} />
                           {skillError && <div className="text-danger">{skillError}</div>}
                         </div>
                         <div className="ms-auto">
-                          <button type="button" className="btn btn-primary" onClick={handleAddSkills}>
+                          <button type="button" className="btn btn-primary" onClick={handleEditSkills}>
                             Save
                           </button>
-                          <button type="button" className="btn btn-outline-secondary m-2" onClick={handleAddSkills}>
+                          <button type="button" className="btn btn-outline-secondary m-2" >
                             Cancel
                           </button>
                         </div>
@@ -887,9 +940,9 @@ function Profile() {
                                     />
 
                                   </div>
-                                  <hr/>
+                                  <hr />
                                 </div>
-                                <hr/>
+                                <hr />
                               </div>
                             ))}
                         </div>
@@ -1057,7 +1110,7 @@ function Profile() {
                         </div>
                       </div>
 
-                      <hr/>
+                      <hr />
                     </Card>
                   )}
                   {/* Add experiences card end */}
@@ -1089,8 +1142,8 @@ function Profile() {
                             width="100%"
                             height="600px"
                           ></iframe>
-                          <button className="btn btn-primary mx-2" onClick={handleChoosePdf}>
-                            <FileUploadIcon /> Choose PDF
+                          <button className="btn btn-danger mx-2" onClick={handleDeleteResume}>
+                          <DeleteOutlineIcon /> Delete
                           </button>
                           <button className="btn btn-success mx-2" onClick={handleDownloadPdf}>
                             <FileDownloadIcon /> Download PDF
@@ -1102,7 +1155,14 @@ function Profile() {
                             <img src={resumeImg} alt="Profile" className="trofie mt-2" />
                           </div>
                           <div>
-                            <button className="btn btn-primary mx-2" onClick={handleResumeChange}>
+                            {/* Hidden file input for choosing PDF */}
+                            <input
+                              type="file"
+                              ref={fileInputRef}
+                              style={{ display: 'none' }}
+                              onChange={handleResumeChange}
+                            />
+                            <button className="btn btn-primary mx-2" onClick={handleChoosePdf}>
                               <FileUploadIcon /> Choose PDF
                             </button>
                           </div>
@@ -1111,6 +1171,7 @@ function Profile() {
                     </div>
                   )}
                 </TabPanel>
+
                 <TabPanel value="4">
                   <Education />
                 </TabPanel>
