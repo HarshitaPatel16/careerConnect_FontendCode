@@ -114,11 +114,11 @@
       width: 80px; 
       height: 80px; 
       top: 80.5vh;
-      left: 3vw; 
+      left: 2vw !important; 
   }
   .cover-img1{
     width: 40vw; 
-    height: 10vh;
+    height: 26vh;
   }
   .company-logo {
     width: 8vw;
