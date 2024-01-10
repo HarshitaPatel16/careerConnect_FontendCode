@@ -151,7 +151,7 @@ export const addCreatePost = (API_URL, data) => {
       .post(API_URL + "post/createPost", data)
       .then((response) => {
         dispatch({ type: ADD_CREATEPOST_SUCCESS, payload: response.data });
-        return dispatch(getreadAllPostData(API_URL,data));
+        return dispatch(getreadAllPostData(API_URL,data)), dispatch(getreadAllPostSum(API_URL,data));
 
       })
       .catch((error) => {

@@ -53,7 +53,7 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer />
-      <BackgroundAnimation/>
+      {/* <BackgroundAnimation/> */}
     </div>
   );
 }

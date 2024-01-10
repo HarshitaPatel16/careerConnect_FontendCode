@@ -10,16 +10,14 @@
   left: 7vw;
 }
 .username-light{
-  margin-left: 6vw;
-  justify-content: 'space-between';
+  /* margin-left: 6vw; */
   margin-top: 9vh;
   color: #353434;
   font-weight: bold;
   font-size: 20px;
 }
 .username-dark{
-  margin-left: 6vw;
-  justify-content: 'space-between';
+  /* margin-left: 6vw; */
   margin-top: 9vh;
   color: white;
   font-weight: bold;

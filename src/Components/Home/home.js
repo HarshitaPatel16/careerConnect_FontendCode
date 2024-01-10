@@ -76,7 +76,7 @@ const Home = () => {
   const [postssum, setPostssum] = useState([]);
 
   console.log(reduxPostssum, "reduxPostssum");
-  
+
   useEffect(() => {
     if (reduxPostssum.readAllSumPOST && reduxPostssum.readAllSumPOST.data) {
       const data = reduxPostssum.readAllSumPOST.data;
@@ -90,7 +90,7 @@ const Home = () => {
     dispatch(getreadAllPostSum(API_URL, data));
   }, [dispatch]);
 
-  
+
 
   console.log("Image path:", IMAGE_PATH + "user/" + (profileData ? profileData.profilePic : avatar));
 
@@ -129,10 +129,11 @@ const Home = () => {
                   />
                 </div>
                 <CardContent >
-                  <Typography  variant="subtitle1" component="div" sx={{ display: 'flex', }}>
-                    <span className={darkMode ? 'username-dark' : 'username-light'}>{profileData && profileData.username ? profileData.username : ""}</span>
+                  <Typography variant="subtitle1" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <span className={`${darkMode ? 'username-dark' : 'username-light'}`}>{profileData && profileData.username ? profileData.username : ""}</span>
                   </Typography>
-                  <Typography  className="d-flex justify-content-center" variant="subtitle1" component="div" sx={{ display: 'flex', padding: '2px', fontSize: "14px" }}>
+
+                  <Typography className="d-flex justify-content-center" variant="subtitle1" component="div" sx={{ display: 'flex', padding: '2px', fontSize: "14px" }}>
                     <span > {profileData && profileData.profile_heading ? profileData.profile_heading : ""}</span>
                   </Typography>
                 </CardContent>
@@ -140,8 +141,9 @@ const Home = () => {
 
                   <div style={{ borderRight: '1px solid #ddd', paddingRight: '20px' }}>
                     <Typography variant="subtitle1">
-                      <span className="counts-css">        {reduxPostssum && reduxPostssum.readAllSumPOST && reduxPostssum.readAllSumPOST.post_sum ? reduxPostssum.readAllSumPOST.post_sum : ""}
-</span><br />
+                      <span className="counts-css">
+                        {reduxPostssum && reduxPostssum.readAllSumPOST && reduxPostssum.readAllSumPOST.post_sum ? reduxPostssum.readAllSumPOST.post_sum : ""}
+                      </span><br />
                       Post
                     </Typography>
                   </div>
@@ -179,7 +181,7 @@ const Home = () => {
           <Posts />
         </Grid>
 
-        {/* <Grid item xs={12} md={12} lg={3}>
+        <Grid item xs={12} md={12} lg={3}>
           <div style={{ position: 'sticky', top: 100, zIndex: 1030 }} >
 
             <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
@@ -240,7 +242,7 @@ const Home = () => {
               </div>
             </Item>
           </div>
-        </Grid> */}
+        </Grid>
 
 
       </Grid>
