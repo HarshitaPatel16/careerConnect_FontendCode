@@ -29,7 +29,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import API_URL from "../../service";
-import { addCreateSkills, updateProfile, addCreateExperience, getSkills } from "../../store/action/action";
+import { addCreateSkills, updateProfile, addCreateExperience, getSkills, updateSkills } from "../../store/action/action";
 import { getProfileById, getSkilsById, getExperienceById, deleteSkills, deleteExperience } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
@@ -238,11 +238,13 @@ function Profile() {
     const formData = new FormData();
 
     formData.append("user_id", localStorage.getItem("user_id"));
-    formData.append("skils_name", skils_name);
+    formData.append("skills_id", localStorage.getItem("skills_id"));
+    formData.append("skils_name", skill);
 
      
-      dispatch(updateProfile(API_URL, formData));
-      handleCloseDialog()
+    dispatch(updateSkills(API_URL, formData));
+     setShowEditSkill(false)
+
 
   }
 
@@ -634,6 +636,7 @@ function Profile() {
   };
 
   const handleEditSkillToggle = (skills_id) => {
+    
     setShowEditSkill(!showEditSkill);
   };
   
@@ -872,7 +875,7 @@ function Profile() {
                         </div>
                         <div className="ms-auto">
                           <button type="button" className="btn btn-primary" onClick={handleEditSkills}>
-                            Save
+                          Edit
                           </button>
                           <button type="button" className="btn btn-outline-secondary m-2" >
                             Cancel
