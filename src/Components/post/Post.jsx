@@ -43,7 +43,8 @@ const Post = ({ post }) => {
       const formData = new FormData();
       formData.append("user_id", localStorage.getItem("user_id"));
       formData.append("post_id", post.post_id);
-      formData.append("IsLiked", !liked);
+      // formData.append("is_liked", !liked);
+      formData.append("is_liked", JSON.stringify(!liked));
 
       // Assuming your addCreateLikes action is asynchronous and returns a promise
       await dispatch(addCreateLikes(API_URL, formData));
