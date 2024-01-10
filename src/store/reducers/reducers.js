@@ -18,7 +18,8 @@ const initialState = {
   createExperience: null,
   createLike: null,
   readOneLike: null,
-  readOneEducations: null,
+  readOneEducation: null,
+  readOneBySkillsId: null,
   toggleLike: null,
   loading: false,
   error: null,
@@ -420,11 +421,31 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                         case "GET_EDUCATIONS_BY_ID_SUCCESS":
                           return {
                             ...state,
-                            readOneEducations: action.payload,
+                            readOneEducation: action.payload,
                             loading: false,
                             error: null,
                           };
                         case "GET_EDUCATIONS_BY_ID_FAILURE":
+                          return {
+                            ...state,
+                            loading: false,
+                            error: action.payload,
+                          };
+                          
+                        case "GET_SKILLS_REQUEST":
+                          return {
+                            ...state,
+                            loading: true,
+                            error: null,
+                          };
+                        case "GET_SKILLS_SUCCESS":
+                          return {
+                            ...state,
+                            readOneBySkillsId: action.payload,
+                            loading: false,
+                            error: null,
+                          };
+                        case "GET_SKILLS_FAILURE":
                           return {
                             ...state,
                             loading: false,

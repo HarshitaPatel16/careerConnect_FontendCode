@@ -47,10 +47,16 @@ export const GET_PROFILE_BY_ID_REQUEST = "GET_PROFILE_BY_ID_REQUEST";
 export const GET_PROFILE_BY_ID_SUCCESS = "GET_PROFILE_BY_ID_SUCCESS";
 export const GET_PROFILE_BY_ID_FAILURE = "GET_PROFILE_BY_ID_FAILURE";
 
+
+
 // GET BY SKILS DATA
 export const GET_SKILLS_BY_ID_REQUEST = "GET_SKILLS_BY_ID_REQUEST";
 export const GET_SKILLS_BY_ID_SUCCESS = "GET_SKILLS_BY_ID_SUCCESS";
 export const GET_SKILLS_BY_ID_FAILURE = "GET_SKILLS_BY_ID_FAILURE";
+
+export const GET_SKILLS_REQUEST = "GET_SKILLS_REQUEST";
+export const GET_SKILLS_SUCCESS = "GET_SKILLS_SUCCESS";
+export const GET_SKILLS_FAILURE = "GET_SKILLS_FAILURE";
 
 //expircane add
 
@@ -86,7 +92,9 @@ export const DELETE_EXPERIENCE_REQUEST = "DELETE_EXPERIENCE_REQUEST";
 export const DELETE_EXPERIENCE_SUCCESS = "DELETE_EXPERIENCE_SUCCESS";
 export const DELETE_EXPERIENCE_FAILURE = "DELETE_EXPERIENCE_FAILURE";
 
-
+export const DELETE_EDUCATION_REQUEST = "DELETE_EDUCATION_REQUEST";
+export const DELETE_EDUCATION_SUCCESS = "DELETE_EDUCATION_SUCCESS";
+export const DELETE_EDUCATION_FAILURE = "DELETE_EDUCATION_FAILURE";
 
 // GET BY Post DATA
 export const GET_POST_REQUEST = "GET_POST_REQUEST";
@@ -239,7 +247,7 @@ export const addCreateEducations = (API_URL, data) => {
       .post(API_URL + "educations/createEducation", data)
       .then((response) => {
         dispatch({ type: ADD_CREATEEDUCATIONS_SUCCESS, payload: response.data });
-        // return dispatch(getExperienceById(API_URL,data));
+        return dispatch(getEducationsById(API_URL,data));
       })
       .catch((error) => {
         dispatch({ type: ADD_CREATEEDUCATIONS_FAILURE, payload: error.message });
@@ -296,6 +304,22 @@ export const getProfileById = (API_URL, data) => {
   };
 };
 
+export const getSkills = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_SKILLS_REQUEST });
+    axios
+      .post(API_URL + "skills/readOneBySkillsId", data)
+      .then((response) => {
+        dispatch({ type: GET_SKILLS_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_SKILLS_FAILURE, payload: error.message });
+      });
+  };
+};
+
+
 export const getCommentById = (API_URL, postId) => {
   return (dispatch) => {
     dispatch({ type: GET_COMMENT_BY_ID_REQUEST });
@@ -348,7 +372,7 @@ export const getEducationsById = (API_URL, data) => {
   return (dispatch) => {
     dispatch({ type: GET_EDUCATIONS_BY_ID_REQUEST });
     axios
-      .post(API_URL + "educations/readOneEducations", data)
+      .post(API_URL + "educations/readOneEducation", data)
       .then((response) => {
         dispatch({ type: GET_EDUCATIONS_BY_ID_SUCCESS, payload: response.data });
         
@@ -379,6 +403,22 @@ export const deleteSkills= (API_URL,data) => {
 };
 
 //delete skils
+
+export const deleteEducation= (API_URL,data) => {
+  return (dispatch) => {
+    dispatch({ type: DELETE_EDUCATION_REQUEST });
+    axios
+      .post(API_URL + "educations/deleteEducation",data)
+      .then((response) => {
+        dispatch({ type: DELETE_EDUCATION_SUCCESS, payload: response.data });
+        return dispatch(getEducationsById(API_URL, data));
+      })
+
+      .catch((error) => {
+        dispatch({ type: DELETE_EDUCATION_FAILURE, payload: error.message });
+      });
+  };
+};
 
 export const deleteExperience= (API_URL,data) => {
   return (dispatch) => {

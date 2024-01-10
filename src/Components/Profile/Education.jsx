@@ -5,9 +5,11 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import edImg from "../../assets/Education.png"
 import { DarkModeContext } from '../context/darkModeContext';
-import { addCreateEducations, getEducationsById } from "../../store/action/action";
+import { addCreateEducations, getEducationsById, deleteEducation } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
 import API_URL from "../../service";
+import expImg from "../../assets/experience.png"
+import Avatar from '@mui/material/Avatar';
 
 
 
@@ -16,6 +18,7 @@ function Education() {
 
 
     const [showAddEducation, setshowAddEducation] = useState(false);
+    const educationData = useSelector((state) => state.user.readOneEducation);
 
 
     const [activities, setactivities] = useState("");
@@ -93,19 +96,44 @@ function Education() {
     }, [dispatch]);
   
 
+    useEffect(() => {
+      if (educationData !== null && educationData !== undefined && educationData.length > 0) {
+        {
+          const data = educationData[0];
+  
+          setactivities(data.activities);
+          setstartYear(data.startYear)
+          setendYear(data.endYear);
+          setfieldofstudy(data.fieldofstudy);
+          setinstitutionName(data.institutionName);
+          setdegree(data.degree);
+         
+          localStorage.setItem('education_id', data.education_id);
+        }
+      }
+    }, [educationData]);
+
     const handleAddEducationToggle = () => {
         setshowAddEducation(!showAddEducation);
     };
     
-
+    const handeldeleteEducation = (id) => {
+      const data = {
+        education_id: id,
+        user_id: localStorage.getItem("user_id"),
+      };
+      console.log(data, "--console.log(data);");
+      dispatch(deleteEducation(API_URL, data));
+    };
     return (
         <>
             <Card className={`p-4 ${darkMode ? 'dark-card' : 'light-card'}`}>
-                <Typography variant="subtitle1" component="div">
+                {/* <Typography variant="subtitle1" component="div">
                     <div className="d-flex justify-content-between">
                         <span className="fs-3 ">Education</span>
                         <span className="ms-auto fs-2"><AddIcon onClick={handleAddEducationToggle}  /></span>
                     </div >
+
                         <div>
                           <div>
                             <img src={edImg} alt="Profile" className="trofie mt-2" />
@@ -130,8 +158,69 @@ function Education() {
 
                     </div>
 
-                </Typography>
+                </Typography> */}
 
+<Typography variant="subtitle1" component="div">
+                      <div className="d-flex justify-content-between">
+                        <span className="fs-3">Experience</span>
+                        <span className="ms-auto fs-2">
+                          <AddIcon onClick={handleAddEducationToggle} />
+                        </span>
+                      </div>
+                    </Typography>
+                    {educationData ? (
+                      <div className="d-flex justify-content-between">
+                        <div className="col-md-12">
+                          {educationData &&
+                            educationData.map((experience) => (
+                              <div>
+                                <div key={experience.education_id} className="d-flex align-items-center ms-3 justify-content-between ">
+                                  {/* Map the Avatar for each experience */}
+                                  <div className="col-md-1">
+                                    <Avatar>{experience.institution_name}</Avatar>
+                                  </div>
+                                  <div className="col-md-10 ">
+                                  <h6 className="fw-bold mt-2 mb-0 d-flex">
+                                      {experience.institution_name}
+                                    </h6>
+                                    <h6 className="fw-normal mb-0 d-flex">
+                                      {experience.degree} {experience.field_of_study}
+                                    </h6>
+                                    {/* <p className="fw-normal mb-0 d-flex">{experience.field_of_study},</p> */}
+                                    <p className="fw-normal mb-0 d-flex">{experience.activities},</p>
+
+                                    <p className="fw-normal  mb-0 d-flex">
+                                      {new Date(experience.start_year).toLocaleDateString()} - {new Date(experience.end_year).toLocaleDateString()}
+                                    </p>
+                                   
+                                  </div>
+                                  <div className="col-md-1">
+                                    <DeleteForeverOutlinedIcon
+                                      onClick={() => handeldeleteEducation(experience.education_id)}
+                                      style={{ marginLeft: '0.7rem', cursor: 'pointer' }}
+                                    />
+
+                                  </div>
+                                  <hr/>
+                                </div>
+                                <hr/>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        <div>
+                          <img src={expImg} alt="Profile" className="trofie mt-2" />
+                        </div>
+                        <div>
+                          <button className="btn btn-primary mt-4" onClick={handleAddEducationToggle}>
+                            Add Experience
+                          </button>
+                        </div>
+                      </div>
+
+                    )}
             </Card>
             {showAddEducation && (
                     <Card className={`p-4 mt-2 ${darkMode ? 'dark-card' : 'light-card'}`}>

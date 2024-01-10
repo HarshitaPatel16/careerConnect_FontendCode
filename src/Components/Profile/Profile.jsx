@@ -29,7 +29,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import API_URL from "../../service";
-import { addCreateSkills, updateProfile, addCreateExperience } from "../../store/action/action";
+import { addCreateSkills, updateProfile, addCreateExperience, getSkills } from "../../store/action/action";
 import { getProfileById, getSkilsById, getExperienceById, deleteSkills, deleteExperience } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
@@ -86,8 +86,11 @@ function Profile() {
 
 
   const profileData = useSelector((state) => state.user.readOneUser);
+  // const skillsData = useSelector((state) => state.user.readOneUser);
+
   console.log(profileData, "profileData");
   const skillsData = useSelector((state) => state.user.readOneSkills);
+  const skillsDataBYId = useSelector((state) => state.user.readOneBySkillsId);
   const experienceData = useSelector((state) => state.user.readOneExperience);
   console.log(experienceData, "experienceData");
 
@@ -126,6 +129,13 @@ function Profile() {
       user_id: localStorage.getItem("user_id"),
     };
     dispatch(getSkilsById(API_URL, data));
+  }, [dispatch]);
+  useEffect(() => {
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+      skills_id: localStorage.getItem("skills_id")
+    };
+    dispatch(getSkills(API_URL, data));
   }, [dispatch]);
   useEffect(() => {
     const data = {
@@ -251,6 +261,37 @@ function Profile() {
       }
     }
   }, [profileData]);
+
+  // useEffect(() => {
+  //   if (skilsData !== null && skilsData !== undefined) {
+  //     if (
+  //       skilsData.readOneUser !== null &&
+  //       skilsData.readOneUser !== undefined
+  //     ) {
+  //       const data = skilsData.readOneUser;
+  //       console.log('Profile data:', data); // Check if this log shows the expected data
+
+  //       setUserName(data.userName);
+  //       setProfilePic(data.profilePic);
+  //       setCoverImage(data.coverPic)
+  //       setFirstName(data.firstName);
+  //       setLastName(data.lastName);
+  //       setEmail(data.email);
+  //       setMobile(data.mobile);
+  //       setAddress(data.address);
+  //       setResume(data.resume);
+  //       setAbout(data.about);
+  //       setprofileHeading(data.profileHeading);
+  //       console.log('After setting state:', {
+  //         userName: data.userName,
+  //         mobile: data.mobile,
+  //         address: data.address,
+  //         // Add other fields as needed
+  //       });
+  //     }
+  //   }
+  // }, [profileData]);
+
   const [skillsId, setSkillsId] = useState(null);
 
   useEffect(() => {
