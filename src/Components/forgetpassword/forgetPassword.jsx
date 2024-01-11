@@ -49,62 +49,116 @@ const Forgot = () => {
   }
 
   return (
-    <div className="Forgot">
-      <Grid container className="justify-content-center ">
-        <Grid item xs={10} md={4} lg={4}>
-          <Card className="h-100">
-            <CardContent>
-              <Typography variant="h5" component="div">
+    // <div className="Forgot">
+    //   <Grid container className="justify-content-center ">
+    //     <Grid item xs={10} md={4} lg={4}>
+    //       <Card className="h-100">
+    //         <CardContent>
+    //           <Typography variant="h5" component="div">
 
-              </Typography>
-              <div className="left h-100">
-                <img src={logo} alt="" style={{height:"100%"}} />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-                  alias totam numquam ipsa exercitationem dignissimos, error nam,
-                  consequatur.
-                </p>
-                <span>Do you have an account?</span>
-                <Link to="/login">
-                  <button>Login</button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={10} md={4} lg={4}>
-          <Card className="h-100">
-            <CardContent>
-              <Typography variant="h5" component="div">
+    //           </Typography>
+    //           <div className="left h-100">
+    //             <img src={logo} alt="" style={{height:"100%"}} />
+    //             <p>
+    //               Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
+    //               alias totam numquam ipsa exercitationem dignissimos, error nam,
+    //               consequatur.
+    //             </p>
+    //             <span>Do you have an account?</span>
+    //             <Link to="/login">
+    //               <button>Login</button>
+    //             </Link>
+    //           </div>
+    //         </CardContent>
+    //       </Card>
+    //     </Grid>
+    //     <Grid item xs={10} md={4} lg={4}>
+    //       <Card className="h-100">
+    //         <CardContent>
+    //           <Typography variant="h5" component="div">
 
-              </Typography>
-              <div className="right ">
-                <h1>Forgot</h1>
-                <form>
-                  <input
-                    type="password"
-                    placeholder="Old Password"
-                    onChange={(e) => setoldPassword(e.target.value)}
-                  />
-                  <input
-                    type="password"
-                    placeholder="New Password"
-                    onChange={(e) => setpassword(e.target.value)}
-                  />
+    //           </Typography>
+    //           <div className="right ">
+    //             <h1>Forgot</h1>
+    //             <form>
+    //               <input
+    //                 type="password"
+    //                 placeholder="Old Password"
+    //                 onChange={(e) => setoldPassword(e.target.value)}
+    //               />
+    //               <input
+    //                 type="password"
+    //                 placeholder="New Password"
+    //                 onChange={(e) => setpassword(e.target.value)}
+    //               />
                   
-                  <button
-                    disabled={isForgotButtonDisabled} // Disable the button based on validation status
-                    onClick={handleAddcustomer}
-                  >
-                    Update Password
+    //               <button
+    //                 disabled={isForgotButtonDisabled} // Disable the button based on validation status
+    //                 onClick={handleAddcustomer}
+    //               >
+    //                 Update Password
+    //               </button>
+    //             </form>
+    //           </div>
+    //         </CardContent>
+    //       </Card>
+    //     </Grid>
+    //   </Grid>
+    // </div>
+    <div className="row  d-flex align-items-center">
+    <div className="col-md-6">
+      <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
+    </div>
+    <div className="col-md-6 mt-5 ">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <Card className="h-100 p-4">
+            <CardContent>
+              <img src={logo} alt="Background" className="p-0 m-0" />
+              <h3 className="mb-5">Welcome To Career Connect </h3>
+              <div className=" align-items-center">
+                {/* <h1>Login</h1> */}
+                <form className=" p-5 align-items-center">
+                  <div className=" mb-3">
+                    {/* <label>Email/Username</label> */}
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      className="form-control p-3"
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </div>
+                  <div className=" mb-5">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Password"
+                      className="form-control p-3"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <div className="d-flex justify-content-between mt-2">
+                      <span type="button" onClick={togglePasswordVisibility}>
+                        {showPassword ? 'Hide Password' : 'Show Password'}
+                      </span>
+                      <span className='fw-bold' style={{ cursor: 'pointer' }} onClick={handleForgotPassword}>
+                        Forget Password?
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <button onClick={handleLogin} disabled={!password && !username} className="btn-login col-md-12 p-3">
+                     Login
                   </button>
                 </form>
               </div>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+
+        </div>
+      </div>
     </div>
+    <ToastContainer autoClose={2000} />
+  </div>
 
   );
 };

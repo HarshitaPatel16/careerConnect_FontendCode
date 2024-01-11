@@ -52,11 +52,7 @@ const Otp = () => {
 
     // </div>
     <div className="otp">
-      <div className="sprinkle-container">
-        {[...Array(100)].map((_, index) => (
-          <div className="sprinkle" key={index}></div>
-        ))}
-      </div>
+   
 
       <Grid container className="justify-content-center ">
         <Grid item xs={10} md={4} lg={4}>
@@ -65,10 +61,10 @@ const Otp = () => {
               <Typography variant="h5" component="div"></Typography>
               <div className="right">
                 <h1>Verify</h1>
-                <span>Enter the OTP code sent your email</span>
+                <span>Enter the OTP code sent to your email</span>
                 <MuiOtpInput value={otp} onChange={handleChange} />
               </div>
-              <button class="btn btn-primary">verify</button>
+              <button class="btn btn-primary mb-4">verify</button>
             </CardContent>
           </Card>
         </Grid>
