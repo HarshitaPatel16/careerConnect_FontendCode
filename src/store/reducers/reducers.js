@@ -20,6 +20,7 @@ const initialState = {
   readOneLike: null,
   readOneEducation: null,
   readOneBySkillsId: null,
+  updateSkills: null,
   toggleLike: null,
   loading: false,
   error: null,
@@ -451,6 +452,26 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                             loading: false,
                             error: action.payload,
                           };
+
+                          case "UPDATE_SKILLS_REQUEST":
+                            return {
+                              ...state,
+                              loading: true,
+                              error: null,
+                            };
+                          case "UPDATE_SKILLS_SUCCESS":
+                            return {
+                              ...state,
+                              updateSkills: action.payload,
+                              loading: false,
+                              error: null,
+                            };
+                          case "UPDATE_SKILLS_FAILURE":
+                            return {
+                              ...state,
+                              loading: false,
+                              error: action.payload,
+                            };
 
     default:
       return state;
