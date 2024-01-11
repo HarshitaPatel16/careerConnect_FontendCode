@@ -51,22 +51,22 @@ const Register = () => {
     formData.append("first_name", name);
 
     dispatch(addCreateCustomer(API_URL, formData))
-    .then((response) => {
-      if (response && response.success) {
-        // Show success toast
-        toast.success('Registration successful!');
-        // Redirect to login page or perform other actions
-        navigate('/login');
-      } else {
-        // Show error toast if necessary
-        toast.error('Registration failed. Please check your input.');
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      // Show error toast
-      toast.error('An error occurred. Please try again later.');
-    });
+      .then((response) => {
+        if (response && response.success) {
+          // Show success toast
+          toast.success('Registration successful!');
+          // Redirect to login page or perform other actions
+          navigate('/login');
+        } else {
+          // Show error toast if necessary
+          toast.error('Registration failed. Please check your input.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Show error toast
+        toast.error('An error occurred. Please try again later.');
+      });
   }
 
   const togglePasswordVisibility = () => {
@@ -76,73 +76,9 @@ const Register = () => {
     setErrorMessage("");
   }, 5000);
   return (
-   
-      <div className="row  d-flex align-items-center">
-        
-      {/* <Grid container className="justify-content-center ">
-        <Grid item xs={10} md={4} lg={4}>
-          <Card className="h-100">
-            <CardContent>
-              <Typography variant="h5" component="div">
 
-              </Typography>
-              <div className="left h-100">
-                <img src={logo} alt="" className="h-100" />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-                  alias totam numquam ipsa exercitationem dignissimos, error nam,
-                  consequatur.
-                </p>
-                <span>Do you have an account?</span>
-                <Link to="/login">
-                  <button>Login</button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={10} md={4} lg={4}>
-          <Card className="h-100">
-            <CardContent>
-              <Typography variant="h5" component="div">
-
-              </Typography>
-              <div className="right ">
-                <h1>Register</h1>
-                <form>
-                  <input
-                    type="text"
-                    placeholder="Username"
-                    onChange={(e) => setusername(e.target.value)}
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    onChange={(e) => setemail(e.target.value)}
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                  <button
-                    disabled={isRegisterButtonDisabled} // Disable the button based on validation status
-                    onClick={handleAddcustomer}
-                  >
-                    Register
-                  </button>
-                </form>
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid> */}
-      <div className="col-md-6">
+    <div className="row  d-flex align-items-center">
+      <div className="col-md-6 d-none d-md-block">
         <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
       </div>
       <div className="col-md-6 mt-5 ">
@@ -151,17 +87,17 @@ const Register = () => {
             <Card className="h-100 p-4">
               <CardContent>
                 <img src={logo} alt="Background" className="p-0 m-0" />
-                <h3 className="mb-5">Welcome To Career Connect </h3>
+                <h3 className="mb-3">Welcome To Career Connect </h3>
                 <div className=" align-items-center">
-                  {/* <h1>Login</h1> */}
+                  <h5>Register</h5>
                   <form className=" p-5 align-items-center">
-                  <div className=" mb-3">
+                    <div className=" mb-3">
                       <input
                         type="text"
                         placeholder="Name"
                         className="form-control p-3"
                         onChange={(e) => setname(e.target.value)}
-                        />
+                      />
                     </div>
                     <div className=" mb-3">
                       <input
@@ -180,20 +116,20 @@ const Register = () => {
                       />
                     </div>
                     <input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Password"
-                        className="form-control p-3"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <div className="d-flex justify-content-between mt-2">
-                        <span type="button" onClick={togglePasswordVisibility}>
-                          {showPassword ? 'Hide Password' : 'Show Password'}
-                        </span>
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Password"
+                      className="form-control p-3"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <div className="d-flex justify-content-between mt-2">
+                      <span type="button" onClick={togglePasswordVisibility}>
+                        {showPassword ? 'Hide Password' : 'Show Password'}
+                      </span>
                     </div>
-                    
-                    <button className="btn-login col-md-12 mt-5 p-3">
-                       Register
+
+                    <button className="btn-login col-md-12 mt-5 p-3" onClick={handleAddcustomer} disabled={isRegisterButtonDisabled} >
+                      Register
                     </button>
                   </form>
                 </div>
@@ -205,7 +141,7 @@ const Register = () => {
       </div>
       {/* <ToastContainer autoClose={2000} /> */}
     </div>
-  
+
 
   );
 };

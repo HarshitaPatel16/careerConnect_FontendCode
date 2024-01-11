@@ -116,7 +116,7 @@ const Login = () => {
 
   return (
     <div className="row  d-flex align-items-center">
-      <div className="col-md-6">
+      <div className="col-md-6 d-none d-md-block">
         <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
       </div>
       <div className="col-md-6 mt-5 ">
@@ -125,9 +125,9 @@ const Login = () => {
             <Card className="h-100 p-4">
               <CardContent>
                 <img src={logo} alt="Background" className="p-0 m-0" />
-                <h3 className="mb-5">Welcome To Career Connect </h3>
+                <h3 className="mb-3">Welcome To Career Connect </h3>
                 <div className=" align-items-center">
-                  {/* <h1>Login</h1> */}
+                  <h5>Login</h5>
                   <form className=" p-5 align-items-center">
                     <div className=" mb-3">
                       {/* <label>Email/Username</label> */}
