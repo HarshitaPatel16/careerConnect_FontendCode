@@ -1,7 +1,7 @@
 /* .login */
 .login {
-    height: 100vh;
-    background-color: rgb(193, 190, 255);
+    height: 10vh;
+    /* background-color: rgb(193, 190, 255); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,6 +15,13 @@
     border-radius: 10px;
     min-height: 600px;
     overflow: hidden;
+  }
+
+  .btn-login {
+    background-color: #9861DF;
+    border-color:  #9861DF;
+    border-radius: 30px;
+    color: white;
   }
   
   /* .left */
@@ -51,7 +58,7 @@
     padding: 10px;
     border: none;
     background-color: white;
-    color: rebeccapurple;
+    /* color: rebeccapurple; */
     font-weight: bold;
     cursor: pointer;
   }
@@ -62,7 +69,7 @@
     padding: 50px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    /* gap: 50px; */
     justify-content: center;
   }
   
@@ -80,9 +87,9 @@
   
   /* .right input */
 .right input {
-    border: none;
-    border-bottom: 1px solid lightgray;
-    padding: 20px 10px;
+    /* border: none;
+    border-bottom: 1px solid lightgray; */
+    /* padding: 20px 10px; */
   }
   
   /* .right button */
@@ -90,7 +97,7 @@
     width: 50%;
     padding: 10px;
     border: none;
-    background-color: #938eef;
+    /* background-color: #938eef; */
     color: white;
     font-weight: bold;
     cursor: pointer;

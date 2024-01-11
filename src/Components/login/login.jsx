@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../login/login.css";
-import logo from "../../assets/CareerConnect-white-logo.png";
+import logo from "../../assets/CareerConnect-black-logo.png";
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import API_URL from "../../service";
 import { postCustomerLoginData } from "../../store/action/action";
@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import leftImg from "../../assets/login-left.png"
 
 const Login = () => {
 
@@ -65,11 +66,11 @@ const Login = () => {
       username: username,
       password: password,
     };
-  
+
     try {
       const response = await dispatch(postCustomerLoginData(API_URL, data));
       console.log("API Response:", response.data); // Log the entire response for debugging
-  
+
       if (response && response.data.message === "User Successfully") {
         console.log("Successful login");
         toast.success("Login Successfully");
@@ -83,7 +84,7 @@ const Login = () => {
       console.error("Login error:", error);
     }
   };
-  
+
 
   // const handleLogin = async (e) => {
   //   e.preventDefault();
@@ -114,71 +115,61 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <Grid container className="justify-content-center ">
-        <Grid item xs={10} md={4} lg={4}>
-          <Card className="h-100">
-            <CardContent>
-              <Typography variant="h5" component="div">
-
-              </Typography>
-              <div className="left">
-                <img src={logo} alt="" />
-                {/* <h1>Carrer Connet</h1> */}
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-                  alias totam numquam ipsa exercitationem dignissimos, error nam,
-                  consequatur.
-                </p>
-                <span>Don't you have an account?</span>
-                <Link to="/register">
-                  <button>Register</button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={10} md={4} lg={4}>
-          <Card className="h-100">
-            <CardContent>
-              <Typography variant="h5" component="div">
-
-              </Typography>
-              <div className="right">
-                <h1>Login</h1>
-                <form>
-                  <input type="text" placeholder="Username" className="form-control"
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                  {/* <input type="password" placeholder="Password" className="form-control mt-3"
-                      onChange={(e) => setPassword(e.target.value)}
-
-                    /> */}
-                  <div>
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="Password"
-                      className="form-control mt-3"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div  className="d-flex justify-content-between">
-                    <span type="button" onClick={togglePasswordVisibility}>
-                      {showPassword ? 'Hide Passsword' : 'Show Password'}
-                    </span>
-                    <span className='fw-bold' style={{ cursor: 'pointer' }} onClick={handleForgotPassword}>Forget Password?</span>
+    <div className="row">
+      <div className="col-md-6">
+        <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
+      </div>
+      <div className="col-md-6 mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <Card className="h-100 p-4">
+              <CardContent>
+                <img src={logo} alt="Background" className="p-0 m-0" />
+                <h3 className="mb-5">Welcome To Career Connect </h3>
+                <div className=" align-items-center">
+                  {/* <h1>Login</h1> */}
+                  <form className=" p-5 align-items-center">
+                    <div className=" mb-3">
+                      {/* <label>Email/Username</label> */}
+                      <input
+                        type="text"
+                        placeholder="Username"
+                        className="form-control p-3"
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
                     </div>
-                  </div>
-                  <button onClick={handleLogin} disabled={!password && !username}>Login</button>
-                </form>
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-      <ToastContainer autoClose={2000} />
+                    <div className=" mb-5">
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="Password"
+                        className="form-control p-3"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <div className="d-flex justify-content-between mt-2">
+                        <span type="button" onClick={togglePasswordVisibility}>
+                          {showPassword ? 'Hide Password' : 'Show Password'}
+                        </span>
+                        <span className='fw-bold' style={{ cursor: 'pointer' }} onClick={handleForgotPassword}>
+                          Forget Password?
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <button onClick={handleLogin} disabled={!password && !username} className="btn-login col-md-12 p-3">
+                       Login
+                    </button>
+                  </form>
+                </div>
+              </CardContent>
+            </Card>
 
+          </div>
+        </div>
+      </div>
+      <ToastContainer autoClose={2000} />
     </div>
+
   );
 };
 
