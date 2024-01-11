@@ -115,11 +115,11 @@ const Login = () => {
   };
 
   return (
-    <div className="row">
+    <div className="row  d-flex align-items-center">
       <div className="col-md-6">
         <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
       </div>
-      <div className="col-md-6 mt-5">
+      <div className="col-md-6 mt-5 ">
         <div className="row justify-content-center">
           <div className="col-md-8">
             <Card className="h-100 p-4">
