@@ -34,10 +34,10 @@ function App() {
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/sidebar" element={<SidebarRight />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/navbar"  element={<Navbar/>} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/job" element={<Job />} />
           <Route path="/share" element={<Share />} />
           <Route path="/forgot" element={<Forgot />} />

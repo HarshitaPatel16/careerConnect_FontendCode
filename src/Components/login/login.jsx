@@ -113,6 +113,10 @@ const Login = () => {
   const handleForgotPassword = () => {
     navigate("/email")
   };
+  const handleSignUp = () => {
+    navigate("/register")
+  };
+
 
   return (
     <div className="row  d-flex align-items-center">
@@ -161,6 +165,7 @@ const Login = () => {
                     </button>
                   </form>
                 </div>
+                <div>Don't have an account ? <span className="text-primary fw-bold"style={{cursor :"pointer"}} onClick={handleSignUp}>Sign Up</span></div>
               </CardContent>
             </Card>
 
