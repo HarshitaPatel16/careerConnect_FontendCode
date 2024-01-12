@@ -36,7 +36,7 @@ const Register = () => {
   function handleAddcustomer() {
     const formData = new FormData();
 
-    // Append your form fields to the FormData object.
+    // Append your form fields to the FormData object...
     formData.append("username", username);
     formData.append("email", email);
     formData.append("password", password);
