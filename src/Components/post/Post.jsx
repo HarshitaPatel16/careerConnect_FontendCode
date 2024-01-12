@@ -26,15 +26,6 @@ const Post = ({ post }) => {
   console.log(post, "postkk")
   const dispatch = useDispatch();
 
-  //   const handleLikesClick = () => {
-  //         const formData = new FormData();
-  //         formData.append("user_id", localStorage.getItem("user_id"));
-  //         formData.append('post_id', post.post_id);
-  //         formData.append("IsLiked", liked);
-
-  //         dispatch(addCreateLikes(API_URL, formData));
-
-  // };
 
 
 
@@ -70,9 +61,17 @@ const Post = ({ post }) => {
     }
   }, [reduxLike]);
 
+ 
+
   useEffect(() => {
-    dispatch(getLikeById(API_URL));
-  }, [dispatch]);
+  if (post && post.post_id) {
+    const data = {
+      post_id: post.post_id,
+    }
+    dispatch(getLikeById(API_URL, data));
+  }
+}, [dispatch, post]);
+
 
   // const liked = false;
 

@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     // Update isLoggedIn in local storage whenever it changes
-    localStorage.setItem("user_id", isLoggedIn ? "some_user_id" : null);
+    localStorage.setItem("user_id", isLoggedIn ? localStorage.getItem("user_id") : null);
   }, [isLoggedIn]);
   console.log(isLoggedIn, "userIsLoggedIn");
 
