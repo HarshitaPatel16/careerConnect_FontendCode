@@ -88,6 +88,11 @@ export const DELETE_SKILLS_REQUEST = "DELETE_SKILLS_REQUEST";
 export const DELETE_SKILLS_SUCCESS = "DELETE_SKILLS_SUCCESS";
 export const DELETE_SKILLS_FAILURE = "DELETE_SKILLS_FAILURE";
 
+
+export const DELETE_POSTS_REQUEST = "DELETE_POSTS_REQUEST";
+export const DELETE_POSTS_SUCCESS = "DELETE_POSTS_SUCCESS";
+export const DELETE_POSTS_FAILURE = "DELETE_POSTS_FAILURE";
+
 export const DELETE_EXPERIENCE_REQUEST = "DELETE_EXPERIENCE_REQUEST";
 export const DELETE_EXPERIENCE_SUCCESS = "DELETE_EXPERIENCE_SUCCESS";
 export const DELETE_EXPERIENCE_FAILURE = "DELETE_EXPERIENCE_FAILURE";
@@ -406,6 +411,24 @@ export const deleteSkills= (API_URL,data) => {
       });
   };
 };
+
+
+export const deletePosts= (API_URL,data) => {
+  return (dispatch) => {
+    dispatch({ type: DELETE_POSTS_REQUEST });
+    axios
+      .post(API_URL + "post/deletePost",data)
+      .then((response) => {
+        dispatch({ type: DELETE_POSTS_SUCCESS, payload: response.data });
+        return dispatch(getreadAllPostData(API_URL, data));
+      })
+
+      .catch((error) => {
+        dispatch({ type: DELETE_POSTS_FAILURE, payload: error.message });
+      });
+  };
+};
+
 
 //delete skils
 

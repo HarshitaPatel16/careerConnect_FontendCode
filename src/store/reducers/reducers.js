@@ -16,6 +16,7 @@ const initialState = {
   createComment: null,
   readOneComment: null,
   createExperience: null,
+  deletePost: null,
   createLike: null,
   readOneLike: null,
   readOneEducation: null,
@@ -473,6 +474,27 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                               error: action.payload,
                             };
 
+
+                            case "DELETE_POSTS_REQUEST":
+                              return {
+                                ...state,
+                                loading: true,
+                                error: null,
+                              };
+                            case "DELETE_POSTS_SUCCESS":
+                              return {
+                                ...state,
+                                deletePost: action.payload,
+                                loading: false,
+                                error: null,
+                              };
+                            case "DELETE_POSTS_FAILURE":
+                              return {
+                                ...state,
+                                loading: false,
+                                error: action.payload,
+                              };
+  
     default:
       return state;
   }

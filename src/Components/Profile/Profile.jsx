@@ -138,6 +138,10 @@ function Profile() {
     };
     dispatch(getSkills(API_URL, data));
   }, [dispatch]);
+
+
+
+  
   useEffect(() => {
     const data = {
       user_id: localStorage.getItem("user_id"),
@@ -243,6 +247,7 @@ function Profile() {
 
      
     dispatch(updateSkills(API_URL, formData));
+    setSkill(skill);
      setShowEditSkill(false)
 
 
