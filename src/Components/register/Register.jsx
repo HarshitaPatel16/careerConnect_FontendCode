@@ -33,28 +33,17 @@ const Register = () => {
     validateForm();
   }, [username, email, name, password]);
 
-  const handleAddcustomer = () => {
+  function handleAddcustomer() {
     const formData = new FormData();
 
+    // Append your form fields to the FormData object
     formData.append("username", username);
     formData.append("email", email);
     formData.append("password", password);
     formData.append("first_name", name);
 
-    dispatch(addCreateCustomer(API_URL, formData))
-      .then((response) => {
-        if (response && response.data && response.data.success) {
-          toast.success('Registration successful!');
-          navigate('/');
-        } else {
-          toast.error('Registration failed. Please check your input.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        toast.error('An error occurred. Please try again later.');
-      });
-  };
+    dispatch(addCreateCustomer(API_URL, formData));
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
