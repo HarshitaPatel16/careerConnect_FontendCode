@@ -103,7 +103,6 @@ const Register = () => {
                         {showPassword ? 'Hide Password' : 'Show Password'}
                       </span>
                     </div>
-
                     <button className="btn-login col-md-12 mt-5 p-3" onClick={handleAddcustomer} disabled={isRegisterButtonDisabled}>
                       Register
                     </button>

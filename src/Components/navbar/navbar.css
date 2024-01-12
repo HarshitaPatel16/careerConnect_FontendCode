@@ -31,3 +31,11 @@ border-radius: 3.25rem;
   background-color: #fff
 }
 
+/* Add this CSS to your existing styles or a separate CSS file */
+.navbar-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.navbar-icon:hover {
+  transform: translateY(-3px);
+}

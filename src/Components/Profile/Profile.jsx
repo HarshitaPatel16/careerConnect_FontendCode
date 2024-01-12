@@ -33,7 +33,6 @@ import { addCreateSkills, updateProfile, addCreateExperience, getSkills, updateS
 import { getProfileById, getSkilsById, getExperienceById, deleteSkills, deleteExperience } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
 import IMAGE_PATH from "../../imageService";
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import { useNavigate } from "react-router-dom";
@@ -53,8 +52,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-
-
 
 
 function Profile() {
@@ -84,17 +81,13 @@ function Profile() {
   const [resumePdf, setResumePdf] = useState(null);
   const [showUploadButton, setShowUploadButton] = useState(false);
   const fileInputRef = useRef(null);
-
-
   const profileData = useSelector((state) => state.user.readOneUser);
   // const skillsData = useSelector((state) => state.user.readOneUser);
-
   console.log(profileData, "profileData");
   const skillsData = useSelector((state) => state.user.readOneSkills);
   const skillsDataBYId = useSelector((state) => state.user.readOneBySkillsId);
   const experienceData = useSelector((state) => state.user.readOneExperience);
   console.log(experienceData, "experienceData");
-
   const [userName, setUserName] = useState(""); // Add state to store username
   const [profilePic, setProfilePic] = useState("");
   const [email, setEmail] = useState("");
@@ -763,7 +756,7 @@ function Profile() {
                 <Typography variant="subtitle1" component="div" className="d-flex align-items-center justify-content-between">
                   <span className="fw-bold username "> {profileData && profileData.username ? profileData.username : ""}</span>
 
-                  <EditOutlinedIcon onClick={handleOpenDialog} />
+                  <EditSharpIcon onClick={handleOpenDialog} />
 
                 </Typography>
                 <Typography className=" col-md-8 userinfo" variant="subtitle1" component="div">
@@ -821,7 +814,7 @@ function Profile() {
                               <div className="d-flex align-items-center justify-content-between">
                                 <span style={{ marginRight: '10px' }}>{skill.skils_name}</span>
                                 <div>
-                                <EditOutlinedIcon onClick={() => handleEditSkillToggle(skill.skills_id)} />
+                                <EditSharpIcon onClick={() => handleEditSkillToggle(skill.skills_id)} />
                                   <DeleteForeverOutlinedIcon onClick={() => handeldeleteSkills(skill.skills_id)} />
                                 </div>
                               </div>

@@ -17,7 +17,6 @@ import Otp from './Components/otppage/otp';
 import Email from './Components/email/email';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import "./Background.css"
 import BackgroundAnimation from './Background';
 import { DarkModeContext } from "./Components/context/darkModeContext"
@@ -25,31 +24,47 @@ import { DarkModeContext } from "./Components/context/darkModeContext"
 
 function App() {
   const { toggle, darkMode } = useContext(DarkModeContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("user_id") !== null;
+  });
 
+  useEffect(() => {
+    // Update isLoggedIn in local storage whenever it changes
+    localStorage.setItem("user_id", isLoggedIn ? "some_user_id" : null);
+  }, [isLoggedIn]);
+  console.log(isLoggedIn, "userIsLoggedIn");
 
   return (
     <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
      
-      <Router>
+  <Router>
         <Routes>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/sidebar" element={<SidebarRight />} />
+          {/* Public routes accessible to all users */}
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Registration />} />
-          <Route path="/navbar"  element={<Navbar/>} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/job" element={<Job />} />
-          <Route path="/share" element={<Share />} />
-          <Route path="/forgot" element={<Forgot />} />
-          <Route path="/detail" element={<ConnectionDetail />} />
-          <Route path="/post" element={<Post />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/otp" element={<Otp />} />
-          <Route path="/email" element={<Email />} />
 
+          {/* Routes accessible only when logged in */}
+          {isLoggedIn && (
+            <>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/sidebar" element={<SidebarRight />} />
+              <Route path="/navbar" element={<Navbar />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/job" element={<Job />} />
+              <Route path="/share" element={<Share />} />
+              <Route path="/forgot" element={<Forgot />} />
+              <Route path="/detail" element={<ConnectionDetail />} />
+              <Route path="/post" element={<Post />} />
+              <Route path="/posts" element={<Posts />} />
+              <Route path="/otp" element={<Otp />} />
+              <Route path="/email" element={<Email />} />
+            </>
+          )}
 
-
-
+          {/* Redirect to login for protected routes when not logged in */}
+          {!isLoggedIn && (
+            <Route path="/*" element={<Login />} />
+          )}
         </Routes>
       </Router>
       <ToastContainer />

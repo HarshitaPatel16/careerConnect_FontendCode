@@ -6,8 +6,6 @@ import { Grid, Card, CardContent, Typography } from '@mui/material';
 import API_URL from "../../service";
 import { postCustomerLoginData } from "../../store/action/action";
 import { useDispatch, useSelector } from "react-redux";
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -35,6 +33,9 @@ const Login = () => {
     setErrorMessage("");
   }, 5000);
   //api calling for login start//
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   useEffect(() => {
     if (
@@ -53,7 +54,7 @@ const Login = () => {
             setitem(itemdata.user_id);
             localStorage.setItem("user_id", itemdata.user_id);
             localStorage.setItem("username", itemdata.username);
-            navigate("/");
+            navigate("/home");
           }
         }
       }
@@ -85,31 +86,6 @@ const Login = () => {
     }
   };
 
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   const data = {
-  //     username: username,
-  //     password: password,
-  //   };
-
-  //   try {
-  //     const response = await dispatch(postCustomerLoginData(API_URL, data));
-  //     console.log("API Response:", data);
-  //     console.log(response.data.message,"Invalid login attempt");
-
-  //     if (response && response.data.message === "User Successfully") {
-  //       console.log(response.data.message,"Successful login");
-  //       toast.success("Login Successfully");
-  //     } else if (response && response.data.message === "User not found")
-  //      {
-  //       toast.error("Invalid username or password");
-  //     }
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //   }
-  // };
-
   const handleForgotPassword = () => {
     navigate("/email")
   };
@@ -126,7 +102,7 @@ const Login = () => {
       <div className="col-md-6 mt-5 ">
         <div className="row justify-content-center">
           <div className="col-md-8">
-            <Card className="h-100 p-4">
+            <Card className="h-100 p-4 hover-animation">
               <CardContent>
                 <img src={logo} alt="Background" className="p-0 m-0" />
                 <h3 className="mb-3">Welcome To Career Connect </h3>

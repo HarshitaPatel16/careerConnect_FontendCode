@@ -85,31 +85,31 @@ import ConnectIcon from "../../assets/ic-connections.png"
           <ul className="navbar-nav ml-auto col-md-2">
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleHomeClick}>
-                <img src={HomeIcon} alt="Home" style={{ marginRight: '32px' }} />
+                <img src={HomeIcon} alt="Home" style={{ marginRight: '32px' }} className="navbar-icon" />
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleHomeClick}>
-                <img src={ConnectIcon} alt="Home" style={{ marginRight: '32px' }} />
+                <img src={ConnectIcon} alt="Home" style={{ marginRight: '32px' }} className="navbar-icon" />
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" onClick={handleJobClick}>
-                <img src={JobIcon} alt="Job" style={{ marginRight: '32px' }} />
+                <img src={JobIcon} alt="Job" style={{ marginRight: '32px' }} className="navbar-icon" />
               </a>
             </li>
             
             <li className="nav-item">
               <a className="nav-link" href="#">
-              <img src={NotificationIcon} alt="Home" style={{ marginRight: '32px' }}  />
+              <img src={NotificationIcon} alt="Home" style={{ marginRight: '32px' }} className="navbar-icon"  />
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#" >
                 {darkMode ? (
-                  <img src={SunIcon} onClick={toggle} style={{ marginRight: '32px' }}/>
+                  <img src={SunIcon} onClick={toggle} style={{ marginRight: '32px' }} className="navbar-icon"/>
                 ) : (
-                  <img src={MoonIcon} onClick={toggle} style={{ marginRight: '32px' }} />
+                  <img src={MoonIcon} onClick={toggle} style={{ marginRight: '32px' }}  className="navbar-icon"/>
                 )}
               </a>
             </li>
