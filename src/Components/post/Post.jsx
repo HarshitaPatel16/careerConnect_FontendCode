@@ -20,6 +20,7 @@ const Post = ({ post }) => {
   const { toggle, darkMode } = useContext(DarkModeContext);
   const [commentOpen, setCommentOpen] = useState(false);
   const reduxLike = useSelector((state) => state.like);
+  console.log("reduxLike1234", reduxLike);
 
 
 
@@ -58,6 +59,7 @@ const Post = ({ post }) => {
   useEffect(() => {
     if (reduxLike.readOneLike && reduxLike.readOneLike.data) {
       setLiked(reduxLike.readOneLike.data);
+      console.log(reduxLike.readOneLike.data, "(reduxLike.readOneLike.data)");
     }
   }, [reduxLike]);
 

@@ -17,7 +17,7 @@ const initialState = {
   readOneComment: null,
   createExperience: null,
   deletePost: null,
-  createLike: null,
+  addOrUpdateLike: null,
   readOneLike: null,
   readOneEducation: null,
   readOneBySkillsId: null,
@@ -365,7 +365,7 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                   case "ADD_CREATELIKE_SUCCESS":
                     return {
                       ...state,
-                      createLike: action.payload,
+                      addOrUpdateLike: action.payload,
                       loading: false,
                       error: null,
                     };
