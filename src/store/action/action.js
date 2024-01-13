@@ -184,7 +184,7 @@ export const addCreateLikes = (API_URL, data) => {
   return (dispatch) => {
     dispatch({ type: ADD_CREATELIKE_REQUEST });
     axios
-      .post(API_URL + "like/createLike", data)
+      .post(API_URL + "like/addOrUpdateLike", data)
       .then((response) => {
         dispatch({ type: ADD_CREATELIKE_SUCCESS, payload: response.data });
         // return dispatch(getCommentById(API_URL,data));
