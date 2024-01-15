@@ -26,6 +26,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
+import Paper from '@material-ui/core/Paper';
 
 
 
@@ -166,6 +167,12 @@ import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutl
                 onClose={nvhandleClose}
                 MenuListProps={{
                   "aria-labelledby": "basic-button",
+                }}
+                PaperProps={{
+                  style: {
+                    background: darkMode ? '#333' : 'white', // Adjust background color based on dark mode
+                    color: darkMode ? 'white' : 'black', // Adjust text color based on dark mode
+                  },
                 }}
               >
 
