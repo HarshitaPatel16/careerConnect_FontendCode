@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./forgetPassword.css";
-import logo from "../../assets/CareerConnect-white-logo.png";
+import logo from "../../assets/CareerConnect-black-logo.png";
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { addCreateCustomer } from "../../store/action/action";
@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import API_URL from "../../service";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import leftImg from '../../assets/login-left.png';
+import leftImg from "../../assets/new-img121.png"
+import BackgroundAnimation from "../../Background";
 
 
 
@@ -18,7 +19,7 @@ const Forgot = () => {
   const [email, setemail] = useState("");
   const [name, setname] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotButtonDisabled, setForgotButtonDisabled] = useState(true); // New state for button
 
@@ -31,7 +32,7 @@ const Forgot = () => {
   };
 
   const handleForgotPassword = () => {
-    // Your logic for handling forgot password
+    navigate("/")
   };
 
   const handleLogin = () => {
@@ -55,78 +56,13 @@ const Forgot = () => {
     validateForm();
   }, [oldPassword, email, name, password]);
 
-  function handleAddcustomer() {
-    const formData = new FormData();
-
-    // Append your form fields to the FormData object
-    formData.append("oldPassword", oldPassword);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("first_name", name);
-
-    dispatch(addCreateCustomer(API_URL, formData));
-  }
 
   return (
-    // <div className="Forgot">
-    //   <Grid container className="justify-content-center ">
-    //     <Grid item xs={10} md={4} lg={4}>
-    //       <Card className="h-100">
-    //         <CardContent>
-    //           <Typography variant="h5" component="div">
 
-    //           </Typography>
-    //           <div className="left h-100">
-    //             <img src={logo} alt="" style={{height:"100%"}} />
-    //             <p>
-    //               Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-    //               alias totam numquam ipsa exercitationem dignissimos, error nam,
-    //               consequatur.
-    //             </p>
-    //             <span>Do you have an account?</span>
-    //             <Link to="/login">
-    //               <button>Login</button>
-    //             </Link>
-    //           </div>
-    //         </CardContent>
-    //       </Card>
-    //     </Grid>
-    //     <Grid item xs={10} md={4} lg={4}>
-    //       <Card className="h-100">
-    //         <CardContent>
-    //           <Typography variant="h5" component="div">
-
-    //           </Typography>
-    //           <div className="right ">
-    //             <h1>Forgot</h1>
-    //             <form>
-    //               <input
-    //                 type="password"
-    //                 placeholder="Old Password"
-    //                 onChange={(e) => setoldPassword(e.target.value)}
-    //               />
-    //               <input
-    //                 type="password"
-    //                 placeholder="New Password"
-    //                 onChange={(e) => setpassword(e.target.value)}
-    //               />
-                  
-    //               <button
-    //                 disabled={isForgotButtonDisabled} // Disable the button based on validation status
-    //                 onClick={handleAddcustomer}
-    //               >
-    //                 Update Password
-    //               </button>
-    //             </form>
-    //           </div>
-    //         </CardContent>
-    //       </Card>
-    //     </Grid>
-    //   </Grid>
-    // </div>
     <div className="row  d-flex align-items-center">
+      
     <div className="col-md-6">
-      <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
+      <img src={leftImg} alt="Background" className="p-0 m-0" />
     </div>
     <div className="col-md-6 mt-5 ">
       <div className="row justify-content-center">
@@ -134,24 +70,25 @@ const Forgot = () => {
           <Card className="h-100 p-4">
             <CardContent>
               <img src={logo} alt="Background" className="p-0 m-0" />
-              <h3 className="mb-5">Welcome To Career Connect </h3>
+              <h3 className="mb-3">Welcome To Career Connect </h3>
               <div className=" align-items-center">
-                {/* <h1>Login</h1> */}
+                <h5>Forgot Password</h5>
                 <form className=" p-5 align-items-center">
                   <div className=" mb-3">
-                    {/* <label>Email/Username</label> */}
+                  <label className="inputbox mb-2">Password</label>
                     <input
                       type="text"
                       placeholder="Username"
-                      className="form-control p-3"
-                      onChange={(e) => setUsername(e.target.value)}
+                      className="form-control "
+                      onChange={(e) => setNewPassword(e.target.value)}
                     />
                   </div>
+                  <label className="inputbox mb-2">Confirm Password</label>
                   <div className=" mb-5">
                     <input
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Password"
-                      className="form-control p-3"
+                      className="form-control "
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -160,12 +97,12 @@ const Forgot = () => {
                         {showPassword ? 'Hide Password' : 'Show Password'}
                       </span>
                       <span className='fw-bold' style={{ cursor: 'pointer' }} onClick={handleForgotPassword}>
-                        Forget Password?
+                        Login
                       </span>
                     </div>
                   </div>
                   
-                  <button onClick={handleLogin} disabled={!password && !username} className="btn-login col-md-12 p-3">
+                  <button onClick={handleLogin} disabled={!password && !newPassword} className="btn-login col-md-12 p-2">
                      Login
                   </button>
                 </form>
@@ -176,6 +113,7 @@ const Forgot = () => {
         </div>
       </div>
     </div>
+    <BackgroundAnimation/>
     <ToastContainer autoClose={2000} />
   </div>
 

@@ -30,7 +30,7 @@
   .square1 {
     width: 20px;
     height: 20px;
-    background-color: #3498db; /* Square color */
+    background-color: #3498db;
     top: 10vh;
     left: 10vw;
   }
@@ -38,23 +38,23 @@
   .square2 {
     width: 30px;
     height: 30px;
-    background-color: #e74c3c; /* Square color */
+    background-color: #e74c3c;
     top: 20vh;
     left: 30vw;
   }
   
-  .square3 {
+  /* .square3 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
+    background-color: #2ecc71; 
     top: 30vh;
     left: 50vw;
-  }
+  } */
   
   .square4 {
     width: 20px;
     height: 20px;
-    background-color: #3498db; /* Square color */
+    background-color: #3498db;
     top: 40vh;
     left: 60vw;
   }
@@ -62,22 +62,22 @@
   .square5 {
     width: 30px;
     height: 30px;
-    background-color: #e74c3c; /* Square color */
+    background-color: #e74c3c;
     bottom: 20vh;
     left: 30vw;
   }
   
-  .square6 {
+ .square6 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
-    bottom: 30vh;
-    left: 50vw;
-  }
+    background-color: #2ecc71;
+    top: 30vh;
+    left: 10vw;
+  } 
   .square7 {
     width: 20px;
     height: 20px;
-    background-color: #3498db; /* Square color */
+    background-color: #3498db;
     top: 10vh;
     left: 10vw;
   }
@@ -85,23 +85,23 @@
   .square8 {
     width: 30px;
     height: 30px;
-    background-color: #e74c3c; /* Square color */
+    background-color: #e74c3c;
     top: 20vh;
     left: 30vw;
   }
   
-  .square9 {
+  /* .square9 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
+    background-color: #2ecc71; 
     bottom: 50%;
     right: 20%;
-  }
+  } */
   
   .square10 {
     width: 20px;
     height: 20px;
-    background-color: #3498db; /* Square color */
+    background-color: #3498db;
     bottom: 40%;
     right: 10%;
   }
@@ -109,15 +109,15 @@
   .square11 {
     width: 30px;
     height: 30px;
-    background-color: #e74c3c; /* Square color */
+    background-color: #e74c3c;
     bottom: 20vh;
     right: 30vw;
   }
   
-  .square12 {
+  /* .square12 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
+    background-color: #2ecc71; 
     bottom: 10vh;
     right: 50vw;
   }
@@ -125,14 +125,14 @@
   .square13 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
+    background-color: #2ecc71; 
     bottom: 50vh;
     left: 50vw;
-  }
+  } */
   .square14 {
     width: 20px;
     height: 20px;
-    background-color: #3498db; /* Square color */
+    background-color: #3498db;
     top: 10vh;
     right: 10vw;
   }
@@ -140,23 +140,23 @@
   .square15 {
     width: 30px;
     height: 30px;
-    background-color: #e74c3c; /* Square color */
+    background-color: #e74c3c;
     bottom: 10vh;
     right: 10vw;
   }
-  
+/*   
   .square16 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
+    background-color: #2ecc71; 
     bottom: 50%;
     right: 20%;
-  }
+  } */
   
   .square17 {
     width: 20px;
     height: 20px;
-    background-color: #3498db; /* Square color */
+    background-color: #3498db;
     bottom: 40%;
     right: 10%;
   }
@@ -164,7 +164,7 @@
   .square18 {
     width: 30px;
     height: 30px;
-    background-color: #e74c3c; /* Square color */
+    background-color: #e74c3c;
     bottom: 20vh;
     right: 30vw;
   }
@@ -172,7 +172,7 @@
   .square19 {
     width: 25px;
     height: 25px;
-    background-color: #2ecc71; /* Square color */
-    bottom: 10vh;
-    right: 50vw;
+    background-color: #2ecc71; 
+    top: 25vh;
+    left: 35vw;
   }

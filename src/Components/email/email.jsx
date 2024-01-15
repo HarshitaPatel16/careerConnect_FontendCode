@@ -1,4 +1,3 @@
-// EmailInput.js
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +18,7 @@ const EmailInput = () => {
     console.log("API");
     try {
         const response = await axios.post(
-            API_URL + "user/readOneuserByEmail",
+            API_URL + "user/forgetPassword",
             {
                 email: email,
             },
@@ -36,7 +35,6 @@ const EmailInput = () => {
 
   return (
 
-
   <div className="row  d-flex align-items-center">
   <div className="col-md-5 d-none d-md-block mt-5">
     <img src={leftImg} alt="Background" className="p-0 m-0"/>
@@ -47,7 +45,7 @@ const EmailInput = () => {
         <Card className="h-100 p-4">
           <CardContent>
             <img src={logo} alt="Background" className="p-0 m-0" />
-            <h3 className="mb-5 fw-bold">Welcome To Career Connect </h3>
+            <h3 className="mb-3 fw-bold">Welcome To Career Connect </h3>
             <div className=" align-items-center">
               <h5>Forgot Password</h5>
               <form className=" p-5 align-items-center">

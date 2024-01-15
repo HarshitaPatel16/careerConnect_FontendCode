@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import leftImg from "../../assets/new-img121.png";
+import BackgroundAnimation from "../../Background";
 
 const Login = () => {
 
@@ -153,6 +154,7 @@ const Login = () => {
         </div>
       </div>
       <ToastContainer autoClose={2000} />
+      <BackgroundAnimation/>
     </div>
 
   );
