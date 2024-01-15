@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, Card, CardContent, Typography } from '@mui/material';
-import leftImg from "../../assets/login-left.png"
+import leftImg from "../../assets/new-img121.png"
 import logo from "../../assets/CareerConnect-black-logo.png";
 
 
@@ -47,10 +47,10 @@ const EmailInput = () => {
   // </Grid>
 
   <div className="row  d-flex align-items-center">
-  <div className="col-md-6">
-    <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
+  <div className="col-md-5 d-none d-md-block mt-5">
+    <img src={leftImg} alt="Background" className="p-0 m-0"/>
   </div>
-  <div className="col-md-6 mt-5 ">
+  <div className="col-md-7 mt-5 w-85">
     <div className="row justify-content-center">
       <div className="col-md-8">
         <Card className="h-100 p-4">
@@ -61,11 +61,11 @@ const EmailInput = () => {
               <h5>Forgot Password</h5>
               <form className=" p-5 align-items-center">
                 <div className=" mb-3">
-                  {/* <label>Email/Username</label> */}
+                <label className="inputbox mb-2">Username</label>
                   <input
                     type="text"
-                    placeholder="Email"
-                    className="form-control p-3"
+                    placeholder="email@gmail.com"
+                    className="form-control p-2"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>

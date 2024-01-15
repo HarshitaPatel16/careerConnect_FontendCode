@@ -20,7 +20,7 @@ const Posts = () => {
     if (reduxPostsData.readOnePost && reduxPostsData.readOnePost.data) {
       setPosts(reduxPostsData.readOnePost.data);
       console.log("reduxPostsData",reduxPostsData.readOnePost.data[0].post_id)
-      // localStorage.setItem("post_id", reduxPosts.readOnePost.data[0].post_id);
+      // localStorage.setItem("user_id", reduxPosts.readOnePost.data[0].post_id);
     }
   }, [reduxPostsData]);
 
