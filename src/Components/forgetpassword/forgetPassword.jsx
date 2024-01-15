@@ -11,7 +11,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import leftImg from "../../assets/new-img121.png"
 import BackgroundAnimation from "../../Background";
-
+import { toast } from 'react-toastify';
+import axios from "axios";
 
 
 const Forgot = () => {
@@ -22,11 +23,11 @@ const Forgot = () => {
   const [newPassword, setNewPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotButtonDisabled, setForgotButtonDisabled] = useState(true); // New state for button
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
-
+  const Email = new URLSearchParams(window.location.search).get('email');
+  console.log(Email, 'Email');
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -56,6 +57,30 @@ const Forgot = () => {
     validateForm();
   }, [oldPassword, email, name, password]);
 
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+  
+    // Add a condition to check if password is equal to newpassword
+    if (password === newpassword) {
+      try {
+        const response = await axios.post(
+          API_URL + "user/updatePassword",
+          {
+            email: Email,
+            password: password,
+          }
+        );
+        navigate("/");
+        toast.success("Password Updated Successfully");
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error("Email Not Found");
+      }
+    } else {
+      toast.error("Passwords do not match");
+    }
+  };
+  
 
   return (
 
@@ -102,7 +127,7 @@ const Forgot = () => {
                     </div>
                   </div>
                   
-                  <button onClick={handleLogin} disabled={!password && !newPassword} className="btn-login col-md-12 p-2">
+                  <button onClick={handleUpdatePassword} disabled={!password && !newPassword} className="btn-login col-md-12 p-2">
                      Login
                   </button>
                 </form>

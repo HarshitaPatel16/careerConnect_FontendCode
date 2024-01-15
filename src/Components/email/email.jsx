@@ -7,6 +7,8 @@ import logo from "../../assets/CareerConnect-black-logo.png";
 import axios from "axios";
 import API_URL from "../../service";
 import { toast } from 'react-toastify';
+import BackgroundAnimation from "../../Background";
+import "./email.css"
 
 
 const EmailInput = () => {
@@ -42,7 +44,7 @@ const EmailInput = () => {
   <div className="col-md-7 mt-5 w-85">
     <div className="row justify-content-center">
       <div className="col-md-8">
-        <Card className="h-100 p-4">
+        <Card className="h-100 p-4 email-card">
           <CardContent>
             <img src={logo} alt="Background" className="p-0 m-0" />
             <h3 className="mb-3 fw-bold">Welcome To Career Connect </h3>
@@ -70,6 +72,7 @@ const EmailInput = () => {
       </div>
     </div>
   </div>
+  <BackgroundAnimation/>
 </div>
   
   );
