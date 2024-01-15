@@ -27,6 +27,21 @@ const Otp = () => {
     setOtp(newValue)
   }
 
+  const handleVerifyOTP = async () => {
+    console.log("API - Before Request");
+    try {
+      const response = await axios.post(
+        API_URL + "login/forgetPassword",
+        { otp: otp },
+      );
+      console.log("API - Request Successful");
+      navigate("/otp");
+      toast.success("Please check your email");
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     // <div className="otp">
     //   <Grid container className="justify-content-center ">
@@ -64,7 +79,7 @@ const Otp = () => {
                 <span>Enter the OTP code sent to your email</span>
                 <MuiOtpInput value={otp} onChange={handleChange} />
               </div>
-              <button class="btn btn-primary mb-4">verify</button>
+              <button class="btn btn-primary mb-4" onClick={handleVerifyOTP}>Verify OTP</button>
             </CardContent>
           </Card>
         </Grid>

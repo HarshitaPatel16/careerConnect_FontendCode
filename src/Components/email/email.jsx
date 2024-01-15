@@ -5,46 +5,37 @@ import { useNavigate } from "react-router-dom";
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import leftImg from "../../assets/new-img121.png"
 import logo from "../../assets/CareerConnect-black-logo.png";
-
+import axios from "axios";
+import API_URL from "../../service";
+import { toast } from 'react-toastify';
 
 
 const EmailInput = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
-  const handleVerifyEmail = () => {
-    // Add logic to verify the email and send a verification link
-    // This logic will depend on your backend implementation
-    // For demonstration, navigate to the OTP screen
-    navigate("/otp");
-  };
+  const handleVerifyEmail = async (e) => {
+    e.preventDefault();
+    console.log("API");
+    try {
+        const response = await axios.post(
+            API_URL + "user/readOneuserByEmail",
+            {
+                email: email,
+            },
+          
+        );
+        navigate("/otp");
+        toast.success("Please check your email")
+    } catch (error) {
+        console.error('Error:', error);
+        toast.error("Email Not Found")
+    }
+}
+
 
   return (
-  //   <Grid container className="justify-content-center ">
-  //   <Grid item xs={10} md={4} lg={4}>
-  //     <Card className="h-100">
-  //       <CardContent>
-  //         <Typography variant="h5" component="div">
 
-  //         </Typography>
-  //         <div className="right">
-  //         <div>
-  //     <h1>Enter Your Email</h1>
-  //     <input
-  //       type="email"
-  //       placeholder="Enter your email"
-  //       value={email}
-  //       onChange={(e) => setEmail(e.target.value)}
-  //     />
-  //     <button onClick={handleVerifyEmail}>Verify Email</button>
-  //   </div>
-
-  //         </div>
-  //       </CardContent>
-  //     </Card>
-     
-  //   </Grid>
-  // </Grid>
 
   <div className="row  d-flex align-items-center">
   <div className="col-md-5 d-none d-md-block mt-5">
@@ -61,16 +52,16 @@ const EmailInput = () => {
               <h5>Forgot Password</h5>
               <form className=" p-5 align-items-center">
                 <div className=" mb-3">
-                <label className="inputbox mb-2">Username</label>
+                <label className="inputbox mb-2">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     placeholder="email@gmail.com"
                     className="form-control p-2"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 
-                <button className="btn-login col-md-12 p-3">
+                <button className="btn-login col-md-12 p-2" onClick={handleVerifyEmail}>
                   Verify Email
                 </button>
               </form>
