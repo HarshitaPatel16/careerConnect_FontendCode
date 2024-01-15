@@ -21,6 +21,7 @@ const Otp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = React.useState('')
+  const email = new URLSearchParams(window.location.search).get('email')
 
   const handleChange = (newValue) => {
     setOtp(newValue)
@@ -31,9 +32,11 @@ const Otp = () => {
     try {
       const response = await axios.post(
         API_URL + "user/readOneuserOtp",
-        { otp: otp },
+        { otp: otp ,
+          email:email
+        }
       );
-      navigate("/forgot");
+      navigate(`/forgot?email=${email}`);
       // toast.success("Please check your email");
     } catch (error) {
       console.error('Error:', error);

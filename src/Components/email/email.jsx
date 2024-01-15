@@ -24,7 +24,7 @@ const EmailInput = () => {
             },
           
         );
-        navigate("/otp");
+        navigate(`/otp?email=${email}`);
         toast.success("Please check your email")
     } catch (error) {
         console.error('Error:', error);
