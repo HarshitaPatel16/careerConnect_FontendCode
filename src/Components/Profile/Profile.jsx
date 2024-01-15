@@ -64,6 +64,7 @@ function Profile() {
   const [value, setValue] = React.useState('1');
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [showEditSkill, setShowEditSkill] = useState(false)
+  const [editedSkill, setEditedSkill] = useState(""); // Add state to hold edited skill value
   const [showAddExperience, setShowAddExperience] = useState(false);
   const [skill, setSkill] = useState("")
   const [skillError, setSkillError] = useState("")
@@ -133,10 +134,6 @@ function Profile() {
     };
     dispatch(getSkills(API_URL, data));
   }, [dispatch]);
-
-
-
-  
   useEffect(() => {
     const data = {
       user_id: localStorage.getItem("user_id"),
@@ -242,7 +239,6 @@ function Profile() {
 
      
     dispatch(updateSkills(API_URL, formData));
-    setSkill(skill);
      setShowEditSkill(false)
 
 
@@ -636,7 +632,6 @@ function Profile() {
   };
 
   const handleEditSkillToggle = (skills_id) => {
-    
     setShowEditSkill(!showEditSkill);
   };
   
@@ -671,6 +666,9 @@ function Profile() {
   }
 
 
+  const handleCloseEdit= () => {
+    setShowEditSkill(false)
+  }
 
   return (
     <Box sx={{ flexGrow: 1, marginTop: '80px' }}>
@@ -716,17 +714,17 @@ function Profile() {
                 />
 
                 <Dialog open={isProfileChangeDialogOpen} onClose={handleCloseProfileDialog}>
-                  <DialogContent>
+                  <DialogContent className={`p-4 ${darkMode ? 'dark-card' : 'light-card'}`}>
                     <div className="mb-2 ">
                       <CameraAltOutlinedIcon onClick={startCamera} className="mx-2" />
-                      <input
+                    </div>
+                  <div>
+                  <input
                         type="file"
                         accept="image/*"
                         onChange={handleProfileUpload}
                       />
-
-                    </div>
-
+                  </div>
                     {/* {selectedImage && (
                       <img
                         src={selectedImage}
@@ -878,7 +876,7 @@ function Profile() {
                           <button type="button" className="btn btn-primary" onClick={handleEditSkills}>
                           Edit
                           </button>
-                          <button type="button" className="btn btn-outline-secondary m-2" >
+                          <button type="button" className="btn btn-outline-secondary m-2" onClick={handleCloseEdit} >
                             Cancel
                           </button>
                         </div>
@@ -1190,7 +1188,7 @@ function Profile() {
 
         </Grid>
         <Grid item xs={12} md={4} lg={3} >
-          <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
+          <Item className={` ${darkMode ? 'dark-card' : 'light-card'}`} >
             <div>
               <div className="trofie">
                 <img
@@ -1216,10 +1214,10 @@ function Profile() {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle> Edit Profile</DialogTitle>
-          <DialogContent>
+          <DialogTitle className={`${darkMode ? 'dark-card' : 'light-card'}`}> Edit Profile</DialogTitle>
+          <DialogContent className={`${darkMode ? 'dark-card' : 'light-card'}`}>
 
-            <div className="row mt-4 p-0">
+            <div className="row p-0">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">First Name <span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1239,7 +1237,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <div className="row mt-4">
+            <div className="row mt-2">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">User Name<span className='text-danger'></span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1256,7 +1254,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <div className="row mt-4">
+            <div className="row mt-2">
               <div className="col-md-6">
                 <label for="exampleFormControlInput1" className="form-label">Contact Number<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1273,7 +1271,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <div className="row mt-4">
+            <div className="row ">
               <div className="col-md-12">
                 <label for="exampleFormControlInput1" className="form-label">Profile Headline<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">
@@ -1285,7 +1283,7 @@ function Profile() {
               </div>
             </div>
           </DialogContent>
-          <DialogActions>
+          <DialogActions className={`${darkMode ? 'dark-card' : 'light-card'}`}>
             <div className="col-md-12 d-flex justify-content-end">
               <button className="btn btn-outline-secondary m-2" onClick={handleCloseDialog}>Cancel</button>
               <button className="btn btn-primary m-2" onClick={handleUpate}>Save </button>
