@@ -31,13 +31,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 /* Global hover animation */
-.hover-animation {
+/* .hover-animation {
   transition: transform 0.3s ease-in-out;
 }
 
 .hover-animation:hover {
   transform: scale(1.1); 
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
