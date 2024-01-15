@@ -61,7 +61,7 @@ const Forgot = () => {
     e.preventDefault();
   
     // Add a condition to check if password is equal to newpassword
-    if (password === newpassword) {
+    if (password === newPassword) {
       try {
         const response = await axios.post(
           API_URL + "user/updatePassword",

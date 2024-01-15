@@ -21,6 +21,13 @@ import NotificationIcon from "../../assets/colored/ic-notification.png"
 import MoonIcon from "../../assets/colored/moon.png"
 import SunIcon from "../../assets/colored/sun.png"
 import ConnectIcon from "../../assets/ic-connections.png"
+import LogoutIcon from "@mui/icons-material/Logout";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
+
+
 
 //const Navbar = () => {
    const Navbar = () => {
@@ -38,6 +45,30 @@ import ConnectIcon from "../../assets/ic-connections.png"
     navigate('/job');
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [nvopen, setNvOpen] = useState(false);
+
+
+   const profilehandleClickOpen = () => {
+    window.location.href = "/profile";
+  };
+
+  const handleProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setNvOpen(true);
+  };
+
+  const nvhandleClose = () => {
+    setAnchorEl(null);
+    setNvOpen(false);
+  };
+
+  const Logout = () => {
+    localStorage.clear();
+    navigate("/");
+    nvhandleClose();
+  };
+  
   const profileData = useSelector((state) => state.user.readOneUser);
 
   useEffect(() => {
@@ -123,8 +154,76 @@ import ConnectIcon from "../../assets/ic-connections.png"
               <img
                 src={profileData?.profilePic ? IMAGE_PATH + "user/" + profileData.profilePic : avatar}
                 className="chat_profile"
+                onClick={handleProfileClick}
+
               />
-              <span className={`${darkMode? "text-light" : "text-dark"}`}>{profileData && profileData.username}</span>
+              <span className={`${darkMode? "text-light" : "text-dark"}`}
+              >{profileData && profileData.username}</span>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={nvopen}
+                onClose={nvhandleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+
+                  <MenuItem  style={{ color: "#b78af3" }} onClick={profilehandleClickOpen}>
+                  <AccountCircleOutlinedIcon />{" "}
+                  <span
+                    style={{
+                      marginLeft: "7px",
+                      fontSize: "15px",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    {" "}
+                    My Profile
+                  </span>{" "}
+                </MenuItem>
+                <MenuItem style={{ color: "#b78af3" }} onClick={Logout}>
+                  <LogoutIcon />
+                  <span
+                    style={{
+                      marginLeft: "7px",
+                      fontSize: "15px",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    Logout
+                  </span>
+                </MenuItem>
+               
+                <MenuItem style={{ color: "#b78af3" }}>
+                  <CreateNewFolderOutlinedIcon />
+                  <span
+                    style={{
+                      marginLeft: "7px",
+                      fontSize: "15px",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    Company Profile
+                  </span>
+                </MenuItem>
+                <MenuItem style={{ color: "#b78af3" }} onClick={toggle}>
+                {darkMode ? (
+                  <img src={SunIcon} onClick={toggle} style={{}} className="navbar-icon"/>
+                ) : (
+                  <img src={MoonIcon} onClick={toggle} style={{}}  className="navbar-icon"/>
+                )}
+                  <span
+                    style={{
+                      marginLeft: "7px",
+                      fontSize: "15px",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    Mode
+                  </span>
+                </MenuItem>
+              </Menu>
             </div>
           </ul>
         </div>

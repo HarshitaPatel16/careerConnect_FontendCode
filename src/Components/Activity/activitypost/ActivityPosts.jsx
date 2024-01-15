@@ -25,12 +25,17 @@ const Posts = () => {
   }, [reduxPostsData]);
 
   useEffect(() => {
-    dispatch(getPostById(API_URL));
+
+    const data = {
+      user_id: localStorage.getItem("user_id"),
+    };
+    
+    dispatch(getPostById(API_URL, data));
   }, [dispatch]);
 
   return <div className="posts">
     {posts.map(post=>(
-      <Post post={post} key={post.post_id}/>
+      <Post post={post} key={post.user_id}/>
     ))}
   </div>;
 };
