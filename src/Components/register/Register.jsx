@@ -43,6 +43,8 @@ const Register = () => {
     formData.append("first_name", name);
 
     dispatch(addCreateCustomer(API_URL, formData));
+    toast.success("Signed in successfully!")
+    handleLogin()
   }
 
   const togglePasswordVisibility = () => {

@@ -62,6 +62,7 @@ function Profile() {
   const [value, setValue] = React.useState('1');
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [showEditSkill, setShowEditSkill] = useState(false)
+  const [editedSkill, setEditedSkill] = useState(""); // Add state to hold edited skill value
   const [showAddExperience, setShowAddExperience] = useState(false);
   const [skill, setSkill] = useState("")
   const [skillError, setSkillError] = useState("")
@@ -629,7 +630,6 @@ function Profile() {
   };
 
   const handleEditSkillToggle = (skills_id) => {
-    
     setShowEditSkill(!showEditSkill);
   };
   
@@ -712,17 +712,17 @@ function Profile() {
                 />
 
                 <Dialog open={isProfileChangeDialogOpen} onClose={handleCloseProfileDialog}>
-                  <DialogContent className={`${darkMode ? 'dark-card' : 'light-card'}`}>
+                  <DialogContent className={`p-4 ${darkMode ? 'dark-card' : 'light-card'}`}>
                     <div className="mb-2 ">
                       <CameraAltOutlinedIcon onClick={startCamera} className="mx-2" />
-                      <input
+                    </div>
+                  <div>
+                  <input
                         type="file"
                         accept="image/*"
                         onChange={handleProfileUpload}
                       />
-
-                    </div>
-
+                  </div>
                     {/* {selectedImage && (
                       <img
                         src={selectedImage}
@@ -1180,7 +1180,7 @@ function Profile() {
 
         </Grid>
         <Grid item xs={12} md={4} lg={3} >
-          <Item >
+          <Item className={` ${darkMode ? 'dark-card' : 'light-card'}`} >
             <div>
               <div className="trofie">
                 <img
@@ -1263,7 +1263,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <div className="row mt-2">
+            <div className="row ">
               <div className="col-md-12">
                 <label for="exampleFormControlInput1" className="form-label">Profile Headline<span className='text-danger'>*</span></label>
                 <div className="input-group col-md-12 px-0 ">

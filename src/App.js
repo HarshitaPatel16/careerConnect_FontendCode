@@ -1,25 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Profile from './Components/Profile/Profile';
-import SidebarRight from './Components/SidebarRight/SidebarRight';
-import Login from './Components/login/login';
-import Registration from './Components/register/Register';
-import Navbar from "./Components/navbar/Navbar";
-import Home from "./Components/Home/home";
-import Job from './Components/job/job';
-import Share from './Components/share/share';
-import Forgot from './Components/forgetpassword/forgetPassword';
-import ConnectionDetail from './Components/ConNectionDetail/connection';
-import Post from './Components/post/Post';
-import Posts from './Components/posts/Posts';
-import Otp from './Components/otppage/otp';
-import Email from './Components/email/email';
+import React, { useContext, useEffect, useState } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "./Background.css"
-import BackgroundAnimation from './Background';
-import { DarkModeContext } from "./Components/context/darkModeContext"
+import './App.css';
+import "./Background.css";
+import ConnectionDetail from './Components/ConNectionDetail/connection';
+import Home from "./Components/Home/home";
+import Profile from './Components/Profile/Profile';
+import SidebarRight from './Components/SidebarRight/SidebarRight';
+import { DarkModeContext } from "./Components/context/darkModeContext";
+import Email from './Components/email/email';
+import Forgot from './Components/forgetpassword/forgetPassword';
+import Job from './Components/job/job';
+import Login from './Components/login/login';
+import Navbar from "./Components/navbar/Navbar";
+import Otp from './Components/otppage/otp';
+import Post from './Components/post/Post';
+import Posts from './Components/posts/Posts';
+import Registration from './Components/register/Register';
+import Share from './Components/share/share';
 
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
 
   useEffect(() => {
     // Update isLoggedIn in local storage whenever it changes
-    localStorage.setItem("user_id", isLoggedIn ? localStorage.getItem("user_id") : null);
+    localStorage.setItem("user_id", isLoggedIn ? localStorage.getItem("user_id")  : null);
   }, [isLoggedIn]);
   console.log(isLoggedIn, "userIsLoggedIn");
 
