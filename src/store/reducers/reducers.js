@@ -23,6 +23,7 @@ const initialState = {
   readOneBySkillsId: null,
   updateSkills: null,
   toggleLike: null,
+  readOnePost: null,
   loading: false,
   error: null,
 };
@@ -494,6 +495,26 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                                 loading: false,
                                 error: action.payload,
                               };
+
+                              case "GET_POST_BY_ID_REQUEST":
+                                return {
+                                  ...state,
+                                  loading: true,
+                                  error: null,
+                                };
+                              case "GET_POST_BY_ID_SUCCESS":
+                                return {
+                                  ...state,
+                                  readOnePost: action.payload,
+                                  loading: false,
+                                  error: null,
+                                };
+                              case "GET_POST_BY_ID_FAILURE":
+                                return {
+                                  ...state,
+                                  loading: false,
+                                  error: action.payload,
+                                };
   
     default:
       return state;

@@ -125,6 +125,11 @@ export const UPDATE_SKILLS_SUCCESS = "UPDATE_SKILLS_SUCCESS";
 export const UPDATE_SKILLS_FAILURE = "UPDATE_SKILLS_FAILURE";
 
 
+export const GET_POST_BY_ID_REQUEST = "GET_POST_BY_ID_REQUEST";
+export const GET_POST_BY_ID_SUCCESS = "GET_POST_BY_ID_SUCCESS";
+export const GET_POST_BY_ID_FAILURE = "GET_POST_BY_ID_FAILURE";
+
+
 
 //Login start //
 export const postCustomerLoginData = (API_URL, data) => {
@@ -297,6 +302,22 @@ export const getLikeById = (API_URL, data) => {
       });
   };
 };
+
+export const getPostById = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_POST_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "post/readOnePost", data)
+      .then((response) => {
+        dispatch({ type: GET_POST_BY_ID_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_POST_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
 //GET BY PROFILE DATA
 
 export const getProfileById = (API_URL, data) => {

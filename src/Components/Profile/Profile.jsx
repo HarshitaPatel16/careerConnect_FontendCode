@@ -43,6 +43,8 @@ import skillImg from "../../assets/Skills.png"
 import expImg from "../../assets/experience.png"
 import resumeImg from "../../assets/resume.png"
 import { DarkModeContext } from "../context/darkModeContext";
+import ActivityPosts from "../Activity/activitypost/ActivityPosts";
+
 import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -780,6 +782,7 @@ function Profile() {
                     <Tab label="Experience" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="2" />
                     <Tab label="Resume" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="3" />
                     <Tab label="Education" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="4" />
+                    <Tab label="Activity" className={`${darkMode ? 'text-light' : 'text-dark'}`} value="5" />
                   </TabList>
                 </Box>
                 <TabPanel value="1" >
@@ -1176,6 +1179,11 @@ function Profile() {
                 <TabPanel value="4">
                   <Education />
                 </TabPanel>
+
+                <TabPanel value="5">
+                <ActivityPosts />
+
+                                </TabPanel>
               </TabContext>
             </Box>
           </Card>

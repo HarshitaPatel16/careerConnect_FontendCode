@@ -1,6 +1,6 @@
 /* .register */
 .register {
-  height: 100vh;
+  /* height: 100vh; */
   /* background-color: rgb(193, 190, 255); */
   display: flex;
   align-items: center;
@@ -100,3 +100,4 @@
 .register .card img.logo {
   height: 70px;
 }
+

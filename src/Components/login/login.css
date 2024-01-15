@@ -1,4 +1,11 @@
 /* .login */
+
+body {
+  overflow: hidden;
+  /* background-color: #fff; */
+
+}
+
 .login {
     height: 10vh;
     /* background-color: rgb(193, 190, 255); */
@@ -110,4 +117,16 @@
   
   .css-46bh2p-MuiCardContent-root {
     padding: 0px !important;
+}
+
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  box-shadow: 0 !important;
+  overflow: hidden;
+}
+
+.inputbox {
+  color: #000; /* Dark black color */
+  display: block;
+  text-align: start;
+  font-weight: bold; /* Optional: Make the label bold */
 }

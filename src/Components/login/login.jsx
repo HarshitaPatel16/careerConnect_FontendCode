@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import leftImg from "../../assets/login-left.png"
+import leftImg from "../../assets/new-img121.png";
 
 const Login = () => {
 
@@ -87,6 +87,7 @@ const Login = () => {
   };
 
   const handleForgotPassword = () => {
+    console.log("Navigating to /email");
     navigate("/email")
   };
   const handleSignUp = () => {
@@ -96,10 +97,10 @@ const Login = () => {
 
   return (
     <div className="row  d-flex align-items-center">
-      <div className="col-md-6 d-none d-md-block">
-        <img src={leftImg} alt="Background" className="p-0 m-0" style={{ height: "98vh", width: "50vw" }} />
+      <div className="col-md-5 d-none d-md-block mt-5">
+        <img src={leftImg} alt="Background" className="p-0 m-0"/>
       </div>
-      <div className="col-md-6 mt-5 ">
+      <div className="col-md-7 mt-5 w-85vh">
         <div className="row justify-content-center">
           <div className="col-md-8">
             <Card className="h-100 p-4 hover-animation">
@@ -108,21 +109,24 @@ const Login = () => {
                 <h3 className="mb-3">Welcome To Career Connect </h3>
                 <div className=" align-items-center">
                   <h5>Login</h5>
-                  <form className=" p-5 align-items-center">
-                    <div className=" mb-3">
-                      {/* <label>Email/Username</label> */}
+                  <form className="p-3 align-items-center">
+                    <div className="mb-3">
+                      <label className="inputbox mb-1">Username</label>
+
                       <input
                         type="text"
                         placeholder="Username"
-                        className="form-control p-3"
+                        className="form-control"
                         onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                     <div className=" mb-5">
+                    <label className="inputbox mb-1">Password</label>
+
                       <input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
-                        className="form-control p-3"
+                        className="form-control"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />

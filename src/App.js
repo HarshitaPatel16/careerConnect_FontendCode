@@ -13,6 +13,8 @@ import Forgot from './Components/forgetpassword/forgetPassword';
 import ConnectionDetail from './Components/ConNectionDetail/connection';
 import Post from './Components/post/Post';
 import Posts from './Components/posts/Posts';
+import ActivityPost from './Components/Activity/acivityview/ActivityPost';
+import ActivityPosts from './Components/Activity/activitypost/ActivityPosts';
 import Otp from './Components/otppage/otp';
 import Email from './Components/email/email';
 import { ToastContainer } from 'react-toastify';
@@ -58,6 +60,8 @@ function App() {
               <Route path="/posts" element={<Posts />} />
               <Route path="/otp" element={<Otp />} />
               <Route path="/email" element={<Email />} />
+              <Route path="/activitypost" element={<ActivityPost />} />
+              <Route path="/activityposts" element={<ActivityPosts />} />
             </>
           )}
 
