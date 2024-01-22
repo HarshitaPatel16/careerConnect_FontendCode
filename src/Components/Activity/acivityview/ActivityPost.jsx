@@ -1,4 +1,5 @@
 import "../../post/post.css";
+import { Menu, MenuItem, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
@@ -13,9 +14,11 @@ import IMAGE_PATH from "../../../imageService";
 import API_URL from "../../../service";
 import React, { useEffect, useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { addCreateLikes, getLikeById } from "../../../store/action/action";
+import { addCreateLikes, getLikeById, deletePosts } from "../../../store/action/action";
 
 const Post = ({ post }) => {
+  console.log("Post component received post:", post);
+
   const { toggle, darkMode } = useContext(DarkModeContext);
   const [commentOpen, setCommentOpen] = useState(false);
   const reduxLike = useSelector((state) => state.like);
@@ -26,7 +29,15 @@ const Post = ({ post }) => {
   console.log(post, "postkk")
   const dispatch = useDispatch();
 
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
 
   const handleLikesClick = async () => {
@@ -34,22 +45,27 @@ const Post = ({ post }) => {
       const formData = new FormData();
       formData.append("user_id", localStorage.getItem("user_id"));
       formData.append("post_id", post.post_id);
-      // formData.append("is_liked", !liked);
       formData.append("is_liked", JSON.stringify(!liked));
-
-      // Assuming your addCreateLikes action is asynchronous and returns a promise
       await dispatch(addCreateLikes(API_URL, formData));
-
-      // Update the liked state and like count based on the action response
       setLiked(!liked);
       setLikeCount((count) => (liked ? count - 1 : count + 1));
     } catch (error) {
       console.error("Error handling like:", error);
-      // Handle the error if needed
     }
   };
 
+   const handleDelete = (postId) => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      const data = {
+        post_id: postId,
+        user_id: localStorage.getItem("user_id"),
+      };
+      dispatch(deletePosts(API_URL, data));
+      handleClose();
 
+    }
+  };
+ 
 
   //TEMPORARY
   const [likeCount, setLikeCount] = useState(post.likes || 0); // Use post.likes if available, otherwise default to 0
@@ -74,12 +90,10 @@ const Post = ({ post }) => {
 }, [dispatch, post]);
 
 
-  // const liked = false;
 
   const handleLike = () => {
     setLiked(!liked);
     setLikeCount(liked ? likeCount - 1 : likeCount + 1);
-    // You may want to send a request to your backend to update the like status in the database
   };
 
   return (
@@ -92,15 +106,36 @@ const Post = ({ post }) => {
               : avatar)} alt="" />
             <div className="details">
               <Link
-                // to={`/profile/${post.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <span className="name">{post.username}</span>
               </Link>
-              {/* <span className="date">1 min ago</span> */}
             </div>
           </div>
-          <MoreHorizIcon />
+          {/* <MoreHorizIcon onClick={() => handleDelete(post.post_id)} /> */}
+          <IconButton onClick={handleClick}>
+        <MoreHorizIcon />
+      </IconButton>
+          <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+        PaperProps={{
+          style: {
+            background: darkMode ? "#333" : "white",
+            color: darkMode ? "white" : "black",
+          },
+        }}
+      >
+       <MenuItem style={{}} onClick={() => handleDelete(post.post_id)}>
+  Delete Post
+</MenuItem>
+
+  </Menu>
         </div>
         <div className="content">
           {post.desc && <p className="d-flex">{post.desc}</p>}
@@ -114,7 +149,6 @@ const Post = ({ post }) => {
           )}
 
 
-          {/* <img src={IMAGE_PATH +"post/" + post.post_img} alt="" /> */}
         </div>
         <div className="info">
           <div className="item" onClick={handleLikesClick}>
@@ -132,7 +166,6 @@ const Post = ({ post }) => {
           </div>
         </div>
         {commentOpen && <Comments post_id={post.post_id} />} {/* Pass post_id as a prop */}
-        {/* {commentOpen && <Comments />} */}
       </div>
     </div>
   );

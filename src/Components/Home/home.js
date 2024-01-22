@@ -112,7 +112,11 @@ const Home = () => {
                 <CardMedia
                   component="img"
                   alt="Cover Image"
-                  src={background}
+                  src={
+                    (profileData?.coverPic
+                    ? IMAGE_PATH + "user/" + profileData.coverPic
+                    : background)
+                  }
                   className="cover-img1"
                 />
                 <div className="profile1">

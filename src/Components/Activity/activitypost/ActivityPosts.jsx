@@ -13,16 +13,25 @@ const Posts = () => {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   const reduxPostsData = useSelector((state) => state.post);
-  console.log(reduxPostsData, "reduxPostsData");
-  console.log("reduxPostsData", posts);
+  console.log("Redux Posts Data:", reduxPostsData);
   
+  
+  // useEffect(() => {
+  //   if (reduxPostsData.readOnePost && reduxPostsData.readOnePost.data) {
+  //     setPosts(reduxPostsData.readOnePost.data);
+  //     console.log("reduxPostsData11",reduxPostsData.readOnePost.data[0].post_id)
+  //     // localStorage.setItem("user_id", reduxPosts.readOnePost.data[0].post_id);
+  //   }
+  // }, [reduxPostsData]);
+
   useEffect(() => {
-    if (reduxPostsData.readOnePost && reduxPostsData.readOnePost.data) {
-      setPosts(reduxPostsData.readOnePost.data);
-      console.log("reduxPostsData",reduxPostsData.readOnePost.data[0].post_id)
-      // localStorage.setItem("user_id", reduxPosts.readOnePost.data[0].post_id);
+    if (reduxPostsData.readOnePost && reduxPostsData.readOnePost) {
+      setPosts(reduxPostsData.readOnePost);
+      console.log("Received data:", reduxPostsData.readOnePost);
     }
   }, [reduxPostsData]);
+  
+  
 
   useEffect(() => {
 
@@ -33,11 +42,23 @@ const Posts = () => {
     dispatch(getPostById(API_URL, data));
   }, [dispatch]);
 
-  return <div className="posts">
-    {posts.map(post=>(
-      <Post post={post} key={post.user_id}/>
-    ))}
-  </div>;
+  return   <div className="posts">
+  {posts.length > 0 ? (
+    posts.map((post) => <Post post={post} key={post.post_id} />)
+  ) : (
+    <p>No posts available</p>
+  )}
+</div>
+  // return (
+  //   <div className="posts">
+  //     {posts.length > 0 ? (
+  //       posts.map((post) => <Post post={post} key={post.user_id} />)
+  //     ) : (
+  //       <p>No posts available</p>
+  //     )}
+  //   </div>
+  // );
+  
 };
 
 export default Posts;

@@ -17,6 +17,7 @@ import ActivityPost from './Components/Activity/acivityview/ActivityPost';
 import ActivityPosts from './Components/Activity/activitypost/ActivityPosts';
 import Otp from './Components/otppage/otp';
 import Email from './Components/email/email';
+import Request from './Components/request/request';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Background.css"
@@ -62,6 +63,8 @@ function App() {
               <Route path="/email" element={<Email />} />
               <Route path="/activitypost" element={<ActivityPost />} />
               <Route path="/activityposts" element={<ActivityPosts />} />
+              <Route path="/request" element={<Request />} />
+
             </>
           )}
 

@@ -1,0 +1,16 @@
+.MuiPaper-root.MuiTableContainer-root {
+    box-shadow: none !important;
+  }
+
+  .profile-photocard121 {
+    width: 7.5vw;
+    height:7.5vw;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .profilecard121{
+    position: absolute;
+    top: 35vw;
+    left: 33vw;
+  }
+

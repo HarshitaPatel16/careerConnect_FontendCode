@@ -73,7 +73,7 @@ function Profile() {
   const addSkillCardRef = useRef(null);
   const addExperienceCardRef = useRef(null);
   const [isCoverEditable, setisCoverEditable] = useState(false);
-  const [selectedCoverImage, setselectedCoverImage] = useState(null);
+  // const [selectedCoverImage, setselectedCoverImage] = useState(null);
   const [isProfileChangeDialogOpen, setisProfileChangeDialogOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const videoRef = useRef(null);
@@ -198,11 +198,13 @@ function Profile() {
     formData.append("last_name", lastName);
     formData.append("mobile", mobile);
     formData.append("profile_heading", profileHeading);
-    formData.append("coverPic", coverPic);
     formData.append("address", address);
     formData.append("about", about);
     if (profilePic) {
       formData.append("profilePic", profilePic);
+    }
+    if (coverPic) {
+      formData.append("coverPic", coverPic);
     }
     if (resumePdf) {
       formData.append("resume", resumePdf);
@@ -245,24 +247,6 @@ function Profile() {
   }
 
 
-//   const handleEditSkills = async () => {
-//     try {
-
-
-//         const response = await axios.post(
-//             API_URL + `skills/updateSkills`,
-//             {
-//               "user_id": localStorage.getItem("user_id"),
-//               "skills_id": localStorage.getItem("skills_id"),
-//               "skils_name": skill
-//             },
-          
-//         );
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
-
   useEffect(() => {
     if (profileData !== null && profileData !== undefined) {
       if (
@@ -293,35 +277,6 @@ function Profile() {
     }
   }, [profileData]);
 
-  // useEffect(() => {
-  //   if (skilsData !== null && skilsData !== undefined) {
-  //     if (
-  //       skilsData.readOneUser !== null &&
-  //       skilsData.readOneUser !== undefined
-  //     ) {
-  //       const data = skilsData.readOneUser;
-  //       console.log('Profile data:', data); // Check if this log shows the expected data
-
-  //       setUserName(data.userName);
-  //       setProfilePic(data.profilePic);
-  //       setCoverImage(data.coverPic)
-  //       setFirstName(data.firstName);
-  //       setLastName(data.lastName);
-  //       setEmail(data.email);
-  //       setMobile(data.mobile);
-  //       setAddress(data.address);
-  //       setResume(data.resume);
-  //       setAbout(data.about);
-  //       setprofileHeading(data.profileHeading);
-  //       console.log('After setting state:', {
-  //         userName: data.userName,
-  //         mobile: data.mobile,
-  //         address: data.address,
-  //         // Add other fields as needed
-  //       });
-  //     }
-  //   }
-  // }, [profileData]);
 
   const [skillsId, setSkillsId] = useState(null);
 
@@ -354,23 +309,7 @@ function Profile() {
     dispatch(addCreateSkills(API_URL, formData));
   }
 
-  // function handleAddExperience() {
 
-  //   const formData = new FormData();
-  //   formData.append("user_id", localStorage.getItem("user_id"));
-  //   formData.append("company", companyName);
-  //   // formData.append("profile_heading", profileHeading);
-  //   formData.append("start_year", startYear);
-  //   formData.append("end_year", endYear);
-  //   formData.append("description", description);
-  //   formData.append("employe_type", employeType);
-  //   formData.append("location", location);
-  //   formData.append("location_type", locationType);
-  //   formData.append("job_title", jobTitle);
-  //   setShowAddExperience(false);
-  //   setExperiences('');
-  //   dispatch(addCreateExperience(API_URL, formData));
-  // }
 
   function handleAddExperience() {
     const newErrors = {};
@@ -458,18 +397,6 @@ function Profile() {
     }
   }, [experienceData]);
 
-
-
-  // const handleResumeChange = (event) => {
-  //   const file = event.target.files[0];
-
-  //   if (file && file.type === 'application/pdf') {
-  //     setResumePdf(file);
-  //     setShowUploadButton(true);
-  //   } else {
-  //     console.error('Invalid file format. Please select a PDF file.');
-  //   }
-  // };
   const handleResumeChange = (event) => {
     const files = event.target.files;
 
@@ -603,26 +530,53 @@ function Profile() {
     }
     setisProfileChangeDialogOpen(false);
   };
+
+  const [openCoverDialog, setOpenCoverDialog] = useState(false);
+
   const handleEditClick = () => {
-    setisCoverEditable(true);
+    setOpenCoverDialog(true);
   };
+
+  const handleCloseCoverDialog = () => {
+    setOpenCoverDialog(false);
+  };
+
+
+  // const handleEditClick = () => {
+  //   setisCoverEditable(true);
+  // };
 
   const handleCoverImageChange = (event) => {
     const selectedFile = event.target.files[0];
-    // Handle the file change logic here
-    // For example, you can upload the file to a server or process it in some way
+
     console.log('File changed:', selectedFile);
 
     // Update the selectedCoverImage state
     setselectedCoverImage(URL.createObjectURL(selectedFile));
+    setCoverImage(selectedFile);
 
     // After handling the file, you can set isCoverEditable back to false
     setisCoverEditable(false);
+    // handleCloseCoverDialog();
+
+  };
+
+  const handleSaveCoverImage = () => {
+    if (coverPic) {
+      handleUpate();
+      console.log('coverPic uploaded:', coverPic);
+    } else {
+      console.error('No coverPic file selected.');
+    }
+    setOpenCoverDialog(false);
   };
 
   // const handleCloseProfileDialog = () => {
   //   setisCoverEditable(false);
   // };
+
+  const [selectedCoverImage, setselectedCoverImage] = useState
+  ('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -681,13 +635,28 @@ function Profile() {
                 <CardMedia
                   component="img"
                   alt="Cover Image"
-                  src={selectedCoverImage || "https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg"}
+                  src={selectedCoverImage || (profileData?.coverPic
+                    ? IMAGE_PATH + "user/" + profileData.coverPic
+                    : "https://cdn.wallpapersafari.com/76/89/dnAJUB.jpg")}
                   className="cover-img justify-content-between"
                 />
                 <EditSharpIcon className="edit-icon" onClick={handleEditClick} />
 
 
-                {isCoverEditable && (
+                <Dialog open={openCoverDialog} onClose={handleCloseCoverDialog}>
+        <DialogContent>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleCoverImageChange}
+          />
+          <button onClick={handleSaveCoverImage} className="btn btn-success mx-2">
+                        Save
+                      </button>
+        </DialogContent>
+      </Dialog>
+
+                {/* {isCoverEditable && (
                   <input
                     type="file"
                     accept="image/*"
@@ -695,7 +664,7 @@ function Profile() {
                     style={{ display: 'none' }}
                     ref={(input) => input && input.click()}
                   />
-                )}
+                )} */}
 
               </div>
 
@@ -1188,6 +1157,7 @@ function Profile() {
 
         </Grid>
         <Grid item xs={12} md={4} lg={3} >
+          <div style={{ position: 'sticky', top: 100, zIndex: 1030 }} >
           <Item className={` ${darkMode ? 'dark-card' : 'light-card'}`} >
             <div>
               <div className="trofie">
@@ -1208,6 +1178,7 @@ function Profile() {
               </CardContent>
             </div>
           </Item>
+          </div>
         </Grid>
         {/* profile edit diagol box code start*/}
         <Dialog open={isDialogOpen} onClose={handleCloseDialog}

@@ -17,6 +17,10 @@ export const ADD_CREATECUSTOMER_FAILURE = "ADD_CREATECUSTOMER_FAILURE";
 
 //end//
 
+export const ADD_REQUEST_REQUEST = "ADD_REQUEST_REQUEST";
+export const ADD_REQUEST_SUCCESS = "ADD_REQUEST_SUCCESS";
+export const ADD_REQUEST_FAILURE = "ADD_REQUEST_FAILURE";
+
 //create post //
 
 export const ADD_CREATEPOST_REQUEST = "ADD_CREATEPOST_REQUEST";
@@ -106,6 +110,11 @@ export const GET_POST_REQUEST = "GET_POST_REQUEST";
 export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
 export const GET_POST_FAILURE = "GET_POST_FAILURE";
 
+
+export const GET_ALLUSERS_REQUEST = "GET_ALLUSERS_REQUEST";
+export const GET_ALLUSERS_SUCCESS = "GET_ALLUSERS_SUCCESS";
+export const GET_ALLUSERS_FAILURE = "GET_ALLUSERS_FAILURE";
+
 // GET BY Post DATA
 export const GET_POSTSUM_REQUEST = "GET_POSTSUM_REQUEST";
 export const GET_POSTSUM_SUCCESS = "GET_POSTSUM_SUCCESS";
@@ -165,6 +174,20 @@ export const addCreateCustomer = (API_URL, data) => {
   };
 };
 //end//
+
+export const addCreateResquests = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: ADD_REQUEST_REQUEST });
+    axios
+      .post(API_URL + "request/createRequests", data)
+      .then((response) => {
+        dispatch({ type: ADD_REQUEST_SUCCESS, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ADD_REQUEST_FAILURE, payload: error.message });
+      });
+  };
+};
 
 //POST CREATE API  start//
 export const addCreatePost = (API_URL, data) => {
@@ -441,7 +464,7 @@ export const deletePosts= (API_URL,data) => {
       .post(API_URL + "post/deletePost",data)
       .then((response) => {
         dispatch({ type: DELETE_POSTS_SUCCESS, payload: response.data });
-        return dispatch(getreadAllPostData(API_URL, data));
+        return dispatch(getPostById(API_URL, data));
       })
 
       .catch((error) => {
@@ -500,21 +523,24 @@ export const getreadAllPostData = (API_URL) => {
   };
 };
 
-export const getreadAllPostSum = (API_URL,data) => {
+export const getreadAllUsers = (API_URL,data) => {
   return (dispatch) => {
-    dispatch({ type: GET_POSTSUM_REQUEST });
+    dispatch({ type: GET_ALLUSERS_REQUEST });
     axios
-      .post(API_URL + "post/readAllSumPOST",data)
+      .post(API_URL + "user/readAllUser",data)
       .then((response) => {
         console.log(response.data, "API response");
-        dispatch({ type: GET_POSTSUM_SUCCESS, payload: response.data });
+        dispatch({ type: GET_ALLUSERS_SUCCESS, payload: response.data });
       })
 
       .catch((error) => {
-        dispatch({ type: GET_POSTSUM_FAILURE, payload: error.message });
+        dispatch({ type: GET_ALLUSERS_FAILURE, payload: error.message });
       });
   };
 };
+
+
+
 
 export const updateSkills = (API_URL,data) => {
   return (dispatch) => {

@@ -39,12 +39,16 @@ import Paper from '@material-ui/core/Paper';
 
 
   const handleHomeClick = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleJobClick = () => {
     navigate('/job');
   };
+
+   const handleConnectionClick = () => {
+    navigate('/request');
+   }
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [nvopen, setNvOpen] = useState(false);
@@ -121,7 +125,7 @@ import Paper from '@material-ui/core/Paper';
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#" onClick={handleHomeClick}>
+              <a className="nav-link" href="#" onClick={handleConnectionClick}>
                 <img src={ConnectIcon} alt="Home" style={{ marginRight: '32px' }} className="navbar-icon" />
               </a>
             </li>
@@ -184,6 +188,7 @@ import Paper from '@material-ui/core/Paper';
                       fontSize: "15px",
                       fontFamily: "Poppins",
                     }}
+                    className={`${darkMode? "text-light" : "text-dark"}`}
                   >
                     {" "}
                     My Profile
@@ -197,6 +202,7 @@ import Paper from '@material-ui/core/Paper';
                       fontSize: "15px",
                       fontFamily: "Poppins",
                     }}
+                    className={`${darkMode? "text-light" : "text-dark"}`}
                   >
                     Logout
                   </span>
@@ -210,6 +216,7 @@ import Paper from '@material-ui/core/Paper';
                       fontSize: "15px",
                       fontFamily: "Poppins",
                     }}
+                    className={`${darkMode? "text-light" : "text-dark"}`}
                   >
                     Company Profile
                   </span>
@@ -226,6 +233,7 @@ import Paper from '@material-ui/core/Paper';
                       fontSize: "15px",
                       fontFamily: "Poppins",
                     }}
+                    className={`${darkMode? "text-light" : "text-dark"}`}
                   >
                     Mode
                   </span>

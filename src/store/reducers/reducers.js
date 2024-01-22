@@ -21,6 +21,7 @@ const initialState = {
   readOneLike: null,
   readOneEducation: null,
   readOneBySkillsId: null,
+  createRequests: null,
   updateSkills: null,
   toggleLike: null,
   readOnePost: null,
@@ -510,6 +511,26 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                                   error: null,
                                 };
                               case "GET_POST_BY_ID_FAILURE":
+                                return {
+                                  ...state,
+                                  loading: false,
+                                  error: action.payload,
+                                };
+
+                                case "ADD_REQUEST_REQUEST":
+                                return {
+                                  ...state,
+                                  loading: true,
+                                  error: null,
+                                };
+                              case "ADD_REQUEST_SUCCESS":
+                                return {
+                                  ...state,
+                                  createRequests: action.payload,
+                                  loading: false,
+                                  error: null,
+                                };
+                              case "ADD_REQUEST_FAILUREE":
                                 return {
                                   ...state,
                                   loading: false,
