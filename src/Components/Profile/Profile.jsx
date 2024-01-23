@@ -784,7 +784,6 @@ const [searchValue, setSearchValue] = useState("");
                           </React.Fragment>
                         ))}
                       </div>
-
                     </Typography> */}
                     <Typography variant="subtitle1" component="div">
                       <div className="d-flex justify-content-between">
