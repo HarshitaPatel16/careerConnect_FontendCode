@@ -21,6 +21,7 @@ import Share from "../share/share";
 import Posts from "../posts/Posts";
 import { DarkModeContext } from '../context/darkModeContext';
 
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -93,12 +94,23 @@ const Home = () => {
 
 
   console.log("Image path:", IMAGE_PATH + "user/" + (profileData ? profileData.profilePic : avatar));
+  const [searchValue, setSearchValue] = useState("");
 
+  const handleSearch = () => {
+    // Handle your search logic here using the searchValue
+    console.log("Searching for:", searchValue);
+
+    // Reset the search box value after searching
+    setSearchValue("");
+
+    };
+
+  
 
   return (
 
     <Box sx={{ flexGrow: 1, justifyContent: 'center', marginTop: '80px' }}>
-      <Navbar />
+      <Navbar searchValue={searchValue} setSearchValue={setSearchValue} onSearch={handleSearch} />
       <Grid container spacing={3} sx={{ display: 'flex', marginTop: '0vh', margin: "0 3vw", width: "91vw" }} >
 
         {/* myprofile card start */}
@@ -182,7 +194,7 @@ const Home = () => {
         <Grid item xs={12} md={12} lg={6}>
 
           <Share />
-          <Posts />
+          <Posts searchValue={searchValue}/>
         </Grid>
 
         <Grid item xs={12} md={12} lg={3}>

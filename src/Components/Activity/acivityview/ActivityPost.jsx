@@ -96,6 +96,36 @@ const Post = ({ post }) => {
     setLikeCount(liked ? likeCount - 1 : likeCount + 1);
   };
 
+
+ // Function to calculate time difference
+ const getTimeDifference = (createdAt) => {
+  const currentDate = new Date();
+  const postDate = new Date(createdAt);
+
+  const timeDifference = currentDate - postDate;
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+
+  if (months > 0) {
+    return `${months} month${months > 1 ? 's' : ''} ago`;
+  } else if (days > 0) {
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  } else if (hours > 0) {
+    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+  } else {
+    return 'Just now';
+  }
+};
+
+// ... (existing code)
+
+
+
   return (
     <div className="post">
       <div className={`container ${darkMode ? 'dark-card' : 'light-card'}`} >
@@ -110,6 +140,8 @@ const Post = ({ post }) => {
               >
                 <span className="name">{post.username}</span>
               </Link>
+              <span className="date">{getTimeDifference(post.createdAt)}</span>
+
             </div>
           </div>
           {/* <MoreHorizIcon onClick={() => handleDelete(post.post_id)} /> */}

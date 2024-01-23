@@ -7,7 +7,7 @@ import API_URL from "../../../service";
 import { useState } from "react";
 
 
-const Posts = () => {
+const Posts = ({ searchValue, userData }) => {
  
 
   const dispatch = useDispatch();
@@ -15,14 +15,7 @@ const Posts = () => {
   const reduxPostsData = useSelector((state) => state.post);
   console.log("Redux Posts Data:", reduxPostsData);
   
-  
-  // useEffect(() => {
-  //   if (reduxPostsData.readOnePost && reduxPostsData.readOnePost.data) {
-  //     setPosts(reduxPostsData.readOnePost.data);
-  //     console.log("reduxPostsData11",reduxPostsData.readOnePost.data[0].post_id)
-  //     // localStorage.setItem("user_id", reduxPosts.readOnePost.data[0].post_id);
-  //   }
-  // }, [reduxPostsData]);
+ 
 
   useEffect(() => {
     if (reduxPostsData.readOnePost && reduxPostsData.readOnePost) {
@@ -31,16 +24,41 @@ const Posts = () => {
     }
   }, [reduxPostsData]);
   
-  
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
+  // useEffect(() => {
+  //   if (reduxPostsData.readOnePost && reduxPostsData.readOnePost.data) {
+  //     // If there's no search value, set all posts
+  //     if (!searchValue) {
+  //       setFilteredPosts(reduxPostsData.readOnePost.data);
+  //     } else {
+  //       // If there's a search value, filter posts based on username
+  //       const filtered = reduxPostsData.readOnePost.data.filter((post) =>
+  //         post.username.toLowerCase().includes(searchValue.toLowerCase())
+  //       );
+  //       setFilteredPosts(filtered);
+  //     }
+  //   }
+  // }, [reduxPostsData, searchValue]);
+
+  const user_id = userData && userData.user_id; // Check if user_id exists in userData
 
   useEffect(() => {
+    if (user_id) {
+      // Fetch posts for the specified user_id
+      dispatch(getPostById(API_URL, { user_id }));
+    }
+  }, [dispatch, user_id]);
 
-    const data = {
-      user_id: localStorage.getItem("user_id"),
-    };
+
+  // useEffect(() => {
+
+  //   const data = {
+  //     user_id: localStorage.getItem("user_id"),
+  //   };
     
-    dispatch(getPostById(API_URL, data));
-  }, [dispatch]);
+  //   dispatch(getPostById(API_URL, data));
+  // }, [dispatch]);
 
   return   <div className="posts">
   {posts.length > 0 ? (
@@ -49,16 +67,7 @@ const Posts = () => {
     <p>No posts available</p>
   )}
 </div>
-  // return (
-  //   <div className="posts">
-  //     {posts.length > 0 ? (
-  //       posts.map((post) => <Post post={post} key={post.user_id} />)
-  //     ) : (
-  //       <p>No posts available</p>
-  //     )}
-  //   </div>
-  // );
-  
+ 
 };
 
 export default Posts;

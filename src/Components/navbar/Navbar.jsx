@@ -31,7 +31,7 @@ import Paper from '@material-ui/core/Paper';
 
 
 //const Navbar = () => {
-   const Navbar = () => {
+   const Navbar = ({ searchValue, setSearchValue }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -89,6 +89,7 @@ import Paper from '@material-ui/core/Paper';
     }
   }, [profileData]);
 
+
   return (
     <nav className={`navbar navbar-expand-lg ${darkMode ? 'navbar-dark' : 'navbar-light'} p-0 fixed-top`}>
       <div className="d-flex justify-content-between w-100 col-md-12">
@@ -116,6 +117,9 @@ import Paper from '@material-ui/core/Paper';
               type="search"
               placeholder="Search"
               aria-label="Search"
+              value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        
             />
           </form>
           <ul className="navbar-nav ml-auto col-md-2">

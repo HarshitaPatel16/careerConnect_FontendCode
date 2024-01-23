@@ -51,7 +51,9 @@ export const GET_PROFILE_BY_ID_REQUEST = "GET_PROFILE_BY_ID_REQUEST";
 export const GET_PROFILE_BY_ID_SUCCESS = "GET_PROFILE_BY_ID_SUCCESS";
 export const GET_PROFILE_BY_ID_FAILURE = "GET_PROFILE_BY_ID_FAILURE";
 
-
+export const GET_USER_BY_ID_REQUEST = "GET_USER_BY_ID_REQUEST";
+export const GET_USER_BY_ID_SUCCESS = "GET_USER_BY_ID_SUCCESS";
+export const GET_USER_BY_ID_FAILURE = "GET_USER_BY_ID_FAILURE";
 
 // GET BY SKILS DATA
 export const GET_SKILLS_BY_ID_REQUEST = "GET_SKILLS_BY_ID_REQUEST";
@@ -185,6 +187,20 @@ export const addCreateResquests = (API_URL, data) => {
       })
       .catch((error) => {
         dispatch({ type: ADD_REQUEST_FAILURE, payload: error.message });
+      });
+  };
+};
+
+export const getreadAllPostSum = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_POSTSUM_REQUEST });
+    axios
+      .post(API_URL + "post/readAllSumPOST", data)
+      .then((response) => {
+        dispatch({ type: GET_POSTSUM_SUCCESS, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: GET_POSTSUM_FAILURE, payload: error.message });
       });
   };
 };
@@ -354,6 +370,21 @@ export const getProfileById = (API_URL, data) => {
 
       .catch((error) => {
         dispatch({ type: GET_PROFILE_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
+
+export const getUsersById = (API_URL, data) => {
+  return (dispatch) => {
+    dispatch({ type: GET_USER_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "user/readOneUserAllData", data)
+      .then((response) => {
+        dispatch({ type: GET_USER_BY_ID_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_USER_BY_ID_FAILURE, payload: error.message });
       });
   };
 };

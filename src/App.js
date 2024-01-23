@@ -56,7 +56,7 @@ function App() {
               <Route path="/job" element={<Job />} />
               <Route path="/share" element={<Share />} />
               <Route path="/forgot" element={<Forgot />} />
-              <Route path="/detail" element={<ConnectionDetail />} />
+              <Route path="/detail/:user_id" element={<ConnectionDetail />} />
               <Route path="/post" element={<Post />} />
               <Route path="/posts" element={<Posts />} />
               <Route path="/otp" element={<Otp />} />

@@ -44,6 +44,8 @@ import expImg from "../../assets/experience.png"
 import resumeImg from "../../assets/resume.png"
 import { DarkModeContext } from "../context/darkModeContext";
 import ActivityPosts from "../Activity/activitypost/ActivityPosts";
+import { Link } from 'react-router-dom';
+
 
 import axios from "axios";
 
@@ -624,9 +626,21 @@ function Profile() {
     setShowEditSkill(false)
   }
 
+// serach fuction
+const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = () => {
+    // Handle your search logic here using the searchValue
+    console.log("Searching for:", searchValue);
+
+    // Reset the search box value after searching
+    setSearchValue("");
+    navigate(`/home?search=${searchValue}`);
+    };
+
   return (
     <Box sx={{ flexGrow: 1, marginTop: '80px' }}>
-      <Navbar />
+      <Navbar searchValue={searchValue} setSearchValue={setSearchValue} onSearch={handleSearch} />
       <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'center', marginTop: '0vh' }}>
         <Grid item xs={12} md={8} lg={8}>
           <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
@@ -1148,7 +1162,7 @@ function Profile() {
                 </TabPanel>
 
                 <TabPanel value="5">
-                <ActivityPosts />
+                <ActivityPosts searchValue={searchValue} />
 
                                 </TabPanel>
               </TabContext>
