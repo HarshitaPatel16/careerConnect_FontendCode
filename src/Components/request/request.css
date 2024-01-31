@@ -12,5 +12,24 @@
     position: absolute;
     top: 35vw;
     left: 33vw;
+    z-index: 2;
+
+  }
+  .profile-container {
+    position: relative;
   }
 
+  .cover-profile-container {
+    position: relative;
+  }
+
+  .cover-img2 {
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .profile-container {
+    position: relative;
+  }

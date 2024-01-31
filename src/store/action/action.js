@@ -140,7 +140,9 @@ export const GET_POST_BY_ID_REQUEST = "GET_POST_BY_ID_REQUEST";
 export const GET_POST_BY_ID_SUCCESS = "GET_POST_BY_ID_SUCCESS";
 export const GET_POST_BY_ID_FAILURE = "GET_POST_BY_ID_FAILURE";
 
-
+export const GET_CONNECTION_BY_ID_REQUEST = "GET_CONNECTION_BY_ID_REQUEST";
+export const GET_CONNECTION_BY_ID_SUCCESS = "GET_CONNECTION_BY_ID_SUCCESS";
+export const GET_CONNECTION_BY_ID_FAILURE = "GET_CONNECTION_BY_ID_FAILURE";
 
 //Login start //
 export const postCustomerLoginData = (API_URL, data) => {
@@ -181,9 +183,10 @@ export const addCreateResquests = (API_URL, data) => {
   return (dispatch) => {
     dispatch({ type: ADD_REQUEST_REQUEST });
     axios
-      .post(API_URL + "request/createRequests", data)
+      .post(API_URL + "connections/createConnections", data)
       .then((response) => {
         dispatch({ type: ADD_REQUEST_SUCCESS, payload: response.data });
+        return response.data;
       })
       .catch((error) => {
         dispatch({ type: ADD_REQUEST_FAILURE, payload: error.message });
@@ -357,6 +360,24 @@ export const getPostById = (API_URL, data) => {
   };
 };
 
+
+export const getUserStausById = (API_URL, data) => {
+  
+  return (dispatch) => {
+    console.log('API_URL1111:', API_URL);  // Log API_URL
+
+    dispatch({ type: GET_CONNECTION_BY_ID_REQUEST });
+    axios
+      .post(API_URL + "connections/readOneConnections", data)
+      .then((response) => {
+        dispatch({ type: GET_CONNECTION_BY_ID_SUCCESS, payload: response.data });
+      })
+
+      .catch((error) => {
+        dispatch({ type: GET_CONNECTION_BY_ID_FAILURE, payload: error.message });
+      });
+  };
+};
 //GET BY PROFILE DATA
 
 export const getProfileById = (API_URL, data) => {
@@ -605,3 +626,4 @@ export const toggleLike = (API_URL, formData) => {
     }
   };
 };
+

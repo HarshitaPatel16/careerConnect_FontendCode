@@ -21,11 +21,13 @@ const initialState = {
   readOneLike: null,
   readOneEducation: null,
   readOneBySkillsId: null,
-  createRequests: null,
+  createConnections: null,
+  readAllUser: null,
   updateSkills: null,
   readOneUserAllData: null,
   toggleLike: null,
   readOnePost: null,
+  readOneConnections: null,
   loading: false,
   error: null,
 };
@@ -527,7 +529,7 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                               case "ADD_REQUEST_SUCCESS":
                                 return {
                                   ...state,
-                                  createRequests: action.payload,
+                                  createConnections: action.payload,
                                   loading: false,
                                   error: null,
                                 };
@@ -558,6 +560,48 @@ case "ADD_CREATEEXPERIENCE_FAILURE":
                                   loading: false,
                                   error: action.payload,
                                 };
+  
+
+
+                                case "GET_ALLUSERS_REQUEST":
+                                return {
+                                  ...state,
+                                  loading: true,
+                                  error: null,
+                                };
+                              case "GET_ALLUSERS_SUCCESS":
+                                return {
+                                  ...state,
+                                  readAllUser: action.payload,
+                                  loading: false,
+                                  error: null,
+                                };
+                              case "GET_ALLUSERS_FAILURE":
+                                return {
+                                  ...state,
+                                  loading: false,
+                                  error: action.payload,
+                                };
+
+                                case "GET_CONNECTION_BY_ID_REQUEST":
+                                  return {
+                                    ...state,
+                                    loading: true,
+                                    error: null,
+                                  };
+                                case "GET_CONNECTION_BY_ID_SUCCESS":
+                                  return {
+                                    ...state,
+                                    readOneConnections: action.payload,
+                                    loading: false,
+                                    error: null,
+                                  };
+                                case "GET_CONNECTION_BY_ID_FAILURE":
+                                  return {
+                                    ...state,
+                                    loading: false,
+                                    error: action.payload,
+                                  };
   
     default:
       return state;

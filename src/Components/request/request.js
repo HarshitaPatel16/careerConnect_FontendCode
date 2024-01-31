@@ -21,7 +21,8 @@ import { useEffect, useContext } from 'react';
 import axios from "axios";
 import API_URL from "../../service";
 import { useDispatch, useSelector } from "react-redux";
-import { addCreateResquests } from "../../store/action/action";
+import { addCreateResquests, getreadAllUsers, getUserStausById } from "../../store/action/action";
+import IMAGE_PATH from "../../imageService";
 
 
 
@@ -46,20 +47,9 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function createData2(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  const cards = [
-    createData2('Frozen yoghurt', "Technical Lead 13+ yrs Reacjs", avatar),
-    createData2('Ice cream sandwich', "Technical Lead 13+ yrs Java",avatar),
-    createData2('Eclair', "Technical Lead 13+ yrs Node", avatar),
-    createData2('Cupcake', "Technical Lead 13+ yrs Js", avatar),
-    createData2('Gingerbread', "Technical Lead 13+ yrs", avatar),
-  ];
-
-
-
 export default function BasicTable() {
+
+  
 
   const dispatch = useDispatch();
 
@@ -67,15 +57,83 @@ export default function BasicTable() {
 
   const [userIdTo, setuserIdTo] = useState("")
 
+  const reduxAllUser = useSelector((state) => state.user);
+
+  const reduxAllUserStaus = useSelector((state) => state.user.readOneConnections);
+  console.log(reduxAllUserStaus,"reduxAllUserStaus12")
+
+  const [cards, setcards] = useState([]);
+  const [status, setStatus] = useState(""); // Add state to store username
+
+
+ useEffect(() => {
+    if (reduxAllUser.readAllUser && reduxAllUser.readAllUser.data) {
+      setcards(reduxAllUser.readAllUser.data);
+      console.log("reduxAllUser",reduxAllUser.readAllUser.data)
+    }
+  }, [reduxAllUser]);
+  
+  useEffect(() => {
+    dispatch(getreadAllUsers(API_URL));
+  }, [dispatch]);
+
+
+  
+  
+  // useEffect(() => {
+  //   console.log("Redux All User Status:", reduxAllUserStaus);
+  //   if (reduxAllUserStaus && reduxAllUserStaus.length > 0) {
+  //     const firstConnection = reduxAllUserStaus[0];
+  //     console.log("First Connection:", firstConnection);
+  //     console.log("Status121:", firstConnection.status);
+  //     setStatus(firstConnection.status);
+  //   }
+  // }, [reduxAllUserStaus]);
+
+  const [statusMap, setStatusMap] = useState({});
+  useEffect(() => {
+    if (reduxAllUserStaus && reduxAllUserStaus.readOneConnections && reduxAllUserStaus.readOneConnections.data) {
+      const statusData = reduxAllUserStaus.readOneConnections.data;
+      const statusMapCopy = { ...statusMap };
+      statusData.forEach(connection => {
+        statusMapCopy[connection.user_id_To] = connection.status;
+      });
+      console.log('Status Map:', statusMapCopy); // Add this line to check status map
+      setStatusMap(statusMapCopy);
+    }
+  }, [reduxAllUserStaus]);
+  
+  
   
 
-  function handleAddRequest() {
+  // useEffect(() => {
+  //   if (reduxAllUserStaus.readOneConnections && reduxAllUserStaus.readOneConnections.data) {
+  //     setStatus(reduxAllUserStaus.readOneConnections.data);
+  //     console.log("reduxAllUserStaus",reduxAllUserStaus.readOneConnections.data)
+  //   }
+  // }, [reduxAllUserStaus]);
+  
+  useEffect(() => {
+    const data = {
+      user_id_From: localStorage.getItem("user_id"),
+    };
+    dispatch(getUserStausById(API_URL, data));
+  }, [dispatch]);
+
+  function handleAddRequest(userToId) {
+    // Check if userToId is not empty or undefined
+    if (!userToId) {
+      console.error("Invalid userToId:", userToId);
+      return;
+    }
+  
     const formData = new FormData();
     formData.append("user_id_From", localStorage.getItem("user_id"));
-    formData.append("user_id_To", userIdTo);
+    formData.append("user_id_To", userToId);
+    
     dispatch(addCreateResquests(API_URL, formData));
   }
-
+  
 
   const { toggle, darkMode } = useContext(DarkModeContext);
 
@@ -156,40 +214,61 @@ export default function BasicTable() {
                             
                              {cards.map((e,index) => (
                                  <Card  key={index}  sx={{border:'1px solid #ced4da', borderRadius: '0.6em', width:280,boxShadow:" rgba(0, 0, 0, 0.01) 0px 3px 5px",marginBottom: 8, marginRight: 2,marginLeft:2, transition: 'transform 0.3s','&:hover': { transform: 'scale(1.05)', boxShadow: '0 4px 18px rgba(0, 0, 0, 0.1)',cursor:"pointer"} }} className={darkMode ? 'dark-card' : 'light-card'}>
+                                 
+                                 <div className="cover-profile-container">
                                   <CardMedia
               component="img"
               alt="Cover Image"
-              src={background}
-              className="cover-img1"
+              src={
+                (e?.coverPic
+                ? IMAGE_PATH + "user/" + e.coverPic
+                : background)
+              }
+              className="cover-img2"
             />
             <CardContent>
-            <div className="profilecard121">
+            <div className="profile-container">
               <img
-                src={avatar}
-                alt="Profile"
+ src={
+
+  (e?.profilePic
+    ? IMAGE_PATH + "user/" + e.profilePic
+    : avatar)
+}                alt="Profile"
                 className="profile-photocard121"
               />
+             
+
             </div>
             </CardContent>
+            </div>
              
                                  <CardContent>
                                     
                                      <Typography  variant="h6" component="div" style={{fontSize:".9vw",fontWeight:"550"}}>
                                   
-                                     {e.name}
+                                     {e.username}
                               
                                      </Typography>
                                      <Typography variant="h6" component="div" style={{fontSize:".9vw",fontWeight:"550"}}>
-                                     {e.calories}
+                                     {e.profile_heading}
                                      </Typography>
                                      <Typography variant="body2" color="text.secondary">
                                   {/* <span style={{color:"black",fontWeight:"600"}}>   ₹{e.price}</span> onwards */}
                                      </Typography>
                                  </CardContent>
                                  <CardContent>
-              <div className='p-3'>
-                <button onClick={{handleAddRequest}}className="btn btn-primary">Content</button>
-              </div>
+                                 <div className='p-3'>
+                                 <button onClick={() => handleAddRequest(e.user_id)} className="btn btn-primary">Content</button>
+
+</div>
+
+
+
+
+
+
+
             </CardContent>
                                  </Card>
                              ))}
@@ -198,14 +277,6 @@ export default function BasicTable() {
                  </div>
          </Grid>
              </div>
-
-     
-
-       
-      
-       
-
-
     </Box>
   );
 }

@@ -197,7 +197,7 @@ const Home = () => {
           <Posts searchValue={searchValue}/>
         </Grid>
 
-        <Grid item xs={12} md={12} lg={3}>
+        {/* <Grid item xs={12} md={12} lg={3}>
           <div style={{ position: 'sticky', top: 100, zIndex: 1030 }} >
 
             <Item className={`${darkMode ? 'dark-card' : 'light-card'}`}>
@@ -259,7 +259,7 @@ const Home = () => {
             </Item>
           </div>
         </Grid>
-
+ */}
 
       </Grid>
 
