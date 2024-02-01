@@ -798,7 +798,7 @@ const [searchValue, setSearchValue] = useState("");
                               <div className="d-flex align-items-center justify-content-between">
                                 <span style={{ marginRight: '10px' }}>{skill.skils_name}</span>
                                 <div>
-                                <EditSharpIcon onClick={() => handleEditSkillToggle(skill.skills_id)} />
+                                {/* <EditSharpIcon onClick={() => handleEditSkillToggle(skill.skills_id)} /> */}
                                   <DeleteForeverOutlinedIcon onClick={() => handeldeleteSkills(skill.skills_id)} />
                                 </div>
                               </div>
